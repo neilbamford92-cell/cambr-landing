@@ -414,23 +414,33 @@
 
   /* ---------- How to use (feature grid) ---------- */
   .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
-  .feature { background: var(--card); border: 1px solid var(--hairline); border-radius: 18px; padding: 28px 26px 30px; position: relative; }
+  .feature {
+    background: var(--card); border: 1px solid var(--hairline); border-radius: 18px;
+    padding: 24px 26px 26px;
+    display: grid; grid-template-columns: auto 1fr;
+    column-gap: 16px; row-gap: 6px; align-items: start;
+  }
   .feature-icon {
-    width: 56px; height: 56px; border-radius: 14px;
+    width: 44px; height: 44px; border-radius: 12px; flex: none;
     display: inline-flex; align-items: center; justify-content: center;
     background: var(--card-raised); border: 1px solid var(--hairline-strong);
-    color: var(--brand-rosso); font-size: 30px; margin-bottom: 20px;
+    color: var(--brand-rosso); font-size: 24px;
+    grid-column: 1; grid-row: 1 / span 2; align-self: start;
   }
   .feature h3 {
+    grid-column: 2; grid-row: 1; margin: 0;
     font-weight: var(--fw-bold); font-size: 16px; letter-spacing: -0.01em; color: #FFFFFF;
-    margin-bottom: 9px; line-height: 1.28; min-height: 2.56em;
-    padding-right: 52px;
+    line-height: 1.3; min-height: 44px;
+    display: flex; align-items: center; gap: 10px;
   }
-  .feature p { font-size: 14px; line-height: 1.5; color: var(--text-primary); }
+  .feature p {
+    grid-column: 2; grid-row: 2; margin: 0;
+    font-size: 14px; line-height: 1.5; color: var(--text-primary);
+  }
   .tag {
-    position: absolute; top: 46px; right: 26px;
+    flex: none;
     font-weight: var(--fw-semibold); font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
-    border-radius: 999px; padding: 4px 11px; line-height: 1;
+    border-radius: 999px; padding: 4px 11px; line-height: 1; white-space: nowrap;
   }
   .tag.live { color: var(--tier-a); background: var(--tier-a-fill); border: 1px solid rgba(34,197,94,0.42); }
   .tag.soon { color: var(--text-secondary); background: transparent; border: 1px solid var(--hairline-strong); }
@@ -586,18 +596,18 @@
           <div class="tiers in-score">
             <div class="tier-card tier-s">
               <div class="tier-badge">S</div>
-              <h3>Violet <span class="glyph">◆</span></h3>
-              <p>The 20 best in Britain. The roads you'd plan a weekend around. Only around twenty make it, and every one has the press behind it.</p>
+              <h3>S-Tier <span class="glyph">◆</span></h3>
+              <p>The 20 best roads in Britain. The creme-de-la-creme of driving roads and the ones you plan a weekend around, every single one has been written about extensively by the motoring press.</p>
             </div>
             <div class="tier-card tier-a">
               <div class="tier-badge">A</div>
-              <h3>Green <span class="glyph">▲</span></h3>
-              <p>Excellent roads that are worth going out of your way for. A-Tier roads form the backbone of a proper drive.</p>
+              <h3>A-Tier <span class="glyph">▲</span></h3>
+              <p>The best of the rest. Excellent roads that are worth going out of your way for. A-Tier roads form the backbone of a proper drive — some you'll know about, lots you won't.</p>
             </div>
             <div class="tier-card tier-b">
               <div class="tier-badge">B</div>
-              <h3>Amber <span class="glyph">·</span></h3>
-              <p>Good, and worth grabbing when you're already near. The backroads the locals might tell you about when you ask for their favourites.</p>
+              <h3>B-Tier <span class="glyph">·</span></h3>
+              <p>Great, fun roads that are worth grabbing when you're already near. The kind of backroads the locals might tell you about when you ask for their favourites.</p>
             </div>
           </div>
 
@@ -633,39 +643,39 @@
   <div class="wrap">
     <div class="band-head">
       <div class="band-eyebrow">How to use Cambr</div>
-      <h2 class="band-title">Everything you need to enjoy the drive. Minimal faff.</h2>
+      <h2 class="band-title">Everything you need to enjoy the drive. <span class="accent">Minimal faff.</span></h2>
     </div>
 
     <div class="feature-grid">
       <div class="feature">
         <div class="feature-icon"><ion-icon name="map-outline"></ion-icon></div>
-        <h3>A map you can browse &amp; discover <span class="tag live">Live</span></h3>
-        <p>Open it, see every great road near you, colour-coded by score. Tap to see why, and drive to it.</p>
+        <h3>Browse &amp; Discover <span class="tag live">Live</span></h3>
+        <p>Open the map, see every great road near you, colour-coded by score. Tap to see why, and get the best route to drive them.</p>
       </div>
       <div class="feature">
         <div class="feature-icon"><ion-icon name="time-outline"></ion-icon></div>
-        <h3>Round-trips right from your door <span class="tag live">Live</span></h3>
-        <p>Ask for a loop, get a proper circular drive from wherever you are in the time you've got.</p>
+        <h3>Loop Generator <span class="tag live">Live</span></h3>
+        <p>Craving a Sunday blast? Ask for a loop, get an epic circular drive from wherever you are in the time you've got available.</p>
       </div>
       <div class="feature">
         <div class="feature-icon"><ion-icon name="add-circle-outline"></ion-icon></div>
-        <h3>Add what you know <span class="tag live">Live</span></h3>
-        <p>Drove a road the map underrates? Let us know.</p>
+        <h3>Community Reviews <span class="tag live">Live</span></h3>
+        <p>Drove a road we underrate? Let us know. Community feedback helps to build Cambr and directly impacts the road scores. AllTrails for roads.</p>
       </div>
       <div class="feature">
         <div class="feature-icon"><ion-icon name="people-outline"></ion-icon></div>
-        <h3>Convoy with your mates <span class="tag soon">Soon</span></h3>
-        <p>One route, everyone on it, everyone tracked live. No more losing the group at a roundabout.</p>
+        <h3>Convoy Mode <span class="tag soon">Soon</span></h3>
+        <p>Plan an epic route and share it with the crew. Stay together, see everyone live on the route, chat to each other. Real-life Forza Horizon.</p>
       </div>
       <div class="feature">
         <div class="feature-icon"><ion-icon name="calendar-outline"></ion-icon></div>
-        <h3>Multi-day trips planned end to end <span class="tag soon">Soon</span></h3>
-        <p>Tell Cambr you've got a long weekend and it builds the whole thing: roads, stops, the lot.</p>
+        <h3>AI Trip Planner <span class="tag soon">Soon</span></h3>
+        <p>Tell Cambr you've got an adventure coming up and it builds the whole trip: the best roads, overnight stops and the most epic views.</p>
       </div>
       <div class="feature">
         <div class="feature-icon"><ion-icon name="trail-sign-outline"></ion-icon></div>
-        <h3>Tunnels, passes &amp; detours <span class="tag soon">Soon</span></h3>
-        <p>All the extra good stuff, surfaced on the map and ready to find.</p>
+        <h3>Tunnel Finder + More <span class="tag soon">Soon</span></h3>
+        <p>Everyone loves to hear their car in a tunnel. Find the best ones and add them to your route so you never miss out on the noise.</p>
       </div>
     </div>
 
