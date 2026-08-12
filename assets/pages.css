@@ -95,7 +95,10 @@ h1.page-title {
 }
 .lede strong { color: #FFFFFF; font-weight: var(--fw-bold); }
 
-.body-copy { font-size: 15.5px; line-height: 1.62; color: var(--text-secondary); margin-top: 18px; }
+/* --text-primary, not --text-secondary: on these pages the body copy IS the
+   content, and index.html already uses primary for equivalent reading text
+   (.build-block > p, .feature p). Secondary stays for asides and captions. */
+.body-copy { font-size: 15.5px; line-height: 1.62; color: var(--text-primary); margin-top: 18px; }
 .body-copy strong { color: #FFFFFF; font-weight: var(--fw-semibold); }
 .body-copy + .body-copy { margin-top: 14px; }
 
