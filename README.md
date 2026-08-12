@@ -99,6 +99,14 @@ stay dependency-free.
 block in, delete the `todo` wrapper, bump the "Last updated" line. Editing instructions are in a
 comment at the top of that file.
 
+## Footer trading disclosure — do not delete
+
+Every page footer carries a `.legal` block naming Cambr Technologies Ltd, England and Wales,
+company number 17371232 and the registered office. This is a **UK trading disclosure
+requirement**, not decoration — any new page gets the same block, and it should not be
+removed from an existing one. The rule is defined twice (inline in `index.html`, and in
+`assets/pages.css` for the standalone pages); keep the two in step.
+
 ## Regenerating the optimised images
 
 The served images are derived from the originals in the design handoff package
