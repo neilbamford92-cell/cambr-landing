@@ -1,0 +1,225 @@
+/* ============================================================
+   CAMBR — shared styles for the standalone email-destination
+   pages (/ios, /android, /beta).
+
+   Deliberately a separate file from index.html:
+   the landing page keeps all of its styling inline, and it is
+   carrying a working signup form that must not be disturbed.
+   The values below are copied from index.html so the two stay
+   visually identical — this file adds no new design decisions.
+
+   Tokens (colour, type, weights) come from colors_and_type.css,
+   which must be linked FIRST.
+   ============================================================ */
+
+:root {
+  --hairline: rgba(255,255,255,0.09);
+  --hairline-strong: rgba(255,255,255,0.16);
+  --card: #1E1E1E;
+  --card-raised: #272727;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);              /* #141414 smoke */
+  color: var(--text-primary);         /* #F5F5F5 */
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a { color: var(--text-primary); text-decoration: none; transition: opacity .2s ease; }
+a:hover { opacity: .6; }
+
+/* Narrower than the landing page's 1240px — these are reading pages. */
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 22px; width: 100%; }
+
+/* ---------- Wordmark ---------- */
+.wordmark {
+  font-family: var(--font-wordmark);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wordmark);
+  line-height: 1;
+  color: #FFFFFF;
+}
+.wordmark .dot { color: var(--brand-rosso); }
+
+/* ---------- Top bar ----------
+   Static rather than absolute: there is no hero photo to sit over. */
+header.top { border-bottom: 1px solid var(--hairline); }
+.top-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+  max-width: 680px; margin: 0 auto; padding: 22px;
+}
+.top .wordmark { font-size: 24px; }
+.top-back {
+  font-weight: var(--fw-semibold); font-size: 13px;
+  color: var(--text-secondary);
+  display: inline-flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+}
+.top-back:hover { color: #FFFFFF; opacity: 1; }
+
+/* ---------- Page body ---------- */
+main { flex: 1 0 auto; padding: 48px 0 72px; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: var(--fw-semibold); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--brand-rosso);
+  margin-bottom: 18px;
+}
+
+h1.page-title {
+  font-weight: var(--fw-bold);
+  font-size: clamp(30px, 7vw, 44px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  color: #FFFFFF;
+}
+
+/* The confirmation line under the H1 — brighter, slightly larger. */
+.lede {
+  font-size: clamp(16px, 4.4vw, 19px);
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin-top: 18px;
+}
+.lede strong { color: #FFFFFF; font-weight: var(--fw-bold); }
+
+.body-copy { font-size: 15.5px; line-height: 1.62; color: var(--text-secondary); margin-top: 18px; }
+.body-copy strong { color: #FFFFFF; font-weight: var(--fw-semibold); }
+.body-copy + .body-copy { margin-top: 14px; }
+
+/* ---------- Confirmation tick ---------- */
+.confirm {
+  display: flex; align-items: center; gap: 13px;
+  background: var(--tier-a-fill);
+  border: 1px solid rgba(34,197,94,0.42);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 26px;
+  font-size: 15px; line-height: 1.45; color: var(--text-primary);
+}
+.confirm .tick {
+  flex: none; width: 26px; height: 26px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(34,197,94,0.18);
+  border: 1px solid var(--tier-a);
+  color: var(--tier-a);
+  font-weight: var(--fw-extrabold); font-size: 13px;
+}
+.confirm b { color: #FFFFFF; font-weight: var(--fw-bold); }
+
+/* ---------- Beta page: editable section cards ---------- */
+.section-card {
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
+  padding: 24px 22px 26px;
+  margin-top: 20px;
+}
+.section-card h2 {
+  font-weight: var(--fw-bold); font-size: 17px;
+  letter-spacing: 0.03em; text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 11px;
+}
+.section-card h2 .n {
+  flex: none;
+  width: 26px; height: 26px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--card-raised); border: 1px solid var(--hairline-strong);
+  color: var(--brand-rosso);
+  font-size: 12px; font-weight: var(--fw-extrabold);
+  letter-spacing: 0;
+}
+.section-card p { font-size: 15px; line-height: 1.6; color: var(--text-primary); }
+.section-card p + p { margin-top: 12px; }
+.section-card ol, .section-card ul { margin: 0; padding-left: 20px; }
+.section-card li { font-size: 15px; line-height: 1.6; color: var(--text-primary); margin-bottom: 9px; }
+.section-card li:last-child { margin-bottom: 0; }
+.section-card a { color: var(--brand-rosso); font-weight: var(--fw-semibold); }
+.section-card a:hover { opacity: .7; }
+
+/* Placeholder styling — deliberately loud, so unfilled blocks are
+   impossible to miss on a live page. Delete the class, not the block. */
+.todo {
+  border: 1px dashed rgba(234,179,8,0.55);
+  background: var(--tier-c-fill);
+  border-radius: 10px;
+  padding: 13px 15px;
+  font-size: 14px; line-height: 1.55;
+  color: var(--text-primary);
+}
+.todo::before {
+  content: "PLACEHOLDER — replace this block";
+  display: block;
+  font-size: 10px; font-weight: var(--fw-extrabold);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--tier-c);
+  margin-bottom: 7px;
+}
+
+.todo code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.28);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.tag {
+  display: inline-block;
+  font-weight: var(--fw-semibold); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  border-radius: 999px; padding: 4px 11px; line-height: 1;
+  color: var(--text-secondary);
+  border: 1px solid var(--hairline-strong);
+  margin-left: auto;
+}
+
+.updated {
+  margin-top: 30px;
+  font-size: 12px; color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Footer ---------- */
+footer.site {
+  flex: none;
+  border-top: 1px solid var(--hairline);
+  padding: 34px 0 40px;
+  background: var(--bg-map);
+}
+.foot-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+footer .wordmark { font-size: 22px; }
+.foot-tag { font-size: 13px; color: var(--text-secondary); margin-top: 8px; }
+.socials { display: flex; gap: 8px; }
+.socials a {
+  width: 40px; height: 40px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--hairline-strong); color: #FFFFFF;
+  transition: background .2s ease, opacity .2s ease;
+}
+.socials a:hover { opacity: 1; background: var(--card); }
+.socials svg { width: 19px; height: 19px; display: block; fill: currentColor; }
+.copyright { width: 100%; font-size: 12px; color: var(--text-secondary); letter-spacing: 0.02em; margin-top: 8px; }
+
+/* ---------- Wider viewports ---------- */
+@media (min-width: 700px) {
+  .wrap { padding: 0 40px; }
+  .top-inner { padding: 26px 40px; max-width: 760px; }
+  .wrap { max-width: 760px; }
+  main { padding: 64px 0 88px; }
+  .section-card { padding: 30px 28px 32px; }
+}

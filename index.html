@@ -723,6 +723,49 @@
   // e.g. https://app.kit.com/forms/XXXXXX/subscriptions). Kit sends the welcome email.
   const KIT_FORM_ACTION = "https://app.kit.com/forms/9666617/subscriptions";
 
+  // ---------------------------------------------------------------
+  // Ref-tag attribution — printed flyer QR encodes https://cambr.uk/?ref=ph
+  //
+  // Captured on load, held for the session, attached at submit time as a
+  // Kit custom field. Entirely optional: if any of this throws, is blocked,
+  // or the param is absent, the signup below runs exactly as it did before.
+  //
+  // ⚠ REF_FIELD must exist as a custom field on the Kit account (key: ref).
+  // Kit's form endpoint accepts unknown field names with a 200 and silently
+  // discards them — verified — so a missing field costs attribution, never
+  // a subscriber. See README for the exact setup steps.
+  // ---------------------------------------------------------------
+  const REF_PARAM = "ref";
+  const REF_STORE_KEY = "cambr_ref";
+  const REF_FIELD = "fields[ref]";
+
+  // Allow alphanumeric, hyphen and underscore, up to 32 chars. Anything
+  // else is discarded outright rather than trimmed to fit — a truncated
+  // code would be indistinguishable from a real one in Kit.
+  function sanitiseRef(raw) {
+    if (!raw) return "";
+    const v = String(raw);
+    return (v.length <= 32 && /^[A-Za-z0-9_-]+$/.test(v)) ? v : "";
+  }
+
+  // First touch wins — an existing value is never overwritten.
+  function captureRef() {
+    try {
+      const incoming = sanitiseRef(new URLSearchParams(window.location.search).get(REF_PARAM));
+      if (!incoming) return;
+      if (sessionStorage.getItem(REF_STORE_KEY)) return;
+      sessionStorage.setItem(REF_STORE_KEY, incoming);
+    } catch (e) { /* storage unavailable (private mode, blocked) — ignore */ }
+  }
+
+  // Re-sanitised on read: sessionStorage is user-writable.
+  // The value is only ever posted to Kit, never written into the page.
+  function storedRef() {
+    try { return sanitiseRef(sessionStorage.getItem(REF_STORE_KEY)); } catch (e) { return ""; }
+  }
+
+  captureRef();
+
   function wireForm(form) {
     const note = form.parentElement.querySelector('[data-note]');
     const success = form.parentElement.querySelector('[data-success]');
@@ -754,6 +797,8 @@
       try {
         const body = new FormData();
         body.append('email_address', email); // Kit's expected field name
+        const ref = storedRef();
+        if (ref) body.append(REF_FIELD, ref); // omitted entirely when absent
         const res = await fetch(KIT_FORM_ACTION, {
           method: 'POST',
           body: body,
