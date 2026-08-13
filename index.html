@@ -72,6 +72,11 @@
     display: inline-flex; align-items: center; gap: 7px;
     color: #FFFFFF;
   }
+  .top-nav { display: flex; align-items: center; gap: 26px; }
+  /* Journal link stays visible at every width — unlike .top-cta, which is
+     hidden below 900px. Most traffic is on a phone, and a nav link nobody
+     on mobile can see is not a link. */
+  .top-link { font-weight: var(--fw-semibold); font-size: 14px; color: #FFFFFF; }
 
   /* ---------- Hero (full-bleed photo + phone mockup) ---------- */
   .hero { position: relative; min-height: 100vh; background: var(--bg-map); overflow: hidden; }
@@ -507,7 +512,10 @@
 <header class="top">
   <div class="top-inner">
     <span class="wordmark">Cambr<span class="dot">.</span></span>
-    <a href="#waitlist" class="top-cta">Get early access →</a>
+    <nav class="top-nav">
+      <a href="/blog/" class="top-link">Journal</a>
+      <a href="#waitlist" class="top-cta">Get early access →</a>
+    </nav>
   </div>
 </header>
 

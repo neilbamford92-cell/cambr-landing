@@ -1,0 +1,316 @@
+/* Cambr — Journal stylesheet
+   Built on Cambr Design Tokens v1.1 + Brand Guidelines v1.1.
+   Cream marketing surface. Inter throughout. Nunito for the wordmark only. */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --cream: #F2EAD8;
+  --cream-deep: #E8DEC7;
+  --ink: #141414;
+  --ink-soft: #4A4640;
+  --ink-faint: #7C766C;
+  --rule: rgba(20, 20, 20, 0.14);
+  --rosso: #D40000;
+
+  --tier-s: #7C3AED;   /* violet, darkened from #C084FC for contrast on cream */
+  --tier-a: #15803D;   /* green, darkened from #22C55E for contrast on cream */
+  --tier-b: #A16207;   /* amber, darkened from #EAB308 for contrast on cream */
+
+  --measure: 34rem;
+  --wide: 62rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  position: sticky;
+  top: 0;
+  background: var(--cream);
+  z-index: 20;
+}
+
+.masthead-inner {
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 1.05rem 1.5rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wordmark {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.04em;
+  color: var(--rosso);
+  text-decoration: none;
+}
+
+.masthead-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+.masthead-cta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--rosso);
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+.masthead-cta:hover { color: var(--rosso); }
+
+/* ---------- layout ---------- */
+
+.wrap { max-width: var(--wide); margin: 0 auto; padding: 0 1.5rem; }
+.col { max-width: var(--measure); }
+
+article header.piece { padding: 4rem 0 2rem; }
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--rosso);
+  margin: 0 0 1.35rem;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5.4vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.033em;
+  font-weight: 800;
+  margin: 0 0 1.35rem;
+  max-width: 20ch;
+}
+
+.standfirst {
+  font-size: 1.24rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  font-weight: 400;
+  margin: 0 0 2rem;
+  max-width: 40ch;
+}
+
+.byline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 1.95rem);
+  line-height: 1.18;
+  letter-spacing: -0.022em;
+  font-weight: 700;
+  margin: 3.5rem 0 1.15rem;
+  max-width: 24ch;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 2.25rem 0 0.7rem;
+}
+
+p { margin: 0 0 1.35rem; max-width: var(--measure); }
+
+.lead { font-size: 1.1rem; }
+
+strong { font-weight: 650; }
+
+/* ---------- road entries ---------- */
+
+.roads { margin: 2.5rem 0 0; padding: 0; list-style: none; }
+
+.road {
+  border-left-style: solid;
+  padding: 0.15rem 0 0.15rem 1.35rem;
+  margin: 0 0 2.6rem;
+  max-width: var(--measure);
+}
+.road[data-tier="S"] { border-left-width: 3.5px; border-left-color: var(--tier-s); }
+.road[data-tier="A"] { border-left-width: 3px;   border-left-color: var(--tier-a); }
+.road[data-tier="B"] { border-left-width: 2.5px; border-left-color: var(--tier-b); }
+
+.road-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  margin: 0 0 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  color: var(--ink-faint);
+}
+.road[data-tier="S"] .tier { color: var(--tier-s); font-weight: 500; }
+.road[data-tier="A"] .tier { color: var(--tier-a); font-weight: 500; }
+.road[data-tier="B"] .tier { color: var(--tier-b); font-weight: 500; }
+
+.road h3 { margin: 0 0 0.55rem; font-size: 1.22rem; }
+.road p { margin: 0 0 0.75rem; }
+.road p:last-child { margin-bottom: 0; }
+
+.road .note {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- pull quote ---------- */
+
+.pull {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 1.6rem 0;
+  margin: 3rem 0;
+  max-width: var(--measure);
+  font-size: 1.3rem;
+  line-height: 1.35;
+  letter-spacing: -0.018em;
+  font-weight: 600;
+}
+
+/* ---------- data strip ---------- */
+
+.strip {
+  background: var(--cream-deep);
+  border: 1px solid var(--rule);
+  padding: 1.4rem 1.5rem;
+  margin: 2.5rem 0;
+  max-width: var(--measure);
+}
+.strip h3 { margin-top: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--ink-faint); }
+.strip table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.strip td { padding: 0.42rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.strip tr:last-child td { border-bottom: none; }
+.strip td:last-child { text-align: right; font-family: 'IBM Plex Mono', monospace; white-space: nowrap; padding-left: 1rem; }
+.strip .caption { font-size: 0.78rem; color: var(--ink-faint); margin: 0.9rem 0 0; line-height: 1.5; }
+
+/* ---------- callout ---------- */
+
+.callout {
+  border-left: 3px solid var(--rosso);
+  padding-left: 1.35rem;
+  margin: 2.5rem 0;
+  max-width: var(--measure);
+}
+.callout p:last-child { margin-bottom: 0; }
+
+/* ---------- end CTA ---------- */
+
+.endcap {
+  background: var(--ink);
+  color: var(--cream);
+  margin-top: 5rem;
+  padding: 4rem 0;
+}
+.endcap h2 { margin-top: 0; color: var(--cream); }
+.endcap p { color: rgba(242, 234, 216, 0.75); }
+.endcap a.btn {
+  display: inline-block;
+  background: var(--rosso);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.6rem;
+  margin-top: 0.6rem;
+}
+.endcap a.btn:hover { background: #b30000; }
+
+/* ---------- related ---------- */
+
+.related { padding: 3.5rem 0; border-top: 1px solid var(--rule); }
+.related h2 { margin: 0 0 1.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--ink-faint); }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { border-top: 1px solid var(--rule); }
+.related li:last-child { border-bottom: 1px solid var(--rule); }
+.related a { display: block; padding: 1rem 0; text-decoration: none; font-weight: 600; font-size: 1.05rem; letter-spacing: -0.012em; }
+.related a:hover { color: var(--rosso); }
+.related span { display: block; font-weight: 400; font-size: 0.9rem; color: var(--ink-faint); margin-top: 0.2rem; }
+
+/* ---------- index ---------- */
+
+.index-list { list-style: none; margin: 2.5rem 0 0; padding: 0; }
+.index-list li { border-top: 1px solid var(--rule); }
+.index-list li:last-child { border-bottom: 1px solid var(--rule); }
+.index-list a { display: block; padding: 1.75rem 0; text-decoration: none; }
+.index-list a:hover h3 { color: var(--rosso); }
+.index-list h3 { margin: 0 0 0.45rem; font-size: 1.45rem; letter-spacing: -0.02em; }
+.index-list p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
+.index-list .kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--ink-faint); margin: 0 0 0.5rem;
+}
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding: 2.5rem 0 3.5rem;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { color: var(--rosso); }
+.site-footer .tag { font-weight: 600; color: var(--ink); }
+
+/* UK trading disclosure — registered name, place of registration, company
+   number and registered office. Required on the website; keep on every page.
+   Mirrors the .legal rule in index.html and assets/pages.css. */
+.site-footer .legal {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--ink-faint);
+  max-width: 70ch;
+}
+
+@media (max-width: 640px) {
+  body { font-size: 1.02rem; }
+  article header.piece { padding: 2.5rem 0 1.5rem; }
+  .masthead-label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+a:focus-visible { outline: 2px solid var(--rosso); outline-offset: 3px; }
