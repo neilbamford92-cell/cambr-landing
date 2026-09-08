@@ -24,10 +24,52 @@ assets/
   photography/thumbs/
     azores-cloudline-800.webp / -1200.webp / -1400.webp   # responsive hero (LCP)
     azores-cloudline-1400.jpg                              # hero JPG fallback
+  photography/journal/         # Journal photography, 800/1200/1400 webp + 1400 jpg
+    quiraing-*                 # lead image, "What makes a great driving road"
+    quiraing-og-1200x630.jpg   # that article's social card
+    black-mountain-* glencoe-* # the two in-article plates
 uploads/
   IMG_1163-640.webp / .jpg      # hero phone screenshot (lazy)
   dukes-640.webp / .jpg         # Duke's Pass score screenshot (lazy)
+blog/
+  index.html                   # the Journal index
+  what-makes-a-great-driving-road.html
+  assets/article.css           # the Journal design (dark product surface)
+  assets/journal.css           # LEGACY cream surface — the five held articles only
 ```
+
+## The Journal (`/blog/`)
+
+The Journal is the **dark product surface** (`#141414`), styled by `blog/assets/article.css`
+layered on `colors_and_type.css`. It is a hairline-and-rule system: border-radius `0` everywhere,
+no shadows, no gradients. That restraint is the whole visual character and erodes easily.
+
+Two nested measures do the layout work: `.wrap` at 1120px and `.col` at 760px nested inside it,
+**left-aligned, not centred**, so photo plates run to the full content width and break out to the
+right of the text column. That asymmetry is deliberate — do not centre `.col`.
+
+Figure SVGs are **inlined in the document**, not `<img src>`. An `<img>`-loaded SVG is a sealed
+document: it cannot reach the page's webfonts or CSS custom properties, so its labels fall back to
+serif and its colours to hardcoded defaults. Each figure ships two artboards — a wide one and a
+separate narrow drawing swapped in below 680px, because scaling the 700px artboard into a phone
+viewport renders its 10–11px labels at about 5px.
+
+### Five articles are HELD, not published
+
+`best-driving-roads-uk`, `-wales`, `-yorkshire-dales-north-pennines`, `evo-triangle-guide` and
+`most-photographed-roads-britain` are **`noindex`**, absent from `sitemap.xml` and unlinked from
+the Journal index. They state **23** top-tier roads while listing **18**, and the by-region table
+sums to 18. They still use the legacy cream `journal.css`.
+
+To publish one: get the corrected count and regions, fix the list and the table, convert it to
+`article.css`, drop the `noindex`, and add it back to the index and the sitemap.
+
+### The article says eight signals, the product has nine
+
+"What makes a great driving road" groups the map's nine scored signals into eight reader-facing
+headings, and the site says "the nine things that make a drive worth taking" in eleven places. The
+line under the signals grid reconciles the two on the page. **If the grid or that copy changes,
+keep them reconciled** — a numbered list of eight next to a claim of nine reads as an error.
 
 ## Local preview
 

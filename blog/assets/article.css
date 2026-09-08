@@ -1,0 +1,499 @@
+/* Cambr — Journal stylesheet (dark)
+   The product dark surface (#141414), per design_handoff_blog_article.
+   Layered on /colors_and_type.css — link that FIRST, then this file. The dark
+   product tokens (--bg, --surface, --text-primary, --text-secondary) come from
+   there unmodified; only the editorial additions are defined here.
+
+   This is the current Journal design. blog/assets/journal.css is the older cream
+   surface and is still used by the five articles not yet converted; it goes when
+   the last of them does.
+
+   Hairline-and-rule system: border-radius is 0 everywhere, no shadows, no
+   gradients. That restraint is the whole visual character and erodes easily. */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Editorial additions to the design system.
+     --ink-soft is a deliberate local value: --text-secondary (#8A8A8A) is too
+     dim for 18.5px body prose at article length. Candidate for promotion into
+     colors_and_type.css as a body-prose token. */
+  --ink:       var(--text-primary);      /* #F5F5F5 */
+  --ink-soft:  #C4C4C4;
+  --ink-faint: var(--text-secondary);    /* #8A8A8A */
+  --hairline:  rgba(245, 245, 245, 0.16);
+  --panel:     var(--surface);           /* #1E1E1E */
+  --rosso:     var(--brand-rosso);       /* #D40000 */
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Both states are defined explicitly. Authors add links in body copy later and
+   an undefined <a> renders browser-default blue on this dark ground. */
+a { color: var(--ink); text-decoration: none; }
+a:hover { color: var(--rosso); }
+
+img { max-width: 100%; }
+
+/* ---------- layout ----------
+   Two nested measures. .col is left-aligned inside .wrap, NOT centred, so photo
+   plates run to the full content width and break out to the right of the text
+   column. That asymmetry is deliberate. */
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+.col  { max-width: 760px; }
+
+/* ---------- masthead ---------- */
+
+header.top { border-bottom: 1px solid var(--hairline); }
+
+.top-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.wordmark {
+  font-family: var(--font-wordmark);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wordmark);
+  line-height: 1;
+  font-size: 23px;
+  color: var(--ink);
+}
+.wordmark:hover { color: var(--ink); }
+.wordmark .dot { color: var(--rosso); }
+
+.top-nav {
+  display: flex;
+  gap: 28px;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  white-space: nowrap;
+}
+.top-nav .here { color: var(--rosso); }
+
+.top-cta {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: #fff;
+  background: var(--rosso);
+  padding: 9px 14px;
+  white-space: nowrap;
+}
+.top-cta:hover { color: #fff; opacity: 0.86; }
+
+/* ---------- article head ---------- */
+
+.head { padding: 52px 0 0; }
+
+.kicker {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--rosso);
+  padding-bottom: 20px;
+  white-space: nowrap;
+  margin: 0;
+}
+.kicker span { color: var(--ink-faint); }
+
+.lead-figure { margin: 0; }
+.lead-figure img { width: 100%; height: auto; display: block; }
+.lead-figure figcaption {
+  max-width: 760px;
+  padding-top: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--ink-faint);
+  line-height: 1.5;
+}
+
+h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-extrabold);
+  font-size: clamp(36px, 5.6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  max-width: 20ch;
+  margin: 0;
+  padding: 34px 0 0;
+  text-wrap: balance;
+}
+h1 .dot { color: var(--rosso); }
+
+.standfirst {
+  max-width: 60ch;
+  margin: 0;
+  padding-top: 22px;
+  font-size: clamp(18px, 1.9vw, 22px);
+  line-height: 1.48;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.byline {
+  margin: 30px 0 0;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-faint);
+}
+.byline span { white-space: nowrap; }
+.byline b { color: var(--ink); font-weight: 500; }
+
+/* ---------- body ---------- */
+
+article { padding: 46px 0 0; }
+
+article p {
+  font-size: 18.5px;
+  line-height: 1.62;
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+  text-wrap: pretty;
+}
+article p b { color: var(--ink); font-weight: var(--fw-semibold); }
+
+/* Direct child only. A descendant selector also catches the pull-quote
+   paragraph and breaks it. */
+.lede > p:first-child {
+  font-size: 21px;
+  line-height: 1.52;
+  color: var(--ink);
+}
+
+blockquote {
+  margin: 52px 0;
+  padding: 6px 0 6px 26px;
+  border-left: 3px solid var(--rosso);
+  max-width: 600px;
+}
+blockquote p {
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.22;
+  letter-spacing: -0.022em;
+  font-weight: var(--fw-semibold);
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* ---------- signals grid ---------- */
+
+.signals {
+  margin: 50px 0 0;
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.sig {
+  border-bottom: 1px solid var(--hairline);
+  border-right: 1px solid var(--hairline);
+  padding: 14px 16px 16px;
+}
+.sig:nth-child(4n) { border-right: none; }
+.sig .k {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  color: var(--rosso);
+}
+.sig .v {
+  margin-top: 7px;
+  font-size: 15px;
+  line-height: 1.28;
+  font-weight: var(--fw-medium);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* Sits under the signals grid. Reconciles the article's eight groupings with
+   the nine signals the map actually scores. Inter, not mono: like the diagram
+   caption it carries an argument rather than labelling something. */
+.signals-note {
+  margin: 16px 0 50px;
+  max-width: 66ch;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-faint);
+}
+
+/* ---------- sections ---------- */
+
+section.point { margin-top: 54px; }
+
+.point-num {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.point-num .n {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  color: var(--rosso);
+}
+.point-num .line { flex: 1; height: 1px; background: var(--hairline); }
+
+h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: clamp(25px, 2.9vw, 34px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0 0 18px;
+  max-width: 30ch;
+  text-wrap: balance;
+}
+h2.plain {
+  margin-top: 58px;
+  padding-top: 32px;
+  border-top: 1px solid var(--hairline);
+}
+
+/* ---------- figures ---------- */
+
+figure.plate { margin: 54px 0; }
+figure.plate img { width: 100%; height: auto; display: block; }
+figure.plate figcaption {
+  padding-top: 10px;
+  max-width: 66ch;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  line-height: 1.55;
+  color: var(--ink-faint);
+}
+figure.plate figcaption b { color: var(--ink); font-weight: 500; }
+
+figure.diagram {
+  margin: 48px 0;
+  padding: 26px 0 0;
+  border-top: 1px solid var(--hairline);
+}
+figure.diagram .fignum {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-faint);
+  margin-bottom: 18px;
+}
+figure.diagram .fignum b { color: var(--ink); font-weight: 500; }
+figure.diagram svg { width: 100%; height: auto; display: block; background: transparent; }
+figure.diagram svg.narrow { display: none; }
+/* Diagram captions are Inter, photo captions are Plex Mono: the diagram caption
+   carries an argument, the photo caption is a label. */
+figure.diagram figcaption {
+  padding-top: 16px;
+  max-width: 66ch;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-faint);
+}
+
+/* ---------- note panel ----------
+   For editorial honesty, not promotion. Keep that usage rule; this is not a
+   generic callout. */
+
+.note {
+  margin: 42px 0;
+  background: var(--panel);
+  padding: 24px 26px;
+  border-left: 2px solid var(--rosso);
+}
+.note .lbl {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--rosso);
+  margin-bottom: 10px;
+}
+.note p {
+  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.note p b { color: var(--ink); }
+
+/* ---------- index ---------- */
+
+.index-list { list-style: none; margin: 46px 0 0; padding: 0; }
+.index-list li { border-top: 1px solid var(--hairline); }
+.index-list li:last-child { border-bottom: 1px solid var(--hairline); }
+.index-list a { display: block; padding: 28px 0; }
+.index-list a:hover h3 { color: var(--rosso); }
+.index-list h3 {
+  margin: 0 0 8px;
+  font-size: clamp(21px, 2.4vw, 27px);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.index-list p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+.index-list .kicker { padding-bottom: 10px; }
+
+/* ---------- closer ---------- */
+
+.closer { margin-top: 72px; background: var(--panel); }
+.closer .inner { max-width: 1120px; margin: 0 auto; padding: 74px 40px 78px; }
+.closer .lbl {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--rosso);
+  margin-bottom: 18px;
+}
+.closer h3 {
+  font-weight: var(--fw-bold);
+  font-size: clamp(27px, 3.4vw, 40px);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  max-width: 24ch;
+  margin: 0;
+  text-wrap: balance;
+}
+.closer p {
+  margin: 18px 0 0;
+  max-width: 52ch;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.btn {
+  margin-top: 30px;
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: #fff;
+  background: var(--rosso);
+  padding: 15px 24px;
+  white-space: nowrap;
+}
+.btn:hover { color: #fff; opacity: 0.86; }
+
+/* ---------- footer ---------- */
+
+footer.site { border-top: 1px solid var(--hairline); }
+.foot-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 30px 40px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.foot-inner .wordmark { font-size: 20px; }
+.foot-tag {
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.foot-inner .mono {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+/* UK trading disclosure — registered name, place of registration, company
+   number and registered office. Required on the website; keep on every page.
+   Mirrors the .legal rule in index.html, assets/pages.css and journal.css.
+
+   It sits in its own row rather than inside .foot-inner. As a flex child its
+   max-width capped it well under the container, so flex-basis:100% never took
+   effect and it rendered alongside the socials instead of beneath them. */
+.foot-legal {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 40px 30px;
+}
+.legal {
+  margin: 20px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: var(--ink-faint);
+  max-width: 70ch;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 900px) {
+  .signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sig:nth-child(4n) { border-right: 1px solid var(--hairline); }
+  .sig:nth-child(2n) { border-right: none; }
+}
+
+@media (max-width: 680px) {
+  .wrap { padding: 0 22px; }
+  .top-inner { padding: 16px 22px; }
+  .top-nav { display: none; }
+  .closer .inner, .foot-inner, .foot-legal { padding-left: 22px; padding-right: 22px; }
+  .byline { gap: 14px 20px; }
+  /* Scaling the 700px artboard into a 380px viewport renders its 10–11px
+     labels at about 5px. The narrow artboard is a separate drawing. */
+  figure.diagram svg.wide { display: none; }
+  figure.diagram svg.narrow { display: block; max-width: 420px; }
+}
