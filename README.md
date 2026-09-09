@@ -64,12 +64,29 @@ sums to 18. They still use the legacy cream `journal.css`.
 To publish one: get the corrected count and regions, fix the list and the table, convert it to
 `article.css`, drop the `noindex`, and add it back to the index and the sitemap.
 
-### The article says eight signals, the product has nine
+### ⚠️ The live algorithm scores EIGHT signals, and parts of the site still say nine
 
-"What makes a great driving road" groups the map's nine scored signals into eight reader-facing
-headings, and the site says "the nine things that make a drive worth taking" in eleven places. The
-line under the signals grid reconciles the two on the page. **If the grid or that copy changes,
-keep them reconciled** — a numbered list of eight next to a claim of nine reads as an error.
+Verified 2026-09-09 against the app repo, in the code rather than the prose. `lib/score_v35.py`
+`W_V35`, commented *"WHAT SHIPPED 2026-08-13 and what is LIVE on the map today"*:
+
+```
+cur 0.21 · elv 0.20 · cls 0.12 · drv 0.13 · np 0.11 · spdx 0.13 · end 0.05 · cam 0.05  = 1.00
+```
+
+Eight, and `docs/SCORING_METHODOLOGY_V35.md` §3 agrees. **"Nine" is stale.** It came from the v3.3
+methodology, whose table listed nine rows — but `trf` and `trn` both carried weight `0.00`. v3.5
+drops those two dead entries and promotes `spdx` (measured average speed) to a first-class signal.
+
+So "What makes a great driving road" is correct: eight, with an eight-cell grid.
+
+⛔ **Still wrong and not yet changed** — `index.html` says "nine" in five places (meta, og and
+twitter descriptions, the hero body, and the "Every road measured on nine things" card), and
+`blog/best-driving-roads-uk.html` in four. The landing page copy is locked, so these are Neil's
+call, not a silent fix.
+
+⚠️ The eight article headings are not a 1:1 map of the eight signals — the article has "Enough
+length" (a length bonus, not a signal) and no section for `end` (end-point quality). The counts
+agree; the memberships do not quite. Neil's "about eight things" carries that.
 
 ## Local preview
 

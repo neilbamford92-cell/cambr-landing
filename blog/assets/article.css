@@ -242,7 +242,7 @@ blockquote p {
 /* ---------- signals grid ---------- */
 
 .signals {
-  margin: 50px 0 0;
+  margin: 50px 0;
   border-top: 1px solid var(--hairline);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -266,17 +266,6 @@ blockquote p {
   font-weight: var(--fw-medium);
   color: var(--ink);
   letter-spacing: -0.01em;
-}
-
-/* Sits under the signals grid. Reconciles the article's eight groupings with
-   the nine signals the map actually scores. Inter, not mono: like the diagram
-   caption it carries an argument rather than labelling something. */
-.signals-note {
-  margin: 16px 0 50px;
-  max-width: 66ch;
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--ink-faint);
 }
 
 /* ---------- sections ---------- */
