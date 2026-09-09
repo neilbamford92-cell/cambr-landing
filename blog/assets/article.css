@@ -58,15 +58,21 @@ img { max-width: 100%; }
 
 /* ---------- masthead ---------- */
 
+/* Deliberately mirrors the landing page's masthead (inline in index.html) so the
+   two read as one site: same 1fr/auto/1fr grid, same 30px 40px padding, 26px
+   wordmark, Inter semibold 14px links and the same text-and-arrow CTA. The
+   landing bar is transparent over the hero photo; here it needs the hairline
+   because it sits on flat dark. Keep the two in step. */
+
 header.top { border-bottom: 1px solid var(--hairline); }
 
 .top-inner {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 20px 40px;
-  display: flex;
+  padding: 30px 40px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 24px;
 }
 
@@ -75,34 +81,42 @@ header.top { border-bottom: 1px solid var(--hairline); }
   font-weight: var(--fw-bold);
   letter-spacing: var(--ls-wordmark);
   line-height: 1;
-  font-size: 23px;
+  font-size: 26px;
   color: var(--ink);
+  justify-self: start;
 }
 .wordmark:hover { color: var(--ink); }
 .wordmark .dot { color: var(--rosso); }
 
 .top-nav {
+  justify-self: center;
   display: flex;
-  gap: 28px;
-  font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
+  align-items: center;
+  gap: 26px;
   white-space: nowrap;
 }
-.top-nav .here { color: var(--rosso); }
+/* Opacity, not colour, marks the current page. Rosso is unreadable on the
+   landing hero's bright sky, and the marker has to work on both surfaces. */
+.top-nav a {
+  font-weight: var(--fw-semibold);
+  font-size: 14px;
+  color: var(--ink);
+  opacity: 0.75;
+}
+.top-nav a.here { opacity: 1; }
+.top-nav a:hover { opacity: 1; color: var(--rosso); }
 
 .top-cta {
-  font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  color: #fff;
-  background: var(--rosso);
-  padding: 9px 14px;
+  justify-self: end;
+  font-weight: var(--fw-semibold);
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
   white-space: nowrap;
 }
-.top-cta:hover { color: #fff; opacity: 0.86; }
+.top-cta:hover { color: var(--rosso); }
 
 /* ---------- article head ---------- */
 
@@ -155,6 +169,18 @@ h1 .dot { color: var(--rosso); }
   padding-top: 22px;
   font-size: clamp(18px, 1.9vw, 22px);
   line-height: 1.48;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* Second paragraph of the index intro. Normal prose size: two paragraphs at
+   standfirst scale is too much large type to open a page with. */
+.head-body {
+  max-width: 62ch;
+  margin: 0;
+  padding-top: 18px;
+  font-size: 17px;
+  line-height: 1.58;
   color: var(--ink-soft);
   text-wrap: pretty;
 }
@@ -356,29 +382,47 @@ figure.diagram figcaption {
 }
 .note p b { color: var(--ink); }
 
-/* ---------- index ---------- */
+/* ---------- index: banner + article tiles ---------- */
 
-.index-list { list-style: none; margin: 46px 0 0; padding: 0; }
-.index-list li { border-top: 1px solid var(--hairline); }
-.index-list li:last-child { border-bottom: 1px solid var(--hairline); }
-.index-list a { display: block; padding: 28px 0; }
-.index-list a:hover h3 { color: var(--rosso); }
-.index-list h3 {
+/* Same treatment as the article lead figure, so the index and the pieces it
+   links to read as one object. No text sits on it and none should: the export
+   pipeline bands CSS gradients over smooth sky. */
+.banner { margin: 0; }
+.banner img { width: 100%; height: auto; display: block; }
+
+.index-grid {
+  list-style: none;
+  margin: 46px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 44px 28px;
+}
+.index-grid a { display: block; }
+.index-grid .card-thumb {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 16px;
+  transition: opacity 0.2s ease;
+}
+.index-grid a:hover .card-thumb { opacity: 0.86; }
+.index-grid a:hover h3 { color: var(--rosso); }
+.index-grid .kicker { padding-bottom: 8px; }
+.index-grid h3 {
   margin: 0 0 8px;
-  font-size: clamp(21px, 2.4vw, 27px);
-  line-height: 1.12;
-  letter-spacing: -0.022em;
+  font-size: 21px;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
   font-weight: var(--fw-bold);
   color: var(--ink);
 }
-.index-list p {
+.index-grid p {
   margin: 0;
-  font-size: 17px;
-  line-height: 1.55;
+  font-size: 15.5px;
+  line-height: 1.5;
   color: var(--ink-soft);
-  max-width: 60ch;
 }
-.index-list .kicker { padding-bottom: 10px; }
 
 /* ---------- closer ---------- */
 
@@ -484,12 +528,17 @@ footer.site { border-top: 1px solid var(--hairline); }
   .signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sig:nth-child(4n) { border-right: 1px solid var(--hairline); }
   .sig:nth-child(2n) { border-right: none; }
+  .index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Matches the landing page, which hides the CTA at this width and keeps the
+     nav links. Most traffic is on a phone; a nav nobody there can see is not a
+     nav. With the CTA gone the 1fr/auto/1fr grid keeps the links centred. */
+  .top-cta { display: none; }
 }
 
 @media (max-width: 680px) {
   .wrap { padding: 0 22px; }
-  .top-inner { padding: 16px 22px; }
-  .top-nav { display: none; }
+  .top-inner { padding: 22px; gap: 16px; }
+  .index-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .closer .inner, .foot-inner, .foot-legal { padding-left: 22px; padding-right: 22px; }
   .byline { gap: 14px 20px; }
   /* Scaling the 700px artboard into a 380px viewport renders its 10–11px
