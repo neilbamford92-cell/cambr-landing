@@ -98,12 +98,14 @@
   .hero-bg img {
     width: 100%; height: 100%;
     object-fit: cover; object-position: 50% 44%;
-    /* warm, crisp cinematic grade — punchy saturation, vibrant greens */
-    filter: contrast(1.2) saturate(1.85) brightness(0.95) sepia(0.05) hue-rotate(-3deg);
+    /* Restrained grade. The previous values (saturate 1.85 + a green wash) were
+       built for the hazy Azores frame, which needed the punch. Glencoe is
+       already saturated and turns acid green under them. */
+    filter: contrast(1.06) saturate(1.1) brightness(0.9);
   }
-  .hero-bg .green-boost {  /* soft-light green wash to enrich the ridge grass */
+  .hero-bg .green-boost {  /* barely-there warmth in the lower third */
     position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(70,150,40,0) 42%, rgba(90,170,50,0.22) 78%, rgba(70,150,40,0.10) 100%);
+    background: linear-gradient(180deg, rgba(70,150,40,0) 55%, rgba(90,170,50,0.06) 85%, rgba(70,150,40,0.03) 100%);
     mix-blend-mode: soft-light;
   }
   .hero-bg::after {  /* warm highlight wash + top-corner vignette */
@@ -443,7 +445,17 @@
   .tier-b h3 .glyph { color: var(--tier-c); }
 
   /* ---------- How to use (feature grid) ---------- */
-  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+  /* Cards on the left in 2 x 3, the app shot on the right. At 1160px of content
+     the phone takes 250 and the two card columns get ~420 each. */
+  .feature-layout {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    gap: 46px; align-items: start; margin-top: 56px;
+  }
+  .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .feature-shot {
+    display: flex; flex-direction: column; align-items: center;
+    flex: none; position: sticky; top: 24px;
+  }
   .feature {
     background: var(--card); border: 1px solid var(--hairline); border-radius: 18px;
     padding: 24px 26px 26px;
@@ -489,8 +501,8 @@
     .phone { width: 260px; }
     .hero-scrim { background: linear-gradient(0deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.15) 45%, rgba(20,20,20,0.75) 100%); }
     .tiers, .modes-grid, .feature-grid, .build-grid.two { grid-template-columns: 1fr; }
-    .score-layout { grid-template-columns: 1fr; gap: 28px; }
-    .score-shot { order: -1; position: static; }
+    .score-layout, .feature-layout { grid-template-columns: 1fr; gap: 28px; }
+    .score-shot, .feature-shot { order: -1; position: static; }
     section.band { padding: 72px 0; }
     .top-cta { display: none; }
   }
@@ -568,8 +580,8 @@
         <div class="phone-island"></div>
         <div class="phone-screen">
           <picture>
-            <source type="image/webp" srcset="uploads/IMG_1163-640.webp">
-            <img src="uploads/IMG_1163-640.jpg" alt="The Cambr app showing ranked roads across the UK on a dark map, with the A39 Exmoor road scored 90.9" width="640" height="1387" loading="lazy" decoding="async">
+            <source type="image/webp" srcset="uploads/app-map-640.webp">
+            <img src="uploads/app-map-640.jpg" alt="The Cambr app showing ranked roads across the UK on a dark map, with the A39 Exmoor road scored 88.7" width="640" height="1387" loading="lazy" decoding="async">
           </picture>
         </div>
       </div>
@@ -613,8 +625,8 @@
             <div class="phone-island"></div>
             <div class="phone-screen">
               <picture>
-                <source type="image/webp" srcset="uploads/dukes-640.webp">
-                <img src="uploads/dukes-640.jpg" alt="The Cambr score breakdown for the A821 Duke's Pass: 85.3, an S-tier road, with every signal scored" width="640" height="1387" loading="lazy" decoding="async">
+                <source type="image/webp" srcset="uploads/app-dukes-640.webp">
+                <img src="uploads/app-dukes-640.jpg" alt="The Cambr score breakdown for the A821 Duke's Pass: 82.7, an S-tier road, with every signal scored" width="640" height="1387" loading="lazy" decoding="async">
               </picture>
             </div>
           </div>
@@ -647,7 +659,7 @@
 
           <div class="callout">
             <span class="s-chip">S</span>
-            <span><b>Duke's Pass scores 85.3.</b> That puts it in <b>S-Tier</b>. Tap it and you can see exactly why.</span>
+            <span><b>Duke's Pass scores 82.7.</b> That puts it in <b>S-Tier</b>. Tap it and you can see exactly why.</span>
           </div>
         </div>
       </div>
@@ -680,6 +692,7 @@
       <h2 class="band-title">Everything you need to enjoy the drive. <span class="accent">Minimal faff.</span></h2>
     </div>
 
+    <div class="feature-layout">
     <div class="feature-grid">
       <div class="feature">
         <div class="feature-icon"><ion-icon name="map-outline"></ion-icon></div>
@@ -710,6 +723,19 @@
         <div class="feature-icon"><ion-icon name="trail-sign-outline"></ion-icon></div>
         <h3>Tunnel Finder + More <span class="tag soon">Soon</span></h3>
         <p>Everyone loves to hear their car in a tunnel. Find the best ones and add them to your route so you never miss out on the noise.</p>
+      </div>
+    </div>
+
+      <div class="feature-shot">
+        <div class="phone shot-phone">
+          <div class="phone-island"></div>
+          <div class="phone-screen">
+            <picture>
+              <source type="image/webp" srcset="uploads/app-drive-640.webp">
+              <img src="uploads/app-drive-640.jpg" alt="Cambr navigating a drive in the Highlands, with Bealach na Bà scored 73.7 marked ahead on the route" width="640" height="1387" loading="lazy" decoding="async">
+            </picture>
+          </div>
+        </div>
       </div>
     </div>
 
