@@ -22,15 +22,16 @@ assets/
   favicon.svg              # favicon (SVG)
   og-image.jpg             # 1200×630 social share card (hero crop + wordmark)
   photography/thumbs/
-    azores-cloudline-800.webp / -1200.webp / -1400.webp   # responsive hero (LCP)
-    azores-cloudline-1400.jpg                              # hero JPG fallback
+    glencoe-800.webp / -1200 / -1600 / -2000               # responsive hero (LCP)
+    glencoe-1600.jpg                                       # hero JPG fallback
   photography/journal/         # Journal photography, 800/1200/1400 webp + 1400 jpg
     quiraing-*                 # lead image, "What makes a great driving road"
     quiraing-og-1200x630.jpg   # that article's social card
     black-mountain-* glencoe-* # the two in-article plates
 uploads/
-  IMG_1163-640.webp / .jpg      # hero phone screenshot (lazy)
-  dukes-640.webp / .jpg         # Duke's Pass score screenshot (lazy)
+  app-map-640.webp / .jpg       # hero phone: UK map, A39 Exmoor 88.7 (eager, above the fold)
+  app-dukes-640.webp / .jpg     # Duke's Pass score breakdown, 82.7 (lazy)
+  app-drive-640.webp / .jpg     # active drive, Bealach na Ba ahead (lazy)
 blog/
   index.html                   # the Journal index
   what-makes-a-great-driving-road.html
@@ -171,9 +172,15 @@ removed from an existing one. The rule is defined twice (inline in `index.html`,
 The served images are derived from the originals in the design handoff package
 (`design_handoff_cambr_landing/`) using Pillow (`/usr/bin/python3`, `pip install Pillow`):
 
-- **Hero** `azores-cloudline` (source 1400×1050): WebP at 800/1200/1400w + a 1400w JPG fallback.
-  Capped at the native 1400w — a 1600w variant would upscale.
-- **Phone shots** (`IMG_1163`, `dukes`): downscaled to 640w WebP + JPG (displayed ≤ ~300px).
+- **Hero** `glencoe` (source 4000×2250, the A82 through Glencoe): WebP at 800/1200/1600/2000w
+  + a 1600w JPG fallback. The old Azores set stopped at 1400w only because its source was 1400;
+  this source is 4000w, so the ladder goes further and large screens get a sharper hero.
+  ⚠️ The hero grade was retuned with it — `saturate(1.85)` plus a green wash suited the hazy
+  Azores frame and turns Glencoe acid green. It is now `contrast(1.06) saturate(1.1)`.
+- **Phone shots** (`app-map`, `app-dukes`, `app-drive`): downscaled to 640w WebP + JPG
+  (displayed ≤ ~300px). Sources are 1179×2556 iPhone captures and `.phone-screen` is
+  `aspect-ratio: 1179/2556`, so they drop in with no cropping. **A score shown in a screenshot is
+  also written in the body copy** — re-read both when swapping one in.
 - **OG card** `og-image.jpg` (1200×630): a cover-crop of the hero, graded to match the on-site
   look, with the `Cambr.` wordmark burned in.
 
