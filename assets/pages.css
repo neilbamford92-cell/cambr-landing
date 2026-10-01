@@ -248,7 +248,7 @@ footer .wordmark { font-size: 22px; }
 .section-card h3:first-of-type { margin-top: 4px; }
 .section-card ol + p, .section-card ul + p { margin-top: 14px; }
 .section-card ol + h3, .section-card ul + h3, .section-card p + h3 { margin-top: 24px; }
-.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 18px 0 4px; }
+.shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 140px)); justify-content: start; gap: 14px; margin: 18px 0 4px; }
 .shot { margin: 0; }
 .shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); }
 .shot figcaption { font-size: 12.5px; line-height: 1.45; color: var(--text-secondary); margin-top: 8px; }
