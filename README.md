@@ -37,6 +37,12 @@ blog/
   what-makes-a-great-driving-road.html
   assets/article.css           # the Journal design (dark product surface)
   assets/journal.css           # LEGACY cream surface — the five held articles only
+privacy/index.html           # privacy policy — linked from the footer and the consent banner
+beta-testing/index.html      # legacy URL, meta-refresh redirect to /beta (noindex)
+data/                        # unlisted road-scores feed (JSON + CSV). Disallowed in robots.txt
+assets/analytics.js          # GA4 + consent banner, loaded on every page
+robots.txt                   # Allow all except /data/; declares the sitemap
+sitemap.xml                  # 3 URLs — the five held guides are deliberately absent
 ```
 
 ## The Journal (`/blog/`)
@@ -65,29 +71,95 @@ sums to 18. They still use the legacy cream `journal.css`.
 To publish one: get the corrected count and regions, fix the list and the table, convert it to
 `article.css`, drop the `noindex`, and add it back to the index and the sitemap.
 
-### ⚠️ The live algorithm scores EIGHT signals, and parts of the site still say nine
+### ⛔ THREE NUMBERS ON THE LIVE LANDING PAGE ARE WRONG
 
-Verified 2026-09-09 against the app repo, in the code rather than the prose. `lib/score_v35.py`
-`W_V35`, commented *"WHAT SHIPPED 2026-08-13 and what is LIVE on the map today"*:
+Checked **2026-10-02** against `data/cambr-roads-53d9191c.json`, the feed this repo serves,
+generated the same morning at 10:00 UTC. That file is the authority — it is what the live map is
+scoring from, not a doc that may have drifted.
 
+```json
+"roads": 4483, "by_tier": {"S": 21, "A": 259, "B": 4203}
 ```
-cur 0.21 · elv 0.20 · cls 0.12 · drv 0.13 · np 0.11 · spdx 0.13 · end 0.05 · cam 0.05  = 1.00
-```
+(148 founding + 4,335 discovered.)
 
-Eight, and `docs/SCORING_METHODOLOGY_V35.md` §3 agrees. **"Nine" is stale.** It came from the v3.3
-methodology, whose table listed nine rows — but `trf` and `trn` both carried weight `0.00`. v3.5
-drops those two dead entries and promotes `spdx` (measured average speed) to a first-class signal.
+| `index.html` says | Reality | Where |
+|---|---|---|
+| "More than **6,000** roads ranked" | **4,483** | the score card |
+| "The **20** best roads in Britain" | **21** in S-tier | S-Tier card |
+| "the **nine** things that make a drive worth taking" | **eight** signals under v3.5 | ×5: hero body, score card, and the meta/og/twitter descriptions |
 
-So "What makes a great driving road" is correct: eight, with an eight-cell grid.
+`blog/best-driving-roads-uk.html` repeats "nine" four more times, but it is `noindex` and unlinked.
 
-⛔ **Still wrong and not yet changed** — `index.html` says "nine" in five places (meta, og and
-twitter descriptions, the hero body, and the "Every road measured on nine things" card), and
-`blog/best-driving-roads-uk.html` in four. The landing page copy is locked, so these are Neil's
-call, not a silent fix.
+**Why each is wrong:**
 
-⚠️ The eight article headings are not a 1:1 map of the eight signals — the article has "Enough
-length" (a length bonus, not a signal) and no section for `end` (end-point quality). The counts
-agree; the memberships do not quite. Neil's "about eight things" carries that.
+- **6,000 → 4,483.** The count has swung hard all year: 6,644 → 5,772 → 4,405 after the v3.5 cull,
+  back over 6,500 when fifteen regions landed on 3 September, and down again since. ⚠️ **This is a
+  moving number and should probably not be stated on a static page at all** — "thousands of roads"
+  would never need maintaining.
+- **20 → 21.** S-tier was 23 until the phantom-classification reversal (16 founding rows carried a
+  duplicated `cls_v3` credit from the v3.3 write) was applied. A542 Horseshoe Pass dropped out of
+  S-tier; it had been a phantom promotion. The feed confirms the reversal is now live.
+- **nine → eight.** `lib/score_v35.py` `W_V35`, commented *"WHAT SHIPPED 2026-08-13 and what is
+  LIVE on the map today"*: `cur .21 · elv .20 · cls .12 · drv .13 · np .11 · spdx .13 · end .05 ·
+  cam .05` = 1.00. Eight. "Nine" came from the v3.3 table, which listed nine rows — but `trf` and
+  `trn` both carried weight `0.00`. v3.5 drops those two and promotes `spdx` (measured average
+  speed) to a first-class signal.
+
+⛔ **Not fixed, because the landing copy is locked and these are Neil's call.** Flagged
+2026-09-09 and again 2026-10-02.
+
+✅ **Correct and verified against the same feed:** Duke's Pass **82.7**, A39 Exmoor **88.7** (both
+in the app screenshots and the body copy), and the A82 Glencoe hero is itself an S-tier road at
+84.5.
+
+⚠️ "What makes a great driving road" is **right** at eight, with an eight-cell grid — the article
+was never the problem. Its eight headings are not a 1:1 map of the eight signals, though: it has
+"Enough length" (a length bonus, not a signal) and no section for `end` (end-point quality). The
+counts agree; the memberships do not quite. Neil's "about eight things" carries that.
+
+## Analytics and consent
+
+GA4 property **G-42KLZHNL5B**, loaded from `assets/analytics.js` on every page. One file, one
+include line; change it there and it changes everywhere.
+
+**Why there is a banner at all.** UK PECR requires consent to store or read anything on a
+visitor's device. The Data (Use and Access) Act 2025 added a "statistical purposes" exception,
+but the ICO scopes it to cases where the sole purpose is your own statistics, the data is not
+shared onward, and it is **not** used for advertising. GA4 feeds Google's advertising ecosystem,
+so we do not rely on it.
+
+Consent Mode v2 is set to **denied before `gtag.js` loads**, so until a visitor chooses, GA4 sends
+cookieless pings and writes no identifiers.
+
+⛔ **`ad_storage`, `ad_user_data` and `ad_personalization` stay denied permanently.** We run no
+ads, so we do not ask for permission we have no use for. When paid starts that is a deliberate
+edit and a change to the banner copy, not a flag flipped quietly.
+
+⚠️ **Withdrawing consent must be as easy as giving it**, so a stored "granted" that could never be
+revoked would not be lawful consent. `cambrConsentReset()` reopens the banner and is wired to a
+button in the privacy policy. The two banner buttons are deliberately the same size and weight —
+do not make "accept" the prominent one.
+
+### The signup event
+
+`cambrTrack('signup', { form, ref })` fires in `index.html` on the **real** Kit success path only.
+
+⛔ **Do not move it into `showSuccess()`.** That function is also called for the honeypot, so
+hooking it there would count bots as conversions. It carries which form converted (`hero-form` or
+`closer-form`) and the `?ref=` code, which is what makes flyer-QR traffic visible at traffic level
+rather than only when someone converts.
+
+`cambrTrack` swallows its own errors: analytics must never break a signup.
+
+### Deliberately not done
+
+- **No hand-rolled outbound-click tracking.** GA4 Enhanced measurement is on for this stream and
+  already fires a richer `click` event for off-site links.
+- **No `anonymize_ip`.** That is a Universal Analytics flag; GA4 ignores it and anonymises
+  natively, so passing it would imply a control we do not have.
+
+Search Console is verified (auto-verified through the Google Workspace domain) and linked to GA4.
+Event and user data retention are both set to 14 months, the maximum on the free tier.
 
 ## Local preview
 
