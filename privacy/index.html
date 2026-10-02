@@ -14,7 +14,11 @@
     th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid rgba(128,128,128,0.35); }
     .muted { opacity: 0.75; font-size: 0.9em; }
     a { color: #D40000; }
+    #consent-change { font: inherit; font-size: 0.95em; cursor: pointer;
+      padding: 8px 14px; border-radius: 8px; border: 1px solid currentColor;
+      background: transparent; color: inherit; }
   </style>
+<script src="/assets/analytics.js" defer></script>
 </head>
 <body>
   <p class="muted"><a href="../">Cambr.</a></p>
@@ -50,28 +54,41 @@
     <tr><td><strong>Mapbox</strong> (maps, search and directions)</td><td>Map tiles for your viewport, the places you search, route start and end points, and your position along a route while navigating. Mapbox’s own privacy policy applies to that data.</td><td>Mapbox, Inc. (US) — <a href="https://www.mapbox.com/legal/privacy">mapbox.com/legal/privacy</a></td></tr>
     <tr><td><strong>Resend</strong> (email delivery)</td><td>Your email address, to send the sign-in link</td><td>US/EU</td></tr>
     <tr><td><strong>Apple</strong> (TestFlight, during the beta)</td><td>Crash logs and any feedback you send through TestFlight</td><td>Apple’s privacy policy applies</td></tr>
+    <tr><td><strong>Kit</strong> (waitlist email, website only)</td><td>The email address you enter on cambr.uk, and a referral code if you arrived from a printed link</td><td>Kit (US) — <a href="https://kit.com/privacy">kit.com/privacy</a></td></tr>
+    <tr><td><strong>Google Analytics</strong> (website only, and only if you agree)</td><td>Pages viewed, approximate location from your IP address, device and browser, and the site or link that sent you</td><td>Google (US/EU) — <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></td></tr>
   </table>
   <p>Where data leaves the UK, it is covered by the provider’s standard contractual clauses or equivalent safeguards.</p>
 
-  <h2>4. What other users can see</h2>
+  <h2>4. The website (cambr.uk)</h2>
+  <p>Sections 1 to 3 describe the app. The website itself asks for nothing except the email address you choose to enter on the waitlist form, which goes to Kit. If you reached the site from a printed link carrying a referral code, that code is sent with it so we know which flyer worked.</p>
+  <p>If you agree on the banner, we also use <strong>Google Analytics</strong> to count visits and see which pages and sources bring people here. We use it to understand the website, not to identify you: advertising storage is switched off, we do not run ads through it, and we do not sell or share the data for advertising.</p>
+  <p>Until you choose, Google Analytics runs without storing anything on your device. If you decline, it stays that way, and your choice is remembered in your browser so you are not asked again.</p>
+  <p><button type="button" id="consent-change">Change your analytics choice</button> <span class="muted">Opens the banner again. If nothing happens, analytics is not running in this browser.</span></p>
+  <script>
+    document.getElementById('consent-change').addEventListener('click', function () {
+      if (window.cambrConsentReset) window.cambrConsentReset();
+    });
+  </script>
+
+  <h2>5. What other users can see</h2>
   <p>Nothing, unless you choose it. A drive is private by default. If you set a drive’s visibility to “Everyone”, its title, distance, duration, roads, route overview and any note or photos appear in the public feed. Road reviews you post are shown with the road. You can delete a drive or review at any time.</p>
 
-  <h2>5. How long we keep it</h2>
+  <h2>6. How long we keep it</h2>
   <p>For as long as you have an account. Deleting your account (Profile → Settings → Delete account) removes your account and every record linked to it — drives, saved roads, routes, garage, reviews, captures and feedback — immediately and permanently. Anonymous accounts that have never saved anything may be removed after 90 days of inactivity. Backups are retained for up to 30 days.</p>
 
-  <h2>6. Your rights</h2>
+  <h2>7. Your rights</h2>
   <p>Under UK GDPR you can ask us to access, correct, export or delete your personal data, or object to or restrict how we use it. Deletion is built into the app; for anything else email <a href="mailto:hello@cambr.uk">hello@cambr.uk</a> and we will respond within one month. You can also complain to the Information Commissioner’s Office at <a href="https://ico.org.uk">ico.org.uk</a>.</p>
 
-  <h2>7. Location permission</h2>
+  <h2>8. Location permission</h2>
   <p>You can change or withdraw location access at any time in iOS Settings → Cambr → Location. Without it the app still shows the map and road scores, but cannot guide you or record drives. Background location is used only while a drive with guidance is active, so instructions keep coming if you switch apps or lock the phone.</p>
 
-  <h2>8. Children</h2>
+  <h2>9. Children</h2>
   <p>Cambr is for drivers and is not directed at children under 16. We do not knowingly collect data from them.</p>
 
-  <h2>9. Security</h2>
+  <h2>10. Security</h2>
   <p>Data is encrypted in transit and at rest. Every record is tied to your account and protected by row-level access rules, so no other user can read or change your data. The app never contains server credentials.</p>
 
-  <h2>10. Changes</h2>
+  <h2>11. Changes</h2>
   <p>We will update this page when the app’s data use changes and note the date at the top. Material changes during the beta will also be announced in the app.</p>
 </body>
 </html>

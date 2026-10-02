@@ -532,6 +532,7 @@
   }
   .form-note.error { color: var(--brand-rosso); font-weight: var(--fw-medium); display: none; }
 </style>
+<script src="/assets/analytics.js" defer></script>
 </head>
 <body>
 
@@ -871,6 +872,10 @@
         });
         if (!res.ok) throw new Error('Subscribe failed: ' + res.status);
         showSuccess();
+        // Real signups only. showSuccess() is also called for the honeypot, so
+        // the event goes here rather than inside it, or bots inflate conversions.
+        // cambrTrack swallows its own errors; analytics must never break a signup.
+        if (window.cambrTrack) window.cambrTrack('signup', { form: form.id || 'unknown' });
       } catch (err) {
         if (btn) btn.disabled = false;
         if (error) error.style.display = 'block';
