@@ -73,9 +73,9 @@ To publish one: get the corrected count and regions, fix the list and the table,
 
 ### ⛔ THREE NUMBERS ON THE LIVE LANDING PAGE ARE WRONG
 
-Checked **2026-10-02** against `data/cambr-roads-53d9191c.json`, the feed this repo serves,
-generated the same morning at 10:00 UTC. That file is the authority — it is what the live map is
-scoring from, not a doc that may have drifted.
+Checked **2026-10-02** against the live road-scores export generated that morning at 10:00 UTC.
+The export is the authority — it is what the live map is scoring from, not a doc that may have
+drifted. (It now lives in the private app repo, not here.)
 
 ```json
 "roads": 4483, "by_tier": {"S": 21, "A": 259, "B": 4203}
