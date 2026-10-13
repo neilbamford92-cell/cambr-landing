@@ -229,7 +229,29 @@
   }
 
   /* ---------- Email capture ---------- */
-  form.capture { margin-top: 38px; display: flex; gap: 10px; max-width: 460px; }
+  /* Column now: the device question sits above the email row. .capture-row keeps the
+     original input+button flex pair exactly as it was. */
+  form.capture { margin-top: 38px; display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
+  .capture-row { display: flex; gap: 10px; }
+
+  /* Device choice. role="radiogroup" rather than a <fieldset>/<legend>, because a legend inside
+     a flex container lays out unpredictably across browsers. */
+  .device-choice { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .device-label { width: 100%; font-size: 13px; color: var(--text-secondary); letter-spacing: 0.01em; }
+  .hero-copy .device-label { color: rgba(228,228,228,0.82); }
+  .device-opt { position: relative; display: inline-flex; cursor: pointer; }
+  /* The input stays in the accessibility tree and keeps keyboard behaviour; it is only
+     visually replaced by the pill. Never display:none — that removes it from tab order. */
+  .device-opt input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .device-opt span {
+    display: inline-block; padding: 10px 20px; border-radius: 999px;
+    border: 1px solid var(--hairline-strong); background: var(--card);
+    font-size: 14px; color: var(--text-primary);
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .device-opt input:checked + span { border-color: var(--brand-rosso); background: rgba(212,0,0,0.14); }
+  .device-opt input:focus-visible + span { box-shadow: 0 0 0 3px rgba(212,0,0,0.18); }
+  .device-choice.invalid .device-opt span { border-color: var(--brand-rosso); }
   form.capture input[type="email"] {
     flex: 1;
     font-family: var(--font-sans);
@@ -578,10 +600,17 @@
       <p class="region">UK now. <strong>Europe next.</strong></p>
 
       <form class="capture" id="hero-form" novalidate>
-        <label class="vh" for="hero-email">Email address</label>
-        <input type="email" id="hero-email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required>
-        <input type="text" class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button type="submit" class="btn-primary">Get early access</button>
+      <div class="device-choice" role="radiogroup" aria-labelledby="hero-device-label">
+        <span class="device-label" id="hero-device-label">Which phone do you drive with?</span>
+        <label class="device-opt"><input type="radio" name="device" value="iphone"><span>iPhone</span></label>
+        <label class="device-opt"><input type="radio" name="device" value="android"><span>Android</span></label>
+      </div>
+        <div class="capture-row">
+          <label class="vh" for="hero-email">Email address</label>
+          <input type="email" id="hero-email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required>
+          <input type="text" class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="btn-primary">Get early access</button>
+        </div>
       </form>
       <p class="form-note" data-note>We're launching this year. The first hundred sign-ups get founding-member pricing, locked for life.</p>
       <p class="form-note success" data-success>You're on the list. We'll be in touch before launch.</p>
@@ -763,10 +792,17 @@
     <h2>Be the first to drive it.</h2>
 
     <form class="capture" id="closer-form" novalidate>
-      <label class="vh" for="closer-email">Email address</label>
-      <input type="email" id="closer-email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required>
-      <input type="text" class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button type="submit" class="btn-primary">Count me in</button>
+      <div class="device-choice" role="radiogroup" aria-labelledby="closer-device-label">
+        <span class="device-label" id="closer-device-label">Which phone do you drive with?</span>
+        <label class="device-opt"><input type="radio" name="device" value="iphone"><span>iPhone</span></label>
+        <label class="device-opt"><input type="radio" name="device" value="android"><span>Android</span></label>
+      </div>
+      <div class="capture-row">
+        <label class="vh" for="closer-email">Email address</label>
+        <input type="email" id="closer-email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required>
+        <input type="text" class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn-primary">Count me in</button>
+      </div>
     </form>
     <p class="form-note" data-note>We're launching this year. Get on the list for early access.</p>
     <p class="form-note success" data-success>You're on the list. We'll be in touch before launch.</p>
@@ -800,6 +836,23 @@
   // Paste your Kit form submission endpoint here (Kit ▸ your form ▸ Embed ▸ share/HTML,
   // e.g. https://app.kit.com/forms/XXXXXX/subscriptions). Kit sends the welcome email.
   const KIT_FORM_ACTION = "https://app.kit.com/forms/9666617/subscriptions";
+
+  // ---------------------------------------------------------------
+  // Device tagging — "All iPhone" / "All Android" in Kit.
+  //
+  // Kit's free plan has no automations, so the tag cannot be derived inside Kit from a custom
+  // field; it has to be applied over the API, and every Kit v4 tag endpoint needs the SECRET
+  // api key. So the submit goes to an Edge Function that holds the key, subscribes, tags, and
+  // logs to `device_signups`. No key reaches this page.
+  //
+  // ⚠️ KIT_FORM_ACTION ABOVE IS STILL THE SAFETY NET. If the function is unreachable or answers
+  // anything but 2xx, we post straight to Kit exactly as this page did from July onwards. The
+  // person loses their tag, never their place on the list. Do not remove that path.
+  //
+  // No Supabase key is sent: the function is deployed with --no-verify-jwt precisely so this
+  // page does not have to carry one.
+  // ---------------------------------------------------------------
+  const DEVICE_FN = "https://rjffhprkqukyydxsesoo.supabase.co/functions/v1/device-signup";
 
   // ---------------------------------------------------------------
   // Ref-tag attribution — printed flyer QR encodes https://cambr.uk/?ref=ph
@@ -866,13 +919,31 @@
         input.style.borderColor = 'var(--brand-rosso)';
         return;
       }
+      // The form carries novalidate, so the required radio group is checked here rather than
+      // by the browser.
+      const group = form.querySelector('.device-choice');
+      const picked = form.querySelector('input[name="device"]:checked');
+      if (!picked) {
+        if (group) {
+          group.classList.add('invalid');
+          const first = form.querySelector('input[name="device"]');
+          if (first) first.focus();
+        }
+        return;
+      }
+      if (group) group.classList.remove('invalid');
+      const device = picked.value;
+
       // Honeypot: bots fill this hidden field, humans never do — silently accept, never POST.
       const hp = form.querySelector('.hp');
       if (hp && hp.value) { showSuccess(); return; }
 
       if (error) error.style.display = 'none';
       if (btn) btn.disabled = true;
-      try {
+
+      // The path this page has used since July. Subscribes, no tag. Used on its own if the
+      // Edge Function cannot be reached.
+      const subscribeDirect = async () => {
         const body = new FormData();
         body.append('email_address', email); // Kit's expected field name
         const ref = storedRef();
@@ -883,11 +954,29 @@
           headers: { 'Accept': 'application/json' }
         });
         if (!res.ok) throw new Error('Subscribe failed: ' + res.status);
+      };
+
+      try {
+        let tagged = false;
+        try {
+          const res = await fetch(DEVICE_FN, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, device: device, ref: storedRef() || null })
+          });
+          tagged = res.ok;
+        } catch (fnErr) {
+          tagged = false; // network error, CORS, function cold-started out — fall through
+        }
+        // ⚠️ Only when the function did NOT take them. Running both would double-post the same
+        // email to Kit for no gain.
+        if (!tagged) await subscribeDirect();
+
         showSuccess();
         // Real signups only. showSuccess() is also called for the honeypot, so
         // the event goes here rather than inside it, or bots inflate conversions.
         // cambrTrack swallows its own errors; analytics must never break a signup.
-        if (window.cambrTrack) window.cambrTrack('signup', { form: form.id || 'unknown' });
+        if (window.cambrTrack) window.cambrTrack('signup', { form: form.id || 'unknown', device: device, tagged: tagged });
       } catch (err) {
         if (btn) btn.disabled = false;
         if (error) error.style.display = 'block';
@@ -895,6 +984,12 @@
     });
   }
   document.querySelectorAll('form.capture').forEach(wireForm);
+
+  // Drop the error outline the moment a choice is made, rather than making them submit again
+  // to find out it is fixed.
+  document.querySelectorAll('.device-choice').forEach(function (g) {
+    g.addEventListener('change', function () { g.classList.remove('invalid'); });
+  });
 </script>
 
 </body>

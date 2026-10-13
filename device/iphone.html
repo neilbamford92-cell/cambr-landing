@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm iPhone — Cambr</title>
+<meta name="description" content="Confirm the phone you drive with so we send you the right launch email.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141414">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/assets/pages.css">
+<style>
+  .confirm-btn {
+    font-family: var(--font-sans); font-weight: var(--fw-semibold); font-size: 16px;
+    color: #fff; background: var(--brand-rosso); border: 0; border-radius: 999px;
+    padding: 16px 32px; cursor: pointer; margin-top: 8px;
+  }
+  .confirm-btn:hover { opacity: .88; }
+  .confirm-btn:disabled { opacity: .6; cursor: default; }
+  [hidden] { display: none !important; }
+</style>
+<script src="/assets/analytics.js" defer></script>
+<script src="/assets/device-confirm.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a href="/" aria-label="Cambr home"><span class="wordmark">Cambr<span class="dot">.</span></span></a>
+    <a href="/" class="top-back">← cambr.uk</a>
+  </div>
+</header>
+
+<main data-device="iphone">
+  <div class="wrap">
+    <div class="eyebrow">One tap</div>
+    <h1 class="page-title">You drive with an iPhone.</h1>
+
+    <p class="lede" data-note>Tap the button and we&rsquo;ll make sure the iPhone instructions are the ones that reach you.</p>
+
+    <button type="button" class="confirm-btn" data-confirm>Yes, I drive with iPhone</button>
+
+    <div class="confirm" data-done hidden>
+      <span class="tick">&#10003;</span>
+      <span>Saved &mdash; we&rsquo;ll send you the <b>iPhone</b> instructions.</span>
+    </div>
+
+    <p class="body-copy" data-noid hidden>
+      This link is missing the bit that tells us who you are, which usually means it was forwarded
+      or retyped. Open the original email on the device you want to use and tap the link there, or
+      just reply to the email and tell us &mdash; that works too.
+    </p>
+
+    <p class="updated">Nothing else needed from you right now.</p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <a href="/" aria-label="Cambr home"><span class="wordmark">Cambr<span class="dot">.</span></span></a>
+        <div class="foot-tag">Rip Turns. Arrive Late.</div>
+      </div>
+      <div class="copyright">&copy; 2026 Cambr.</div>
+      <div class="legal">
+        Cambr Technologies Ltd is a company registered in England and Wales, company number
+        17371232. Registered office: 71&ndash;75 Shelton Street, Covent Garden, London WC2H 9JQ.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
