@@ -215,6 +215,57 @@ On load, `index.html` reads the `ref` query parameter, sanitises it, and stores 
 To read the attribution in Kit: **Subscribers ▸ Filter ▸ Custom field ▸ `ref` is `ph`**, or save
 it as a Segment.
 
+## Device tagging — "All iPhone" / "All Android"
+
+Every subscriber should carry one of those two Kit tags so launch emails go to the right people.
+
+⛔ **It cannot be done from this page alone, and that is not a style choice.** Kit's free plan has
+no automations, so a tag cannot be derived inside Kit from a custom field. Every Kit v4 tag
+endpoint requires the secret `X-Kit-Api-Key`, and the v3 route that accepted a public key plus
+tags is deprecated. A static page can only tag people by publishing the key. So the work happens
+in a Supabase Edge Function, `device-signup`, which lives in the **app repo** (`apex-maps`,
+`supabase/functions/device-signup`) alongside the `device_signups` migration.
+
+Tag ids, read from the live account 2026-10-13 — **ids, not names**, because a rename in the Kit
+UI keeps the id:
+
+```
+All iPhone  = 24393139
+All Android = 24393141
+```
+
+### The sign-up form
+
+Both forms carry a required "Which phone do you drive with?" choice. The form is `novalidate`, so
+that requirement is enforced in the submit handler, not by the browser.
+
+⚠️ **`KIT_FORM_ACTION` is still the safety net and must stay.** The submit goes to the Edge
+Function; if that is unreachable or answers anything but 2xx, the handler posts straight to Kit's
+public form endpoint exactly as this page did from July onwards. **The person loses their tag,
+never their place on the list.** The two paths are mutually exclusive — running both would
+double-post the same address.
+
+No Supabase key appears in the page. The function is deployed `--no-verify-jwt` precisely so the
+page does not need to carry one.
+
+### `/device/iphone` and `/device/android`
+
+For subscribers who signed up before the question existed. A Kit broadcast links to
+`https://cambr.uk/device/iphone?s={{ subscriber.id }}`.
+
+⛔⛔ **The tag is applied on the tap, never on page load.** Outlook, Gmail and corporate mail
+scanners fetch every link in an email before the human sees it. Tagging on load would tag people
+who never opened the email, and would tag **both** devices for anyone whose scanner follows both
+links. The button is the entire mechanism — do not "simplify" it away.
+
+Flat files (`device/iphone.html`), not folders, so the email link resolves at `/device/iphone`
+with a 200 and no redirect. A folder would 301 on every tap. See the Pages URL-resolution note
+under Deploy.
+
+⚠️ `/ios` and `/android` are a different, older pair of pages. They say "Answer recorded" but
+record nothing — they were informational destinations from the July emails. If they are linked
+again, either wire them to this function or change that wording.
+
 ## The email destination pages
 
 `/ios`, `/android` and `/beta` are linked from subscriber emails. They are **`noindex`** — email
