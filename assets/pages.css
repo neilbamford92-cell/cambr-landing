@@ -100,6 +100,11 @@ h1.page-title {
    (.build-block > p, .feature p). Secondary stays for asides and captions. */
 .body-copy { font-size: 15.5px; line-height: 1.62; color: var(--text-primary); margin-top: 18px; }
 .body-copy strong { color: #FFFFFF; font-weight: var(--fw-semibold); }
+/* The global `a` rule above is text-primary with no underline, which makes an
+   inline link indistinguishable from the sentence around it. Matches the
+   .section-card a treatment already used on /beta. */
+.body-copy a { color: var(--brand-rosso); font-weight: var(--fw-semibold); }
+.body-copy a:hover { opacity: .7; }
 .body-copy + .body-copy { margin-top: 14px; }
 
 /* ---------- Confirmation tick ---------- */
