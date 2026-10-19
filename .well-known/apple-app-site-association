@@ -1,0 +1,31 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "F7TFN4LJB7.uk.cambr.app.dev",
+          "F7TFN4LJB7.uk.cambr.app"
+        ],
+        "components": [
+          {
+            "/": "/",
+            "?": {
+              "r": "?*"
+            },
+            "comment": "a shared road: /?r=<id>&s=f"
+          },
+          {
+            "/": "/index.html",
+            "?": {
+              "r": "?*"
+            }
+          },
+          {
+            "/": "/r/*",
+            "comment": "links sent by the first V1 (9 Oct)"
+          }
+        ]
+      }
+    ]
+  }
+}

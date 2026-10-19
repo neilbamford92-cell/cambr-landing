@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "uk.cambr.app",
+      "sha256_cert_fingerprints": [
+        "1A:4A:9D:39:4B:16:76:27:03:3B:98:B3:00:F2:D5:C6:56:DC:67:F1:DB:D3:C3:3D:B1:30:1B:5C:4A:80:AF:7C"
+      ]
+    }
+  }
+]
