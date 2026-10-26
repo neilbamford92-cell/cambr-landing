@@ -86,6 +86,13 @@ header.top { border-bottom: 1px solid var(--hairline); }
   justify-self: start;
 }
 .wordmark:hover { color: var(--ink); }
+
+/* The supplied horizontal lockup, used whole rather than assembled from a mark
+   plus live text: the brand spec fixes the gap between them, so rebuilding it
+   here would drift. assets/brand/.../LOGO.md. */
+.logo-lockup { display: block; height: 28px; width: auto; }
+footer .logo-lockup, .foot-inner .logo-lockup { height: 24px; }
+
 .wordmark .dot { color: var(--rosso); }
 
 .top-nav {

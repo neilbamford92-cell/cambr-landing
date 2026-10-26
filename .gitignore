@@ -1,1 +1,11 @@
 .DS_Store
+
+# Brand source folder (53 MB, 138 files) — kept local, deliberately NOT committed.
+# This repo is PUBLIC and GitHub Pages serves everything in it, so committing the
+# folder would publish the superseded marks in "OLD - DO NOT USE (NOT CENTERED" and
+# "social dressings/OLD" at cambr.uk/assets/brand/..., and 7x the repo.
+# The production copies the site actually serves live in assets/ :
+#   favicon.svg · favicon-48/96/192.png · apple-touch-icon.png · /favicon.ico
+#   cambr-lockup-horizontal.svg · cambr-mark.svg
+# Source of truth stays at assets/brand/Cambr logo - final/CURRENT - CENTERED/.
+assets/brand/

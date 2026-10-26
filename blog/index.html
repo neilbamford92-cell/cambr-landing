@@ -14,7 +14,14 @@
 <meta property="og:image" content="https://cambr.uk/assets/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#141414">
-<link rel="icon" href="/assets/favicon.svg">
+<!-- Icons. ⚠️ Google wants a favicon whose dimensions are a MULTIPLE OF 48 — a 32px
+     source gets downscaled from too little detail and the three lanes turn to mush.
+     Artwork: assets/brand/.../CURRENT - CENTERED. Supersedes the old red "C." square. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="stylesheet" href="/colors_and_type.css">
 <link rel="stylesheet" href="assets/article.css">
 <script src="/assets/analytics.js" defer></script>
@@ -23,7 +30,7 @@
 
 <header class="top">
   <div class="top-inner">
-    <a href="/" class="wordmark">Cambr<span class="dot">.</span></a>
+    <a href="/" aria-label="Cambr home"><img class="logo-lockup" src="/assets/cambr-lockup-horizontal.svg" alt="" width="102" height="28"></a>
     <nav class="top-nav">
       <a href="/">Home</a>
       <a href="/blog/" class="here">Journal</a>
@@ -83,7 +90,7 @@
 <footer class="site">
   <div class="foot-inner">
     <div>
-      <a href="/" class="wordmark">Cambr<span class="dot">.</span></a>
+      <a href="/" aria-label="Cambr home"><img class="logo-lockup" src="/assets/cambr-lockup-horizontal.svg" alt="" width="102" height="28"></a>
       <div class="foot-tag">Rip Turns. Arrive Late.</div>
     </div>
     <div class="mono"><a href="https://www.instagram.com/cambr.app/">Instagram</a></div>

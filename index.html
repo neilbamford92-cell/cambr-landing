@@ -23,8 +23,15 @@
 <meta name="twitter:description" content="The first navigation app for people who love to drive. We scored every road in the UK on the nine things that make a drive worth taking — and built a map that routes you through the great ones, not around them.">
 <meta name="twitter:image" content="https://cambr.uk/assets/og-image.jpg">
 
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preload" as="image" type="image/webp" imagesizes="100vw" imagesrcset="assets/photography/thumbs/glencoe-800.webp 800w, assets/photography/thumbs/glencoe-1200.webp 1200w, assets/photography/thumbs/glencoe-1600.webp 1600w, assets/photography/thumbs/glencoe-2000.webp 2000w">
+<!-- Icons. ⚠️ Google wants a favicon whose dimensions are a MULTIPLE OF 48 — a 32px
+     source gets downscaled from too little detail and the three lanes turn to mush.
+     Artwork: assets/brand/.../CURRENT - CENTERED. Supersedes the old red "C." square. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="stylesheet" href="colors_and_type.css">
 <script type="module" src="https://unpkg.com/ionicons@7/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7/dist/ionicons/ionicons.js"></script>
@@ -76,6 +83,12 @@
     padding: 30px 40px;
   }
   .top .wordmark { font-size: 26px; justify-self: start; }
+  /* The supplied horizontal lockup, used whole rather than assembled from a mark
+     plus live text: the brand spec fixes the gap between them, so rebuilding it
+     here would drift. assets/brand/.../LOGO.md. */
+  .logo-lockup { display: block; height: 28px; width: auto; justify-self: start; }
+  footer .logo-lockup { height: 24px; }
+  .closer-mark { display: block; height: 50px; width: auto; margin: 0 auto 22px; }
   .top-cta {
     justify-self: end;
     font-weight: var(--fw-semibold); font-size: 14px;
@@ -549,7 +562,7 @@
 
 <header class="top">
   <div class="top-inner">
-    <span class="wordmark">Cambr<span class="dot">.</span></span>
+    <img class="logo-lockup" src="/assets/cambr-lockup-horizontal.svg" alt="Cambr" width="102" height="28">
     <nav class="top-nav">
       <a href="/" class="top-link here">Home</a>
       <a href="/blog/" class="top-link">Journal</a>
@@ -759,6 +772,7 @@
 <!-- ===================== CLOSER ===================== -->
 <section class="band closer">
   <div class="wrap">
+    <img class="closer-mark" src="/assets/cambr-mark.svg" alt="" width="46" height="50">
     <div class="band-eyebrow" style="margin-bottom:16px; font-size:15px; letter-spacing:0.1em;">Cambr is built by enthusiasts, for enthusiasts.</div>
     <h2>Be the first to drive it.</h2>
 
@@ -779,7 +793,7 @@
   <div class="wrap">
     <div class="foot-inner">
       <div>
-        <span class="wordmark">Cambr<span class="dot">.</span></span>
+        <img class="logo-lockup" src="/assets/cambr-lockup-horizontal.svg" alt="Cambr" width="102" height="28">
         <div class="foot-tag">Rip Turns. Arrive Late.</div>
       </div>
       <div class="socials">
