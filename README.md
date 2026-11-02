@@ -116,6 +116,73 @@ founding elevation signal is a known defect, deferred by decision. When it is co
 88.9, Buttertubs 86.0, Duke's Pass 86.5, A39 Exmoor 87.8, Bealach 75.9, the 22 S-tier count and
 the route percentages all move together. Re-run every figure after that release.
 
+## Homepage 1b — schema and the cold-search sections (2026-11-02)
+
+Built from `cambr-web/homepage/copy.md` (copy) and `seo-pack.md` (meta, schema). Page order is
+now hero → definition → what we've built → how to use → comparison → honest limits → FAQ →
+closer → footer.
+
+**One `<script type="application/ld+json">` holds a three-node `@graph`:** `SoftwareApplication`,
+`Organization`, `FAQPage`. The homepage had no structured data at all before this.
+
+- **No `aggregateRating`**, and none until there are real App Store ratings. Inventing one is
+  both a brand-rule violation and a structured-data penalty.
+- **`countriesSupported: "GB"`**, the ISO code, which also matches the honest limit in the copy.
+- **`operatingSystem: "iOS"`** — kept at iOS even though the meta description now mentions
+  Android, because the schema states what you can install today and Android has not shipped.
+  Add `"Android"` on the day it does, alongside the FAQ and the limits section.
+- **`logo`** points at `assets/cambr-lockup-horizontal.png`, generated for this purpose. The SVG
+  lockup is `#F5F5F5` on transparent, so it vanishes on the white background Google renders a
+  logo against; the PNG is the lockup on brand dark `#141414` at 1200×400.
+- **The FAQ schema mirrors the visible page verbatim.** Google requires the answer text to be
+  present on the page, so the two must not drift. If you edit a question, edit both.
+
+**The FAQ has eight questions, not the six in the SEO pack's schema block.** `copy.md` supplies
+eight and the copy is the signed-off source, so cutting two to match a summary table would have
+been an edit to final copy. The two extra are "Is Cambr a speed camera detector?" and "Who is
+Cambr for?".
+
+### ⛔ The FAQ contradicts the score section, by decision
+
+FAQ answer 2 lists **eight** factors under their internal signal names — *corners, climb,
+protected landscape, road class, width, surface, how fast traffic really moves and camera
+coverage*. The score section above it names the app's **six** — *corners, climb, scenery, flow,
+width and surface, road type*.
+
+Flagged to Neil on 2026-11-02 with the option to use the six; he chose to **ship the supplied
+copy verbatim**. It is live, and it is in `FAQPage` schema, so the contradiction is
+machine-readable. Fix both the visible answer and the schema together when it is settled.
+
+### Held links
+
+Two internal links are deliberately absent until their pages exist. Both are marked in place:
+
+```
+grep -n 'TODO wire' index.html
+```
+
+`/how-scoring-works` (work item 2) from the score callout, and `/best-driving-routes-uk`
+(work item 3) from the final CTA, anchor text "best driving routes".
+
+### Other notes
+
+- **Meta.** Title and description are the SEO pack's, with Neil's amendment to name Android:
+  "Free on iPhone, Android soon." replaces the pack's "iOS. Free to explore." — 156 characters,
+  inside the truncation limit. The H1 is unchanged; `copy.md` explicitly says keep the live one.
+- **"Rip Turns. Arrive Late." is now the closer `<h2>`**, replacing "Be the first to drive it.",
+  and is gone from the homepage footer. ⚠️ It is still in the **Journal** footers
+  (`blog/index.html`, `blog/what-makes-a-great-driving-road.html`). Reconcile when those pages
+  are next touched.
+- **The comparison table must stay a `<table>`.** It is the element most likely to be pulled into
+  a search result or an AI answer. It sits in a labelled, keyboard-scrollable container so it
+  survives 390px without forcing the page to scroll sideways; do not convert it to cards.
+- **The car spots line in Browse & Discover is not signed-off copy.** The brief asked for one
+  line and supplied none, so it was written here: "There are 71 car spots on there too, the meets
+  and cafes worth ending a drive at."
+- **Eleven image assets from the SEO pack are outstanding**, including the two that matter most,
+  which are photographs rather than screenshots: the hero and an in-car shot. The new sections
+  are text-only by design — the honest-limits section in particular is meant to carry no icons.
+
 ## Analytics and consent
 
 GA4 property **G-42KLZHNL5B**, loaded from `assets/analytics.js` on every page. One file, one
