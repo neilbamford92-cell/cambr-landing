@@ -128,9 +128,12 @@ closer → footer.
 - **No `aggregateRating`**, and none until there are real App Store ratings. Inventing one is
   both a brand-rule violation and a structured-data penalty.
 - **`countriesSupported: "GB"`**, the ISO code, which also matches the honest limit in the copy.
-- **`operatingSystem: "iOS"`** — kept at iOS even though the meta description now mentions
-  Android, because the schema states what you can install today and Android has not shipped.
-  Add `"Android"` on the day it does, alongside the FAQ and the limits section.
+- **`operatingSystem: "iOS, Android"`.** Corrected 2026-11-02 on Neil's word that Cambr is in
+  test on both devices now and **launches on both on the same day**. That one fact touched
+  seven places on this page, so check all of them together if it ever changes: the three meta
+  descriptions, `operatingSystem`, the FAQ answer (twice — visible and schema), the hero
+  eyebrow, the definition line, and the honest-limits paragraph. The launch sentence is the
+  one already signed off on `/android/`: "Cambr will launch on iPhone and Android on the same day."
 - **`logo`** points at `assets/cambr-lockup-horizontal.png`, generated for this purpose. The SVG
   lockup is `#F5F5F5` on transparent, so it vanishes on the white background Google renders a
   logo against; the PNG is the lockup on brand dark `#141414` at 1200×400.
@@ -167,7 +170,7 @@ grep -n 'TODO wire' index.html
 ### Other notes
 
 - **Meta.** Title and description are the SEO pack's, with Neil's amendment to name Android:
-  "Free on iPhone, Android soon." replaces the pack's "iOS. Free to explore." — 156 characters,
+  "Free on iPhone and Android." replaces the pack's "iOS. Free to explore." — 154 characters,
   inside the truncation limit. The H1 is unchanged; `copy.md` explicitly says keep the live one.
 - **"Rip Turns. Arrive Late." is now the closer `<h2>`**, replacing "Be the first to drive it.",
   and is gone from the homepage footer. ⚠️ It is still in the **Journal** footers
@@ -179,6 +182,9 @@ grep -n 'TODO wire' index.html
 - **The car spots line in Browse & Discover is not signed-off copy.** The brief asked for one
   line and supplied none, so it was written here: "There are 71 car spots on there too, the meets
   and cafes worth ending a drive at."
+- ⚠️ **`/android/` still says "Android testing opens on 15 October"**, which reads oddly in
+  November now that testing is open. Its copy was signed off on 19 October and is otherwise
+  correct — it already carries the launch-together line. Neil's call.
 - **Eleven image assets from the SEO pack are outstanding**, including the two that matter most,
   which are photographs rather than screenshots: the hero and an in-car shot. The new sections
   are text-only by design — the honest-limits section in particular is meant to carry no icons.
