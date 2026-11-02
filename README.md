@@ -71,51 +71,50 @@ sums to 18. They still use the legacy cream `journal.css`.
 To publish one: get the corrected count and regions, fix the list and the table, convert it to
 `article.css`, drop the `noindex`, and add it back to the index and the sitemap.
 
-### ⛔ THREE NUMBERS ON THE LIVE LANDING PAGE ARE WRONG
+### ✅ The three wrong numbers are fixed (2026-11-02, scoring v3.6)
 
-Checked **2026-10-02** against the live road-scores export generated that morning at 10:00 UTC.
-The export is the authority — it is what the live map is scoring from, not a doc that may have
-drifted. (It now lives in the private app repo, not here.)
+Flagged 2026-09-09, again 2026-10-02, and corrected on 2026-11-02 from the `cambr-web`
+handoff, which was written against the live database under **v3.6**. Neil signed the copy off,
+which lifts the copy lock for these lines specifically.
 
-```json
-"roads": 4483, "by_tier": {"S": 21, "A": 259, "B": 4203}
-```
-(148 founding + 4,335 discovered.)
-
-| `index.html` says | Reality | Where |
+| `index.html` said | Now says | Where |
 |---|---|---|
-| "More than **6,000** roads ranked" | **4,483** | the score card |
-| "The **20** best roads in Britain" | **21** in S-tier | S-Tier card |
-| "the **nine** things that make a drive worth taking" | **eight** signals under v3.5 | ×5: hero body, score card, and the meta/og/twitter descriptions |
+| "More than **6,000** roads ranked" | "Every driving road in Britain and Ireland" | the score card |
+| "The **20** best roads in Britain" | "The **22** highest-scoring roads in Britain and Ireland" | S-Tier card |
+| "the **nine** things that make a drive worth taking" | "the **six** things…" | ×4: hero body + the meta/og/twitter descriptions |
+| "Duke's Pass scores **82.7**" | **86.5** | the S-chip callout |
 
-`blog/best-driving-roads-uk.html` repeats "nine" four more times, but it is `noindex` and unlinked.
+**The count is gone, not corrected.** It swung 6,644 → 5,772 → 4,405 → 6,500+ → 4,483 across a
+single year, so any figure dates the moment the next region lands. The replacement line states
+coverage instead, which never needs maintaining.
 
-**Why each is wrong:**
+**nine → six, not eight.** The old note here read "eight", from `lib/score_v35.py` `W_V35`
+(`cur · elv · cls · drv · np · spdx · end · cam`). That was the count of *internal weighted
+signals* under v3.5. v3.6 presents **six factors** in the road sheet, and those are what the site
+must agree with, because a reader can open the app and count them:
 
-- **6,000 → 4,483.** The count has swung hard all year: 6,644 → 5,772 → 4,405 after the v3.5 cull,
-  back over 6,500 when fifteen regions landed on 3 September, and down again since. ⚠️ **This is a
-  moving number and should probably not be stated on a static page at all** — "thousands of roads"
-  would never need maintaining.
-- **20 → 21.** S-tier was 23 until the phantom-classification reversal (16 founding rows carried a
-  duplicated `cls_v3` credit from the v3.3 write) was applied. A542 Horseshoe Pass dropped out of
-  S-tier; it had been a phantom promotion. The feed confirms the reversal is now live.
-- **nine → eight.** `lib/score_v35.py` `W_V35`, commented *"WHAT SHIPPED 2026-08-13 and what is
-  LIVE on the map today"*: `cur .21 · elv .20 · cls .12 · drv .13 · np .11 · spdx .13 · end .05 ·
-  cam .05` = 1.00. Eight. "Nine" came from the v3.3 table, which listed nine rows — but `trf` and
-  `trn` both carried weight `0.00`. v3.5 drops those two and promotes `spdx` (measured average
-  speed) to a first-class signal.
+> **Corners · Climb · Scenery · Flow · Width & surface · Road type**, plus a separate press
+> reputation layer.
 
-⛔ **Not fixed, because the landing copy is locked and these are Neil's call.** Flagged
-2026-09-09 and again 2026-10-02.
+Duke's Pass reconciles exactly: 25.0 + 9.3 + 10.4 + 11.8 + 10.1 + 10.0 = 76.6, plus 9.9 press
+= **86.5**. Verified against `uploads/app-dukes-640.jpg`, which is that screen.
+Use the app's own six names on any new page — when the page and the product use the same words,
+anyone who checks one against the other finds they agree.
 
-✅ **Correct and verified against the same feed:** Duke's Pass **82.7**, A39 Exmoor **88.7** (both
-in the app screenshots and the body copy), and the A82 Glencoe hero is itself an S-tier road at
-84.5.
+### ⛔ STILL WRONG: the published article says eight
 
-⚠️ "What makes a great driving road" is **right** at eight, with an eight-cell grid — the article
-was never the problem. Its eight headings are not a 1:1 map of the eight signals, though: it has
-"Enough length" (a length bonus, not a signal) and no section for `end` (end-point quality). The
-counts agree; the memberships do not quite. Neil's "about eight things" carries that.
+`blog/what-makes-a-great-driving-road.html` is **indexed, in the sitemap at priority 0.9, linked
+from the Journal and already emailed to the list.** It says "about **eight** things" (×2) and
+carries an eight-cell `.signals` grid naming *Corner cadence, Elevation change, Sight lines…* —
+neither the count nor the names match the six the homepage now states.
+
+This is a contradiction between two indexed pages, and it is a content job, not a number swap:
+the article's structure, its grid and its pull-quote are all built on eight. **Neil's call.**
+
+⚠️ **Scores expire together.** Every figure on the site is live as of 2026-11-02 under v3.6. The
+founding elevation signal is a known defect, deferred by decision. When it is corrected, Hartside
+88.9, Buttertubs 86.0, Duke's Pass 86.5, A39 Exmoor 87.8, Bealach 75.9, the 22 S-tier count and
+the route percentages all move together. Re-run every figure after that release.
 
 ## Analytics and consent
 
