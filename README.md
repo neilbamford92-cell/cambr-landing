@@ -101,15 +101,23 @@ Duke's Pass reconciles exactly: 25.0 + 9.3 + 10.4 + 11.8 + 10.1 + 10.0 = 76.6, p
 Use the app's own six names on any new page — when the page and the product use the same words,
 anyone who checks one against the other finds they agree.
 
-### ⛔ STILL WRONG: the published article says eight
+### ✅ Eight measures, six score lines — not a contradiction
 
-`blog/what-makes-a-great-driving-road.html` is **indexed, in the sitemap at priority 0.9, linked
-from the Journal and already emailed to the list.** It says "about **eight** things" (×2) and
-carries an eight-cell `.signals` grid naming *Corner cadence, Elevation change, Sight lines…* —
-neither the count nor the names match the six the homepage now states.
+Neil, 2026-11-03: **the scoring has eight measures.** Six of them have a proper score line, and
+those six are what the road-detail screen shows. The other two make more sense stated as a fact
+than drawn as a bar — cameras, for instance, reads as *none, some, lots* (the sheet shows "No
+cameras" next to the speed limit and average speed). The app also deliberately uses **simpler
+names** than the methodology docs.
 
-This is a contradiction between two indexed pages, and it is a content job, not a number swap:
-the article's structure, its grid and its pull-quote are all built on eight. **Neil's call.**
+So all of these are right, and none needs changing:
+
+- `blog/what-makes-a-great-driving-road` — "about **eight** things", methodology names
+- the homepage FAQ and article 1's FAQ — the eight, under methodology names
+- the homepage score section and `/how-scoring-works` — the **six** the app draws as score lines,
+  under the app's names
+
+When writing new copy: say **six** when you mean what the road sheet shows a reader, and use the
+app's names for them. Say **eight** only when describing everything the algorithm measures.
 
 ⚠️ **Scores expire together.** Every figure on the site is live as of 2026-11-02 under v3.6. The
 founding elevation signal is a known defect, deferred by decision. When it is corrected, Hartside
@@ -145,17 +153,6 @@ eight and the copy is the signed-off source, so cutting two to match a summary t
 been an edit to final copy. The two extra are "Is Cambr a speed camera detector?" and "Who is
 Cambr for?".
 
-### ⛔ The FAQ contradicts the score section, by decision
-
-FAQ answer 2 lists **eight** factors under their internal signal names — *corners, climb,
-protected landscape, road class, width, surface, how fast traffic really moves and camera
-coverage*. The score section above it names the app's **six** — *corners, climb, scenery, flow,
-width and surface, road type*.
-
-Flagged to Neil on 2026-11-02 with the option to use the six; he chose to **ship the supplied
-copy verbatim**. It is live, and it is in `FAQPage` schema, so the contradiction is
-machine-readable. Fix both the visible answer and the schema together when it is settled.
-
 ### Held links
 
 Two internal links are deliberately absent until their pages exist. Both are marked in place:
@@ -172,19 +169,16 @@ grep -n 'TODO wire' index.html
 - **Meta.** Title and description are the SEO pack's, with Neil's amendment to name Android:
   "Free on iPhone and Android." replaces the pack's "iOS. Free to explore." — 154 characters,
   inside the truncation limit. The H1 is unchanged; `copy.md` explicitly says keep the live one.
-- **"Rip Turns. Arrive Late." is now the closer `<h2>`**, replacing "Be the first to drive it.",
-  and is gone from the homepage footer. ⚠️ It is still in the **Journal** footers
-  (`blog/index.html`, `blog/what-makes-a-great-driving-road.html`). Reconcile when those pages
-  are next touched.
+- **"Rip Turns. Arrive Late." is both the closer `<h2>` and the footer tag**, on every page.
+  It moved out of the homepage footer on 2026-11-02 and Neil put it back on 2026-11-03.
+- **The closer eyebrow is "The navigation tool for car enthusiasts"** (Neil, 2026-11-03),
+  replacing "Cambr is built by enthusiasts, for enthusiasts."
 - **The comparison table must stay a `<table>`.** It is the element most likely to be pulled into
   a search result or an AI answer. It sits in a labelled, keyboard-scrollable container so it
   survives 390px without forcing the page to scroll sideways; do not convert it to cards.
 - **The car spots line in Browse & Discover is not signed-off copy.** The brief asked for one
   line and supplied none, so it was written here: "There are 71 car spots on there too, the meets
   and cafes worth ending a drive at."
-- ⚠️ **`/android/` still says "Android testing opens on 15 October"**, which reads oddly in
-  November now that testing is open. Its copy was signed off on 19 October and is otherwise
-  correct — it already carries the launch-together line. Neil's call.
 - **Eleven image assets from the SEO pack are outstanding**, including the two that matter most,
   which are photographs rather than screenshots: the hero and an in-car shot. The new sections
   are text-only by design — the honest-limits section in particular is meant to carry no icons.
