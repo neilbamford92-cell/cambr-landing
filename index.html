@@ -422,7 +422,10 @@
   }
   .tier-card h3 { font-weight: var(--fw-bold); font-size: 19px; letter-spacing: -0.01em; margin-bottom: 10px; color: #FFFFFF; }
   .tier-card p { font-size: 14.5px; line-height: 1.5; color: var(--text-secondary); }
-  .tier-card .glyph { font-size: 13px; margin-left: 7px; }
+  /* Tier marks: one 12px box each, drawn rather than typed, so the diamond, triangle and
+     dot sit at the same size and height whatever the font does with the characters. */
+  .tier-card .glyph { display: inline-flex; width: 12px; height: 12px; margin-left: 8px; vertical-align: 1px; }
+  .tier-card .glyph svg { width: 100%; height: 100%; display: block; fill: currentColor; }
 
   .tier-s .tier-badge { background: var(--tier-s-fill); color: var(--tier-s); border: 1px solid var(--tier-s); }
   .tier-a .tier-badge { background: var(--tier-a-fill); color: var(--tier-a); border: 1px solid var(--tier-a); }
@@ -477,8 +480,11 @@
 
   /* ---------- Definition line (plain text, quotable standalone) ----------
      The words are the canonical line and stay plain text in the DOM; the spans only
-     set tone. The route beside it is the article's #1 drive, Penrith to Reeth, with
-     the two S-tier roads it really does cross, labelled the way the app labels them. */
+     set tone. The map beside it is the article's #1 drive, Penrith to Reeth, drawn from
+     its real geometry (curated_routes 'north-pennines-to-swaledale', British National
+     Grid, 1px = 112m) and coloured by the tier of each road it uses, over every scored
+     road in the same box, dimmed. Hartside and Buttertubs are labelled the way the app
+     labels them. How it was generated: README, "Round 3". */
   section.define { padding: 92px 0; position: relative; overflow: hidden;
     background:
       radial-gradient(60% 80% at 82% 50%, rgba(192,132,252,0.10), transparent 70%),
@@ -493,15 +499,22 @@
   .define-line strong { color: #FFFFFF; font-weight: var(--fw-semibold); }
   .define-line .accent { color: var(--brand-rosso); font-weight: var(--fw-semibold); }
   .define-route { position: relative; }
-  .define-route svg { display: block; width: 100%; height: auto; overflow: visible; }
-  .define-route .seg { fill: none; stroke-width: 6; stroke-linecap: round; }
-  .define-route .glow { fill: none; stroke-width: 14; stroke-linecap: round; opacity: .55; filter: url(#define-blur); }
+  .define-route svg { display: block; width: 100%; height: auto; overflow: hidden; }
+  .define-route .bg path { fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; opacity: .34; }
+  .define-route .seg { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .define-route .seg.o { stroke: rgba(255,255,255,0.5); stroke-width: 3.5; }
+  .define-route .glow { fill: none; stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; opacity: .5; filter: url(#define-blur); }
   .define-route .s { stroke: var(--tier-s); } .define-route .a { stroke: var(--tier-a); } .define-route .b { stroke: var(--tier-c); }
-  .define-route .net { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 1.2; }
+  .define-route .lead { fill: none; stroke: rgba(255,255,255,0.55); stroke-width: 1.2; }
+  .define-route .lead-dot { fill: #FFFFFF; }
   .define-route .pin { fill: var(--bg); stroke: #FFFFFF; stroke-width: 3.5; }
-  .define-route .place { fill: #FFFFFF; font: 600 13px var(--font-sans); }
+  .define-route .place { fill: #FFFFFF; font: 600 15px var(--font-sans); }
+  .define-route .town-dot { fill: rgba(255,255,255,0.75); }
+  .define-route .town { fill: rgba(255,255,255,0.62); font: 500 12px var(--font-sans); }
+  .define-route .scale path { fill: none; stroke: rgba(255,255,255,0.45); stroke-width: 1.2; }
+  .define-route .scale text { fill: rgba(255,255,255,0.5); font: 500 11px var(--font-sans); }
   .road-chip {
-    position: absolute; transform: translate(-50%, -50%);
+    position: absolute; transform: translateY(-50%);
     display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
     background: rgba(20,20,20,0.92); border: 1px solid var(--hairline-strong); border-radius: 999px;
     padding: 6px 12px 6px 6px; font-size: 13px; font-weight: var(--fw-semibold); color: #FFFFFF;
@@ -510,8 +523,9 @@
   .road-chip .t { width: 22px; height: 22px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center;
     font-size: 12px; font-weight: var(--fw-bold); color: #141414; background: var(--tier-s); }
   .road-chip b { color: var(--tier-s); font-weight: var(--fw-bold); }
-  .road-chip.c1 { left: 15%; top: 58%; }
-  .road-chip.c2 { left: 63%; top: 19%; }
+  /* Chip positions are fractions of the 520 x 570 map, so they stay on their roads at any width. */
+  .road-chip.c1 { left: 1.5%; top: 4.2%; }
+  .road-chip.c2 { right: 1%; top: 74.6%; }
   .define-caption { margin-top: 14px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
   .define-caption a { color: var(--text-primary); border-bottom: 1px solid var(--brand-rosso); }
   @media (max-width: 900px) {
@@ -520,9 +534,9 @@
     .define-route { max-width: 520px; }
   }
   @media (max-width: 560px) {
-    .road-chip { font-size: 11.5px; gap: 6px; padding: 4px 9px 4px 4px; }
-    .road-chip .t { width: 18px; height: 18px; font-size: 10px; }
-    .road-chip.c1 { left: 25%; top: 56%; }
+    .road-chip { font-size: 10.5px; gap: 5px; padding: 3px 8px 3px 3px; }
+    .road-chip .t { width: 17px; height: 17px; font-size: 9.5px; }
+    .define-route .town, .define-route .scale { display: none; }
   }
 
   /* ---------- Why Cambr stands out (comparison) ----------
@@ -538,12 +552,15 @@
   table.compare thead .col-sub { display: block; margin-top: 4px; font-size: 12px; font-weight: var(--fw-medium); color: var(--text-secondary); }
   table.compare tbody th { font-size: 16px; font-weight: var(--fw-semibold); color: #FFFFFF; width: 34%; line-height: 1.35; }
   table.compare td { font-size: 15px; color: var(--text-secondary); line-height: 1.35; }
-  table.compare tbody tr:last-child th, table.compare tbody tr:last-child td { border-bottom: 0; }
+  table.compare tbody:last-of-type tr:last-child th, table.compare tbody:last-of-type tr:last-child td { border-bottom: 0; }
+  /* Group rows: The map / The drive / The community */
+  table.compare tr.grp th, table.compare tr.grp td { padding-top: 34px; padding-bottom: 12px; border-bottom: 1px solid var(--hairline-strong); }
+  table.compare tr.grp th { font-size: 12px; font-weight: var(--fw-bold); letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-rosso); }
   /* The Cambr column reads as one raised card */
   table.compare .is-cambr { background: linear-gradient(180deg, rgba(212,0,0,0.10), rgba(212,0,0,0.04)); color: #FFFFFF; font-weight: var(--fw-semibold);
     border-left: 1px solid rgba(212,0,0,0.45); border-right: 1px solid rgba(212,0,0,0.45); }
   table.compare thead .is-cambr { border-top: 1px solid rgba(212,0,0,0.45); border-radius: 16px 16px 0 0; }
-  table.compare tbody tr:last-child .is-cambr { border-bottom: 1px solid rgba(212,0,0,0.45); border-radius: 0 0 16px 16px; }
+  table.compare tbody:last-of-type tr:last-child .is-cambr { border-bottom: 1px solid rgba(212,0,0,0.45); border-radius: 0 0 16px 16px; }
   table.compare thead .is-cambr .col-name { display: flex; align-items: center; gap: 9px; }
   table.compare thead .is-cambr img { height: 22px; width: auto; }
   .mark { display: inline-flex; align-items: center; gap: 10px; }
@@ -555,9 +572,12 @@
   .mark.some::before { background-color: rgba(234,179,8,0.14); border: 1px solid rgba(234,179,8,0.5);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3.5 6h5' fill='none' stroke='%23EAB308' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: 12px; }
   .is-cambr .mark.yes::before { background-color: rgba(34,197,94,0.24); }
+  .mark.soon::before { background-color: rgba(192,132,252,0.14); border: 1px solid rgba(192,132,252,0.55);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='3.9' fill='none' stroke='%23C084FC' stroke-width='1.3'/%3E%3Cpath d='M6 4v2.2l1.4 1' fill='none' stroke='%23C084FC' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: 13px; }
   @media (max-width: 900px) {
     /* Keep the row labels in view while the columns scroll */
-    table.compare tbody th, table.compare thead th:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
+    table.compare tbody tr:not(.grp) th, table.compare thead th:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
+    table.compare tr.grp th { position: sticky; left: 0; }
   }
 
   /* ---------- What's next (roadmap) ----------
@@ -897,32 +917,20 @@
 
     <div class="define-visual">
     <figure class="define-route" aria-hidden="true">
-      <svg viewBox="0 0 520 360">
-        <defs><filter id="define-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter></defs>
-        <g class="net">
-          <path d="M0 300 C 120 280, 200 330, 320 300 S 470 250, 520 270"/>
-          <path d="M60 0 C 80 90, 40 170, 90 260 S 120 340, 110 360"/>
-          <path d="M260 0 C 240 60, 300 120, 270 200 S 300 300, 330 360"/>
-          <path d="M0 120 C 90 140, 160 90, 250 110 S 420 70, 520 120"/>
-          <path d="M420 0 C 400 80, 460 170, 440 250 S 470 330, 500 360"/>
-          <path d="M0 200 C 70 210, 120 180, 190 205"/>
-        </g>
-        <g class="glows">
-          <path class="glow s" d="M34 318 C 70 316, 98 268, 150 230"/>
-          <path class="glow a" d="M150 230 C 200 195, 176 150, 236 140"/>
-          <path class="glow b" d="M236 140 C 290 130, 300 190, 346 180"/>
-          <path class="glow s" d="M346 180 C 396 168, 382 106, 430 90"/>
-          <path class="glow a" d="M430 90 C 466 80, 470 52, 496 42"/>
-        </g>
-        <path class="seg s" d="M34 318 C 70 316, 98 268, 150 230"/>
-        <path class="seg a" d="M150 230 C 200 195, 176 150, 236 140"/>
-        <path class="seg b" d="M236 140 C 290 130, 300 190, 346 180"/>
-        <path class="seg s" d="M346 180 C 396 168, 382 106, 430 90"/>
-        <path class="seg a" d="M430 90 C 466 80, 470 52, 496 42"/>
-        <circle class="pin" cx="34" cy="318" r="8"/>
-        <circle class="pin" cx="496" cy="42" r="8"/>
-        <text class="place" x="34" y="346" text-anchor="middle">Penrith</text>
-        <text class="place" x="496" y="20" text-anchor="middle">Reeth</text>
+      <svg viewBox="0 0 520 570">
+      <defs><filter id="define-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter><radialGradient id="define-fade-g" cx="50%" cy="48%" r="60%"><stop offset="0.6" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient><mask id="define-fade"><rect width="520" height="570" fill="url(#define-fade-g)"/></mask></defs>
+      <g class="bg" mask="url(#define-fade)"><path class="b" d="M538 83L533 64 532 49 528 31 528 21M519 109L524 106 529 106M237 559L250 556 256 548 257 539 259 535 258 522M219 299L215 278 210 270M538 168L535 171 536 173M31 62L22 52 15 49 9 40 9 36M158 290L166 272M229 315L238 326 238 330M433 95L428 99 407 101M45 123L47 139 51 144 51 150 53 153M538 361L535 361 535 364 527 370 510 388 510 398 516 417 516 422M538 465L535 467 536 469M536 469L533 469 522 474 515 474 505 471 499 465 490 462M166 324L162 330M48 16L44 23 38 24M430 409L439 414M459 587L464 572M525 115L516 114M257 57L273 61 291 60 304 73 318 83M318 83L319 84M343 541L365 541 388 535M110 567L109 587M312 338L314 335 319 336 326 334M505 486L496 477 492 476M514 497L506 486M492 303L490 300 468 315M468 315L445 323 444 325M345 408L347 400 349 399 355 388M538 512L529 517M459 436L455 431M114 518L116 510 111 495 104 481 105 472 102 466 102 458M270 -18L266 -10 267 -4 274 12 271 18 273 29 271 42M9 254L6 261 9 267 10 274M368 96L370 87 368 78M108 374L103 376 81 362 66 337M32 288L34 293 46 305M329 365L344 376M471 532L476 529M398 75L399 89M166 324L165 305M495 287L501 276M538 24L528 22M531 539L523 534 511 532M142 400L133 386M442 439L445 429M319 336L317 346M128 338L140 344M35 103L39 115M387 21L392 19 397 13 403 11M428 338L414 350M408 220L422 220 429 227 435 229 439 234 449 238 451 237M411 1L412 12 414 18M529 106L538 99M454 135L461 128M500 524L490 526M439 327L435 324 443 320M114 536L109 530 108 523M233 38L220 34 202 33M170 299L188 315M113 303L128 312M328 333L335 333 329 330M50 79L44 87 46 90 44 92M77 218L79 225M496 27L505 25 508 17 516 15M250 58L237 69 223 70M440 310L443 320M438 449L442 441M538 526L531 521 523 505 514 497M47 75L45 67M411 270L404 254 407 244M498 272L501 276M173 392L174 384 170 379 166 366M329 365L323 350 317 346 311 344 310 342M494 253L494 245 487 233M442 254L436 260 431 260M31 62L30 54 27 49 35 38 38 24M99 521L107 524 118 518M118 518L131 522M111 263L112 271M45 96L45 117M113 349L115 359M411 1L403 8 404 15M324 421L326 426 321 434M-13 144L-18 139M63 121L72 108M406 520L414 506M487 456L479 454M359 159L357 148 360 144 355 142 355 138M400 89L405 100M449 572L465 565 465 559 473 548M191 33L181 12 174 7 162 -18M538 164L532 159 531 148 524 141 522 132M10 200L18 196M506 552L515 547 524 547 530 544 531 540M163 255L165 263M513 528L517 526 515 520M-15 116L-18 105M536 173L517 180 509 187 504 198 513 211M111 390L114 392 121 389M255 -18L261 -2 274 13M471 532L459 537M37 -18L36 -15 41 -5 48 1 60 21 68 28 71 36 63 41 63 47 60 52 57 57 50 62 55 71 50 79M42 245L46 263 51 274 50 286 55 304M449 238L441 242 433 239 429 240M100 240L99 244 92 247M64 147L73 163 85 175 96 183 101 183 96 191M96 191L97 195M97 195L95 197 87 192 86 194M192 63L208 74 215 74M138 298L149 296 158 290M-7 149L-2 148 3 145M538 197L531 199 518 210M538 121L525 115M132 522L128 526 117 529 114 536 117 540 117 546 110 567M355 138L355 122 362 109M235 388L238 387 244 378M504 523L508 523 515 520 529 517M159 340L160 332M453 541L444 545M10 274L10 281 12 284M12 237L10 249M270 45L264 50 264 54 259 59M30 29L32 26 38 24M17 233L17 230 28 231M531 540L538 536M172 271L187 278M501 276L509 267 515 253 514 248 516 248M-18 176L-6 182 2 179M494 225L503 215 516 210 518 215 525 220M438 134L449 138 453 135M444 545L443 545M444 545L428 535M186 401L193 407 204 409 218 402 231 393 234 388M256 417L253 424 253 455 245 472 247 479 256 492 259 503 267 514M202 9L197 17 199 21 207 24 216 22 216 26 223 29 227 36M529 106L534 107 538 106M385 381L402 384M384 55L395 25 401 19M451 48L458 42 483 41 491 38M245 364L249 354 261 346 265 326M265 326L265 325M467 439L459 436M313 163L314 154M389 536L391 538 412 539M248 53L233 38M511 531L500 524M210 295L210 298 214 305M166 238L174 229M5 144L11 141 29 137M518 -2L529 -7 533 -17M394 103L381 108 368 106M350 49L355 51 361 59 369 64M10 36L18 36 24 32M99 463L103 453 97 443M476 446L471 442M482 454L480 449 476 446M112 271L111 293M111 377L112 384 107 395 107 400 104 403M110 374L109 364 117 358 119 344 125 337 123 329 128 312 135 305 138 298 149 296 156 292M412 539L422 540 457 554M28 231L34 234M218 72L205 59M501 276L515 282M214 305L229 315M404 385L419 397M531 382L538 380M140 344L147 345 151 343 160 332M162 259L163 259M163 259L162 259M162 259L163 259M163 259L157 255M246 386L248 406 252 409 256 417M197 262L201 264 207 262M116 376L123 376 131 383M1 114L19 112 29 109 33 104 38 103 39 96M490 468L482 485 487 496 486 502 489 507 488 522 490 527M490 461L490 458 487 456M461 553L471 548 488 545 498 549 500 552M491 38L494 29M208 34L202 43M452 237L458 242 462 241 468 237 478 237 485 234 494 225M427 476L416 487M414 18L416 30 419 32 423 43 429 47 443 51 447 58M186 56L172 60M386 530L354 533 341 530M111 377L116 376 122 390 121 397 125 400M460 458L448 456M369 64L379 63M111 294L108 296 98 270M103 154L100 149 105 144 104 140M44 62L43 55M238 331L241 337 243 356M524 356L523 343 525 342 525 335 527 331M514 17L522 22 528 21M11 234L12 226 10 208M-3 492L4 489M-11 146L-18 151M-18 223L-15 222 -10 214M345 85L339 96M243 356L245 362M419 397L427 404M-18 207L-10 203 -3 194M101 281L93 289M39 115L31 128 21 157 14 165M289 341L279 346 272 347M352 84L345 85M444 331L438 333M492 266L494 253M0 81L3 83 17 80 32 92 37 94M516 248L526 221M33 214L35 229M-9 149L-13 144"/><path class="a" d="M491 301L490 311 493 318 493 324M276 40L306 29 310 30M448 416L450 408 458 394 467 385 469 372M407 186L397 186 399 190 394 202 396 214M-18 518L-12 515 -10 517 -4 515 -1 516M334 539L331 539 325 533 320 532 320 528 304 518 281 517 267 514 257 520 241 535 229 541 216 543 206 536 203 536 199 532 185 531 167 526 162 523 141 520M231 393L231 413 222 418 216 425 210 441 194 465 185 469 183 473 178 476 170 500 160 517 146 519M111 67L114 73 116 71 118 75M469 372L473 357 480 346M402 212L407 207 403 201 407 186M335 539L332 539 332 547 325 559 326 574 323 586 325 587M343 109L338 110 314 154M428 -18L426 -15M426 -15L424 -8 418 -3M418 -3L418 -2M418 -2L427 -2 436 -11 447 -18M451 -18L457 -12 461 -1 464 -1M417 -3L418 -3M379 65L375 73 368 78 361 79M107 316L98 313 93 314 88 309M403 522L400 507 387 488 385 476 381 471M325 42L329 42 328 40 335 45 343 44 350 49M444 412L448 416M197 33L204 46 206 60 224 68 223 71 226 78 232 85 246 116 246 122 253 131 263 134 267 132 277 130 283 139 289 142 293 149 302 159 315 165 325 179 335 187 349 193 367 198 391 216 401 218 400 225 402 227 408 228 415 235 425 237 438 244 443 248 443 252 449 262 460 273 461 287 463 290 467 289 468 292 472 292 490 300M250 388L256 391 260 398 283 416 292 419 300 429 310 435 328 435 335 437 340 434 349 437 352 441 348 450 348 459 353 467 371 468 381 471 402 469 406 464 424 471 430 469 439 462 455 463 461 461 464 457 479 454M276 40L270 43M402 212L413 214 425 210 435 194 435 191"/><path class="s" d="M264 318L264 317M264 317L271 315 274 312 274 307 286 299 286 289 290 279M290 279L292 272 301 268 326 264M326 264L328 263M328 263L334 258 341 258 345 254M345 254L346 254M346 254L373 251 384 244M384 244L390 239 407 231 403 228M328 263L329 263M264 319L264 318M264 318L264 319M446 69L449 66 447 57 453 40 451 17 462 2M441 96L440 89 442 88 446 69M462 2L473 -9 483 -11 490 -17M491 -17L492 -18M438 97L435 98 440 97 437 105 437 118 432 127 434 132 438 134 435 146 442 164 440 168 446 173 440 193 438 215 444 224 443 228 452 237M439 96L438 97M459 244L460 250 472 257 491 276 497 296M336 537L338 537 338 530 332 523 327 510 330 497 330 489 337 481 340 473 352 466M309 -18L307 -16 309 -8 316 13M316 13L316 27M316 27L316 33 323 41 319 56M319 56L316 60 318 65M318 65L312 73 316 82M318 65L318 66M29 179L36 178 47 168 50 154 56 152 59 147 66 148 74 144 86 127 90 118 97 113 101 115 108 108 114 95 113 86 118 73 128 73 130 69 132 73 141 69 160 68 183 51 194 34 195 15 207 5 213 3 212 1 215 -8 222 -18M269 587L286 564 304 547 309 544 331 539"/></g>
+      <g class="glows"><path class="glow b" d="M312.2 164L312.8 164.2 314.2 161.7 313.3 157.4 313.6 155.7M318.9 86.6L319.2 84.3 318.4 83.2M347 47.7L354.5 50.7 356.4 52.7 357.6 55.8 360.4 58.8 366.2 62.7M366.2 62.7L370.6 64.5 374 64.5 376.6 63.6M376.6 63.6L379.5 62.9M264.3 320.1L264.6 321.4M264.6 321.4L264.9 325.1M264.9 325.1L263.2 331.1 262.9 338.8 261.4 342.7 261.2 346.4 257.6 349.9 249.4 353.6 247.9 355.7 247.3 358.9M246.6 376.6L244.9 378.8 244.7 381.3M244.7 381.3L246.2 389.1 247.5 392.5 246.9 396.4 248.3 405.9 252.1 409 253.6 412.3M253.6 412.3L255.6 417.4 255.2 421.5 253.1 424.5 254.1 429.9 252.9 437.1 254 447.3 252.7 455.2 248.1 463.8 245.1 470.8 245.1 472.4 246 474.9 245.6 476.1 247.1 479.4 251.1 483.5 252.5 487.8 254.4 490.8 256.2 492.6 259.3 503 263.7 508.5"/><path class="glow a" d="M196.6 32.1L198.9 35.4 201.8 42.9 204.1 45.9 205.6 59.5 212.6 62.1 218.4 66.1 224.4 67.8 223.5 70.5 226.1 78.4 232.2 85.2 240 105.4 246.1 115.6 245.6 117 246.1 121.6 248.7 124.8 252 127.2 252.7 130.5 257.2 132.9 263.3 134.5 267.2 131.9 271 132.1 276.6 130.4 278.4 132.3 280.6 133.3 283.4 138.6 286.9 141.3 288.9 141.6 290 144.8 292.6 149.3 301.8 159.2 304.6 161.4 311 163.4M313.6 155.7L313.9 152.8 314.8 151.9 315.8 148.9 317 146.6 321 141.8 321.7 138.9 325.7 133.4 327 130.2 327.1 128.8 335.2 116.9 338.3 110.2 339.2 109.5 341.2 109.3M323 40.5L323.8 42.1 327.8 42.6 328.9 41.8 328.4 40.1 330.9 41.6 333.2 44.5 335 45.4 336.9 44.3 338.7 44.9 341.6 44.8 342.6 44.3 347 47.7M438.3 189L434.8 190.3 434.9 194 431.2 199.6 429.2 201.7 428.3 205.5 424.8 210.2 421.9 211.9 412.6 214.1 405.4 213.9M401.3 215L401.2 216.8M400.8 218.9L401 220.1 402.6 220.9 401.1 220.2 400 222.4 399.9 225.6M263.7 508.5L266.2 511.3 266.7 514 268.7 514.8 281.3 517.1 290.7 518 304.2 518 309.2 520.8 311.9 523.8 313.9 524.1 316.7 526.7 320.2 528.3 320.9 529.2 320.5 531.7 322 531.7 325.3 533.5 328.6 537.2M328.6 537.2L329.6 537.9M346.7 468.9L352 467.2 352.3 466.2 353.3 466.8 357.6 466 358.9 466.8 363.6 467.8 367.4 467.4 377.1 469.1 378.9 470.5 389.3 470.1 397.5 468.3 403.1 468.3 404.2 466.5 404.3 464.4 405 464.2 408.8 465 420.1 470.4 423.7 470.9 430.2 468.7 436 463 438.8 461.6 444.7 460.9 455.3 462.9 460.8 460.8 463.8 457 467.1 456.1 472.4 455.8"/><path class="glow s" d="M28.8 179.3L32.2 179.7 35.9 177.5 37.4 175.5 40.7 172.9 43.1 172.1 47 167.9 48.1 166 47.3 162.4 47.8 159.1 49.3 156.4 49.8 154.2 56 151.6 59 148.2 59.3 147.2 65.7 147.7 73.5 143.7 81.7 131.4 85.8 127 88.3 119.8 89.7 118 93.3 114.9 96.9 112.9 100.4 114.7 101.4 114.6 103.2 113.1 103.2 112.1 105.4 108.7 108 108 107.7 106.3 110.2 104.2 110.4 102.2 111.8 99 111.5 97.9 112.4 97.4 113.9 94.8 113.6 92.3 114.7 91.6 113.6 89.6 113.1 85.7 113.8 85.1 115.1 80.1 117 76.9 117.6 77.5 118 76.8 117.8 74.1 118.3 73.3 121.4 73 124.5 73.7 128 72.7 129.6 68.7 130.4 72 131.7 73.4 135 71.6 140 70 141.4 68.8 157.4 68.8 161.5 67.6 172.3 60.1 175.1 56.4 180.7 53.7 183.2 51.3 185 46.6 187.9 44 192.2 36.3 194.2 34.4 194.7 32M318.4 83.2L315.8 81.4 315.8 79.4 313 75.1 312.3 73.1 313.6 71.9 314.5 69.5 316.7 68.2 318.3 65.7 316.1 59.5 319.1 56.5 320.8 52.5 322.1 43.7 323.5 41.3 321.8 39.3M442 95.4L438.7 95.9 437.9 97.1 435 97.7 435.8 98.1 440.2 97.4 439.7 99.4 438.6 99.9 439 100.2 437.9 103.6 436.6 105.1 438 111.5 436 114.7 436.9 118 434.2 120.6 432.2 126.6 434.1 131.8 435.5 133 438.3 133.7 436.9 136.3 436.8 139.5 435.5 143.3 435.3 145.9 436.4 148.5 436.4 151.2 439.1 156.6 439.4 159.8 441.7 164.2 440.4 167.9 445.6 172.6 443.7 175.5 443 178 443.7 182.7 443.5 184.6M399.9 225.6L407.1 230.7 407.2 231.5 405.3 232.9 401.4 234.2 399.3 236 396.8 236.3 390.4 238.7 385.7 243.1 384.3 243.5 378.9 248 374 250.6 372.1 251.2 359.1 252.4 358.2 253.3 347 252.6 346.5 253.6 341.5 257.3 333.7 258.4 333.3 260 330.6 261.1 329.3 262.7 326.3 263.8 318 265.1 313 265 310.2 266.2 305.7 266.9 304.1 268 301.2 267.8 292.2 271.9 290 275.3 289.7 280.1 285.6 289.2 285.6 292.2 285.1 293.8 286.8 296.7 285.6 299.5 283.6 302.1 278.7 304.7 277.9 306.2 274.5 307.2 274.4 311.7 273.9 312.6 270.1 316 267 317.3M331.8 539.1L335.9 539.4 337 537.8 335.5 537.4 337 537.8 337.7 537.1 336.9 534.9 338.4 533.4 337.6 529.6 335.7 529.2 335.4 526.9 333.9 526 334 524.4 331.9 523 330.8 518.7 329.7 517.5 329.7 516.3 328.3 513.9 327.4 509.7 328 503.4 330.4 497.5 329.5 489.5 330.8 486.8 335.4 483.6 336.9 481.3 340.2 474.3 339.8 472.8 340.9 472.7 343.6 470.2 346.7 468.9"/></g>
+      <path class="seg o" d="M194.7 32L194.8 31.4 196 31.4 196.6 32.1M311 163.4L312.2 164M341.2 109.3L343.9 109.3 344.7 107.8 340.3 105.1 333.2 102.1 328.8 101.7 328.3 99.5 321.4 94.9 319.4 90.4 318.9 86.6M321.8 39.3L323 40.5M379.5 62.9L388.2 62.4 393.4 63.6 395.7 68.5 396.9 69.4 398.4 73.7 404 80.6 405.7 84.8 411.2 90.9 420.3 91.6 423.4 91.3 427 92.1 433.1 95.3 435.1 94.9 438.5 95.9 442.2 95.5 444.7 96.4 445.8 97.6 444.7 96.4 442 95.4M443.5 184.6L442 188.1 441.1 188.8 440.8 188 438.3 189M405.4 213.9L404.1 212.3 402.2 212.2 401.3 215M401.2 216.8L400.8 218.9M267 317.3L266 317.7 264.6 317.2 264.3 320.1M247.3 358.9L245.5 363.7 246.6 372 247.6 372.8 246.6 376.6M329.6 537.9L330.7 539.2 331.8 539.1M472.4 455.8L479.2 454.5"/><path class="seg b" d="M312.2 164L312.8 164.2 314.2 161.7 313.3 157.4 313.6 155.7M318.9 86.6L319.2 84.3 318.4 83.2M347 47.7L354.5 50.7 356.4 52.7 357.6 55.8 360.4 58.8 366.2 62.7M366.2 62.7L370.6 64.5 374 64.5 376.6 63.6M376.6 63.6L379.5 62.9M264.3 320.1L264.6 321.4M264.6 321.4L264.9 325.1M264.9 325.1L263.2 331.1 262.9 338.8 261.4 342.7 261.2 346.4 257.6 349.9 249.4 353.6 247.9 355.7 247.3 358.9M246.6 376.6L244.9 378.8 244.7 381.3M244.7 381.3L246.2 389.1 247.5 392.5 246.9 396.4 248.3 405.9 252.1 409 253.6 412.3M253.6 412.3L255.6 417.4 255.2 421.5 253.1 424.5 254.1 429.9 252.9 437.1 254 447.3 252.7 455.2 248.1 463.8 245.1 470.8 245.1 472.4 246 474.9 245.6 476.1 247.1 479.4 251.1 483.5 252.5 487.8 254.4 490.8 256.2 492.6 259.3 503 263.7 508.5"/><path class="seg a" d="M196.6 32.1L198.9 35.4 201.8 42.9 204.1 45.9 205.6 59.5 212.6 62.1 218.4 66.1 224.4 67.8 223.5 70.5 226.1 78.4 232.2 85.2 240 105.4 246.1 115.6 245.6 117 246.1 121.6 248.7 124.8 252 127.2 252.7 130.5 257.2 132.9 263.3 134.5 267.2 131.9 271 132.1 276.6 130.4 278.4 132.3 280.6 133.3 283.4 138.6 286.9 141.3 288.9 141.6 290 144.8 292.6 149.3 301.8 159.2 304.6 161.4 311 163.4M313.6 155.7L313.9 152.8 314.8 151.9 315.8 148.9 317 146.6 321 141.8 321.7 138.9 325.7 133.4 327 130.2 327.1 128.8 335.2 116.9 338.3 110.2 339.2 109.5 341.2 109.3M323 40.5L323.8 42.1 327.8 42.6 328.9 41.8 328.4 40.1 330.9 41.6 333.2 44.5 335 45.4 336.9 44.3 338.7 44.9 341.6 44.8 342.6 44.3 347 47.7M438.3 189L434.8 190.3 434.9 194 431.2 199.6 429.2 201.7 428.3 205.5 424.8 210.2 421.9 211.9 412.6 214.1 405.4 213.9M401.3 215L401.2 216.8M400.8 218.9L401 220.1 402.6 220.9 401.1 220.2 400 222.4 399.9 225.6M263.7 508.5L266.2 511.3 266.7 514 268.7 514.8 281.3 517.1 290.7 518 304.2 518 309.2 520.8 311.9 523.8 313.9 524.1 316.7 526.7 320.2 528.3 320.9 529.2 320.5 531.7 322 531.7 325.3 533.5 328.6 537.2M328.6 537.2L329.6 537.9M346.7 468.9L352 467.2 352.3 466.2 353.3 466.8 357.6 466 358.9 466.8 363.6 467.8 367.4 467.4 377.1 469.1 378.9 470.5 389.3 470.1 397.5 468.3 403.1 468.3 404.2 466.5 404.3 464.4 405 464.2 408.8 465 420.1 470.4 423.7 470.9 430.2 468.7 436 463 438.8 461.6 444.7 460.9 455.3 462.9 460.8 460.8 463.8 457 467.1 456.1 472.4 455.8"/><path class="seg s" d="M28.8 179.3L32.2 179.7 35.9 177.5 37.4 175.5 40.7 172.9 43.1 172.1 47 167.9 48.1 166 47.3 162.4 47.8 159.1 49.3 156.4 49.8 154.2 56 151.6 59 148.2 59.3 147.2 65.7 147.7 73.5 143.7 81.7 131.4 85.8 127 88.3 119.8 89.7 118 93.3 114.9 96.9 112.9 100.4 114.7 101.4 114.6 103.2 113.1 103.2 112.1 105.4 108.7 108 108 107.7 106.3 110.2 104.2 110.4 102.2 111.8 99 111.5 97.9 112.4 97.4 113.9 94.8 113.6 92.3 114.7 91.6 113.6 89.6 113.1 85.7 113.8 85.1 115.1 80.1 117 76.9 117.6 77.5 118 76.8 117.8 74.1 118.3 73.3 121.4 73 124.5 73.7 128 72.7 129.6 68.7 130.4 72 131.7 73.4 135 71.6 140 70 141.4 68.8 157.4 68.8 161.5 67.6 172.3 60.1 175.1 56.4 180.7 53.7 183.2 51.3 185 46.6 187.9 44 192.2 36.3 194.2 34.4 194.7 32M318.4 83.2L315.8 81.4 315.8 79.4 313 75.1 312.3 73.1 313.6 71.9 314.5 69.5 316.7 68.2 318.3 65.7 316.1 59.5 319.1 56.5 320.8 52.5 322.1 43.7 323.5 41.3 321.8 39.3M442 95.4L438.7 95.9 437.9 97.1 435 97.7 435.8 98.1 440.2 97.4 439.7 99.4 438.6 99.9 439 100.2 437.9 103.6 436.6 105.1 438 111.5 436 114.7 436.9 118 434.2 120.6 432.2 126.6 434.1 131.8 435.5 133 438.3 133.7 436.9 136.3 436.8 139.5 435.5 143.3 435.3 145.9 436.4 148.5 436.4 151.2 439.1 156.6 439.4 159.8 441.7 164.2 440.4 167.9 445.6 172.6 443.7 175.5 443 178 443.7 182.7 443.5 184.6M399.9 225.6L407.1 230.7 407.2 231.5 405.3 232.9 401.4 234.2 399.3 236 396.8 236.3 390.4 238.7 385.7 243.1 384.3 243.5 378.9 248 374 250.6 372.1 251.2 359.1 252.4 358.2 253.3 347 252.6 346.5 253.6 341.5 257.3 333.7 258.4 333.3 260 330.6 261.1 329.3 262.7 326.3 263.8 318 265.1 313 265 310.2 266.2 305.7 266.9 304.1 268 301.2 267.8 292.2 271.9 290 275.3 289.7 280.1 285.6 289.2 285.6 292.2 285.1 293.8 286.8 296.7 285.6 299.5 283.6 302.1 278.7 304.7 277.9 306.2 274.5 307.2 274.4 311.7 273.9 312.6 270.1 316 267 317.3M331.8 539.1L335.9 539.4 337 537.8 335.5 537.4 337 537.8 337.7 537.1 336.9 534.9 338.4 533.4 337.6 529.6 335.7 529.2 335.4 526.9 333.9 526 334 524.4 331.9 523 330.8 518.7 329.7 517.5 329.7 516.3 328.3 513.9 327.4 509.7 328 503.4 330.4 497.5 329.5 489.5 330.8 486.8 335.4 483.6 336.9 481.3 340.2 474.3 339.8 472.8 340.9 472.7 343.6 470.2 346.7 468.9"/>
+      <path class="lead" d="M131.7 73.4L112 44"/><circle class="lead-dot" cx="131.7" cy="73.4" r="3.2"/>
+      <path class="lead" d="M340.2 474.3L378 443"/><circle class="lead-dot" cx="340.2" cy="474.3" r="3.2"/>
+      <circle class="town-dot" cx="196.0" cy="31.5" r="3"/><text class="town" x="212" y="54" text-anchor="start">Alston</text>
+      <circle class="town-dot" cx="401.0" cy="219.0" r="3"/><text class="town" x="392" y="213" text-anchor="end">Middleton-in-Teesdale</text>
+      <circle class="town-dot" cx="246.5" cy="371.0" r="3"/><text class="town" x="237" y="375" text-anchor="end">Kirkby Stephen</text>
+      <circle class="town-dot" cx="326.0" cy="534.0" r="3"/><text class="town" x="318" y="552" text-anchor="end">Hawes</text>
+      <circle class="pin" cx="28.8" cy="179.3" r="7.5"/><text class="place" x="28.8" y="205" text-anchor="middle">Penrith</text>
+      <circle class="pin" cx="479.2" cy="454.5" r="7.5"/><text class="place" x="479.2" y="482" text-anchor="middle">Reeth</text>
+      <g class="scale"><path d="M16 552V558H160.3V552"/><text x="16" y="545">10 miles</text></g>
       </svg>
       <span class="road-chip c1"><span class="t">S</span>Hartside Pass <b>88.9</b></span>
       <span class="road-chip c2"><span class="t">S</span>Buttertubs <b>86.0</b></span>
@@ -965,17 +973,17 @@
           <div class="tiers in-score">
             <div class="tier-card tier-s">
               <div class="tier-badge">S</div>
-              <h3>S-Tier <span class="glyph">◆</span></h3>
+              <h3>S-Tier <span class="glyph" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 .8 11.2 6 6 11.2.8 6z"/></svg></span></h3>
               <p>The 22 highest-scoring roads in Britain and Ireland. The creme-de-la-creme of driving roads and the ones you plan a weekend around, every single one has been written about extensively by the motoring press.</p>
             </div>
             <div class="tier-card tier-a">
               <div class="tier-badge">A</div>
-              <h3>A-Tier <span class="glyph">▲</span></h3>
+              <h3>A-Tier <span class="glyph" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1.2 11.4 10.6H.6z"/></svg></span></h3>
               <p>The best of the rest. Excellent roads that are worth going out of your way for. A-Tier roads form the backbone of a proper drive — some you'll know about, lots you won't.</p>
             </div>
             <div class="tier-card tier-b">
               <div class="tier-badge">B</div>
-              <h3>B-Tier <span class="glyph">·</span></h3>
+              <h3>B-Tier <span class="glyph" aria-hidden="true"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.2"/></svg></span></h3>
               <p>Great, fun roads that are worth grabbing when you're already near. The kind of backroads the locals might tell you about when you ask for their favourites.</p>
             </div>
           </div>
@@ -1068,17 +1076,24 @@
 </section>
 
 <!-- ===================== WHY CAMBR STANDS OUT =====================
-     Compared against categories, not named apps. "AI route planners" means the
-     AI-led driving-route apps (checked against their store listings, 3 Nov 2026):
-     none publishes a road score or a press layer, some navigate turn by turn,
-     some warn of cameras, and each is iPhone-only or web-only. Re-check before
-     changing a cell. -->
+     Compared against categories, never named apps. "AI route planners" means the
+     AI-led driving-route apps, checked against their own store listings on 3 Nov 2026:
+       - two of the three have their own turn-by-turn (and CarPlay); the third is a web
+         planner that hands the route to Google Maps -> "Some"
+       - one shows routes on an interactive map and lets you draw a route through roads
+         you pick -> "Some" on building; none publishes a score per road or a press layer
+       - one has a community feed, clubs and follows; one shares drive cards; one has
+         distance goals and badges -> "Some" on records and feed
+       - both apps have group drives / convoys, neither lists planning together
+       - each is iPhone-only or web-only
+     Cambr cells follow /beta. "Coming soon" is convoy (during the beta): flip it to Yes
+     when it ships. Re-check the listings before changing any competitor cell. -->
 <section class="band">
   <div class="wrap">
-    <div class="band-head" style="max-width:760px;">
+    <div class="band-head" style="max-width:780px;">
       <div class="band-eyebrow">Why Cambr stands out</div>
-      <h2 class="band-title">Scored, <span class="accent">not suggested</span>.</h2>
-      <p class="band-sub">An AI planner gives you a route it thinks you'll like. Cambr has measured every road, shows you exactly why each one scores what it does, and routes you through the best of them.</p>
+      <h2 class="band-title">Route planners give you a route. <span class="accent">Cambr gives you the map.</span></h2>
+      <p class="band-sub">Most route planners start with a search box or a chatbot. Cambr starts with a map of every scored road. Pick the roads you want and Cambr joins them into a drive, navigates you along it and records it for you to keep or share.</p>
     </div>
 
     <div class="compare-scroll" role="region" aria-label="How Cambr compares with map apps and AI route planners" tabindex="0">
@@ -1088,7 +1103,7 @@
             <th scope="col"><span class="vh">Feature</span></th>
             <th scope="col"><span class="col-name">Map apps</span><span class="col-sub">Built to get you there fast</span></th>
             <th scope="col"><span class="col-name">AI route planners</span><span class="col-sub">Routes written by a model</span></th>
-            <th scope="col" class="is-cambr"><span class="col-name"><img src="/assets/cambr-mark.svg" alt="" width="20" height="22">Cambr</span><span class="col-sub">Every road measured</span></th>
+            <th scope="col" class="is-cambr"><span class="col-name"><img src="/assets/cambr-mark.svg" alt="" width="20" height="22">Cambr</span><span class="col-sub">Every road, every drive</span></th>
           </tr>
         </thead>
         <tbody>
@@ -1097,7 +1112,16 @@
             <td>Arrival time</td><td>An AI's suggestion</td><td class="is-cambr">Scored road quality</td>
           </tr>
           <tr>
-            <th scope="row">Every road scored out of 100, on one map</th>
+            <th scope="row">On iPhone and Android</th>
+            <td><span class="mark yes">Yes</span></td><td>iPhone or web only</td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr class="grp">
+            <th scope="rowgroup" colspan="3">The map</th><td class="is-cambr"></td>
+          </tr>
+          <tr>
+            <th scope="row">Every road scored out of 100, on a map you can explore</th>
             <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
@@ -1105,20 +1129,46 @@
             <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Tells you the score of the road you're on</th>
-            <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+            <th scope="row">Build a route by picking roads on the map</th>
+            <td><span class="mark no">No</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr class="grp">
+            <th scope="rowgroup" colspan="3">The drive</th><td class="is-cambr"></td>
           </tr>
           <tr>
-            <th scope="row">Turn-by-turn navigation</th>
+            <th scope="row">Turn-by-turn navigation built in, with lane guidance</th>
             <td><span class="mark yes">Yes</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Tells you the score of the road you're on</th>
+            <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
             <th scope="row">Speed camera and average-speed warnings</th>
             <td><span class="mark some">Partly</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">On iPhone and Android</th>
-            <td><span class="mark yes">Yes</span></td><td>iPhone or web only</td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+            <th scope="row">Records your drives, to keep or share</th>
+            <td><span class="mark no">No</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr class="grp">
+            <th scope="rowgroup" colspan="3">The community</th><td class="is-cambr"></td>
+          </tr>
+          <tr>
+            <th scope="row">A feed of other drivers' drives</th>
+            <td><span class="mark no">No</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Drivers' ratings feed back into the road scores</th>
+            <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Plan a route together, then drive it together</th>
+            <td><span class="mark no">No</span></td><td>Group drives only</td><td class="is-cambr"><span class="mark soon">Coming soon</span></td>
           </tr>
         </tbody>
       </table>
