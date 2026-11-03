@@ -176,6 +176,11 @@ grep -n 'TODO wire' index.html
 - **The comparison table must stay a `<table>`.** It is the element most likely to be pulled into
   a search result or an AI answer. It sits in a labelled, keyboard-scrollable container so it
   survives 390px without forcing the page to scroll sideways; do not convert it to cards.
+- **Three feature cards are Claude's wording, not handoff copy** (2026-11-03, at Neil's request
+  to build out the features now that they are live in test): Curated Drives, Loop Generator,
+  Route Builder. Claims were checked against app screenshots — "nearest to you", "x% on great
+  roads", "best road in reach", "Add to route" — and "up to five stops" is from the schema
+  `featureList`. The three "Soon" cards moved to their own row, unchanged.
 - **The car spots line in Browse & Discover is not signed-off copy.** The brief asked for one
   line and supplied none, so it was written here: "There are 71 car spots on there too, the meets
   and cafes worth ending a drive at."

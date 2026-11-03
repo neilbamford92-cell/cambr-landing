@@ -623,6 +623,11 @@
     gap: 46px; align-items: start; margin-top: 56px;
   }
   .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  /* Live features sit beside the phone; what is coming next gets its own row below,
+     so the section reads "works now" before "on the way". */
+  .feature-next { margin-top: 44px; }
+  .feature-next .band-eyebrow { color: var(--text-secondary); }
+  .feature-grid.next { grid-template-columns: repeat(3, 1fr); }
   .feature-shot {
     display: flex; flex-direction: column; align-items: center;
     flex: none; position: sticky; top: 24px;
@@ -671,7 +676,7 @@
     .phone-wrap { padding: 12px 0 64px; justify-content: center; }
     .phone { width: 260px; }
     .hero-scrim { background: linear-gradient(0deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.15) 45%, rgba(20,20,20,0.75) 100%); }
-    .tiers, .modes-grid, .feature-grid, .build-grid.two { grid-template-columns: 1fr; }
+    .tiers, .modes-grid, .feature-grid, .feature-grid.next, .build-grid.two { grid-template-columns: 1fr; }
     .score-layout, .feature-layout { grid-template-columns: 1fr; gap: 28px; }
     .score-shot, .feature-shot { order: -1; position: static; }
     section.band { padding: 72px 0; }
@@ -909,24 +914,24 @@
         <p>Planned a route? Drive it inside Cambr. Our own driving interface calls out every scored road as you reach it, instead of handing you off to Google Maps.</p>
       </div>
       <div class="feature">
+        <div class="feature-icon"><ion-icon name="compass-outline"></ion-icon></div>
+        <h3>Curated Drives <span class="tag live">Live</span></h3>
+        <p>46 drives and loops built by hand on the best roads in Britain. Find one near you, see how much of it is on great road before you set off, and drive it turn by turn.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><ion-icon name="repeat-outline"></ion-icon></div>
+        <h3>Loop Generator <span class="tag live">Live</span></h3>
+        <p>No destination, just an afternoon? Tell Cambr how long you've got and which direction you fancy, and it builds a round trip through the best roads in reach that brings you home.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><ion-icon name="git-commit-outline"></ion-icon></div>
+        <h3>Route Builder <span class="tag live">Live</span></h3>
+        <p>Build your own trip with up to five stops. Add the roads you want to drive straight from the map, and Cambr routes you between them along the best roads it can find.</p>
+      </div>
+      <div class="feature">
         <div class="feature-icon"><ion-icon name="add-circle-outline"></ion-icon></div>
         <h3>Community Reviews <span class="tag live">Live</span></h3>
         <p>Drove a road we underrate? Let us know. Community feedback helps to build Cambr and directly impacts the road scores. AllTrails for roads.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="people-outline"></ion-icon></div>
-        <h3>Convoy Mode <span class="tag soon">Soon</span></h3>
-        <p>Plan an epic route and share it with the crew. Stay together, see everyone live on the route, chat to each other. Real-life Forza Horizon.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="calendar-outline"></ion-icon></div>
-        <h3>AI Trip Planner <span class="tag soon">Soon</span></h3>
-        <p>Tell Cambr you've got an adventure coming up and it builds the whole trip: the best roads, overnight stops and the most epic views.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="trail-sign-outline"></ion-icon></div>
-        <h3>Tunnel Finder + More <span class="tag soon">Soon</span></h3>
-        <p>Everyone loves to hear their car in a tunnel. Find the best ones and add them to your route so you never miss out on the noise.</p>
       </div>
     </div>
 
@@ -940,6 +945,27 @@
             </picture>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="feature-next">
+      <div class="band-eyebrow">Coming soon</div>
+      <div class="feature-grid next">
+        <div class="feature">
+        <div class="feature-icon"><ion-icon name="people-outline"></ion-icon></div>
+        <h3>Convoy Mode <span class="tag soon">Soon</span></h3>
+        <p>Plan an epic route and share it with the crew. Stay together, see everyone live on the route, chat to each other. Real-life Forza Horizon.</p>
+      </div>
+        <div class="feature">
+        <div class="feature-icon"><ion-icon name="calendar-outline"></ion-icon></div>
+        <h3>AI Trip Planner <span class="tag soon">Soon</span></h3>
+        <p>Tell Cambr you've got an adventure coming up and it builds the whole trip: the best roads, overnight stops and the most epic views.</p>
+      </div>
+        <div class="feature">
+        <div class="feature-icon"><ion-icon name="trail-sign-outline"></ion-icon></div>
+        <h3>Tunnel Finder + More <span class="tag soon">Soon</span></h3>
+        <p>Everyone loves to hear their car in a tunnel. Find the best ones and add them to your route so you never miss out on the noise.</p>
+      </div>
       </div>
     </div>
 
