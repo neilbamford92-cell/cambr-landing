@@ -1,7 +1,0 @@
-<!doctype html><meta charset="utf-8"><body style="margin:0"><pre id="out"></pre><script>
-var W=[1600,1440,1280,1120,960],res=[],left=W.length;
-W.forEach(function(w){var f=document.createElement('iframe');f.style.cssText='width:'+w+'px;height:900px;border:0';f.src='/index.html';
-f.onload=function(){setTimeout(function(){var d=f.contentDocument,g=d.querySelector('.feature-grid'),p=d.querySelector('.feature-shot .phone');
-res.push(w+'px viewport: card grid '+Math.round(g.getBoundingClientRect().height)+'px tall, phone '+Math.round(p.getBoundingClientRect().height)+'px tall ('+Math.round(p.getBoundingClientRect().width)+' wide)');
-if(--left===0)document.getElementById('out').textContent=res.sort().join('\n');},400)};document.body.appendChild(f);});
-</script>

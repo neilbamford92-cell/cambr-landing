@@ -254,8 +254,10 @@ table and `ItemList`, `dateModified`, and the scoring page's "Last updated" line
   **Re-check before changing a cell.** These apps add features fast — one already does convoys,
   fuel prices and CarPlay, so none of those are rows.
 - **"What's next" replaces "What Cambr doesn't do yet"** (Neil: frame what's coming, not what's
-  missing). Three stages — November, after launch, on the roadmap — and every item is sourced in
-  the CSS comment. The limits are still stated, just as things on the way: offline maps, routing
+  missing). Three stages — during the beta, after launch, on the roadmap — **following `/beta`'s
+  own roadmap**, which another session updated the same afternoon (routes in Ireland and Europe
+  moved to after launch; social features, convoy and landscape navigation during the beta).
+  Sources are in the CSS comment. When `/beta`'s roadmap moves, move this. The limits are still stated, just as things on the way: offline maps, routing
   beyond GB, CarPlay. Two FAQs were reframed the same way, in the page and the schema together:
   offline ("Offline maps are on the roadmap. Until they arrive…") and outside the UK ("The map
   does…").
@@ -315,8 +317,8 @@ To preview the launch state without flipping it for everyone, run in the browser
 - [ ] Homepage FAQ "Is Cambr available on Android?" — the answer says *in testing now, will
       launch on both on the same day*. Change it **in the visible FAQ and in the `FAQPage` schema**.
 - [ ] `SoftwareApplication.offers.description` says "Cambr Pro available at public launch."
-- [ ] "What's next" roadmap: move anything that has shipped out of it, and retire the
-      "November" stage once Convoy is out.
+- [ ] "What's next" roadmap: "During the beta" ends at launch. Move anything that shipped
+      out of it, and re-check every stage against `/beta`'s roadmap, which it follows.
 - [ ] Founding-member line is hidden with the form at launch. Decide whether the offer continues
       and, if so, where it now lives.
 - [ ] `/ios/`, `/android/` and `/beta/` are written for the test period.
