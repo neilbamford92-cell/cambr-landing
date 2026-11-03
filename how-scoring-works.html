@@ -170,14 +170,16 @@
 
 <main>
 <section class="m-band">
-  <article><div class="wrap"><div class="col">
-    <p class="m-eyebrow">The question</p>
-    <h2 class="plain" id="why-score-roads-at-all" style="border:0;padding-top:0;margin-top:0">Why score roads at all</h2>
-    <p>Every navigation app in the world optimises for arrival time, and they are right to. Almost every journey anyone makes is about getting somewhere.</p>
+  <article><div class="wrap question-layout">
+    <div>
+      <p class="m-eyebrow">The question</p>
+      <h2 class="plain" id="why-score-roads-at-all" style="border:0;padding-top:0;margin-top:0">Why score roads at all</h2>
+      <p>Every navigation app in the world optimises for arrival time, and they are right to. Almost every journey anyone makes is about getting somewhere.</p>
     <p>The problem is that nothing measures the other thing. Ask which road between two points is the better drive and the honest answers available to you are a magazine list of ten famous roads, a forum thread from 2014, or local knowledge you only have where you live. None of that scales, and none of it helps when you are two hundred miles from home with an afternoon spare.</p>
     <p>So we built something that does scale. The question Cambr answers is narrow and specific: how good is this road to drive?</p>
+    </div>
     <blockquote class="pull" aria-hidden="true"><p>How good is this road <em>to drive?</em></p></blockquote>
-  </div></div></article>
+  </div></article>
 </section>
 
 <section class="m-band panel">
@@ -239,6 +241,25 @@
             <div class="row final"><span>Final score</span><span class="bar"><i style="width:86.5%"></i></span><b>86.5</b></div>
           </div>
           <p>The straightforward case. The algorithm rates it 88.63 and the press layer agrees. Its corner score is a perfect 25 out of 25, its flow is 11.8 out of 13, and the road’s press reputation adds 9.9 on top. Everything points the same way, and it lands comfortably in S tier.</p>
+          <div class="journey" aria-hidden="true">
+            <span class="step"><span class="lbl">Algorithm alone</span><span class="chip s">S</span></span>
+            <span class="delta">&minus;2.1</span>
+            <span class="step"><span class="lbl">With the press</span><span class="chip s">S</span></span>
+          </div>
+        </div>
+        <div class="road-card a">
+          <div class="top"><span class="tier-badge" aria-label="A tier">A</span><h3>A543 Evo Triangle</h3></div>
+          <div class="score">76.6</div>
+          <div class="meter" aria-hidden="true">
+            <div class="row"><span>Algorithm</span><span class="bar"><i style="width:63.04%"></i></span><b>63.04</b></div>
+            <div class="row final"><span>Final score</span><span class="bar"><i style="width:76.6%"></i></span><b>76.6</b></div>
+          </div>
+          <p>The opposite case. On measurement alone the A543 across the Denbigh Moors scores 63.04, a B-tier road: fast and open, it turns and climbs less than the roads the algorithm rates highest. The press layer lifts it to 76.6 and A tier. This is one leg of the Evo Triangle, named after the magazine that has tested cars on it for years, and the people who know it best rate it far higher than its geometry does.</p>
+          <div class="journey" aria-hidden="true">
+            <span class="step"><span class="lbl">Algorithm alone</span><span class="chip b">B</span></span>
+            <span class="delta">+13.6</span>
+            <span class="step"><span class="lbl">With the press</span><span class="chip a">A</span></span>
+          </div>
         </div>
         <div class="road-card b">
           <div class="top"><span class="tier-badge" aria-label="B tier">B</span><h3>Hardknott Pass</h3></div>
@@ -248,15 +269,11 @@
             <div class="row final"><span>Final score</span><span class="bar"><i style="width:66.9%"></i></span><b>66.9</b></div>
           </div>
           <p>The algorithm loves Hardknott. It scores 83.48, which would put it among the best roads in the country. Then the editorial layer pulls it down to 66.9 and B tier, because for all its reputation as the hardest road in England, the driving press has never really endorsed it as a <i>good drive</i>. A 1-in-3 gradient on a single-track lane with blind hairpins is a test, and a test is not the same as a great road. The score reflects that, and plenty of people will disagree with it.</p>
-        </div>
-        <div class="road-card a">
-          <div class="top"><span class="tier-badge" aria-label="A tier">A</span><h3>Bealach na Bà</h3></div>
-          <div class="score">75.9</div>
-          <div class="meter" aria-hidden="true">
-            <div class="row"><span>Algorithm</span><span class="bar"><i style="width:93.19%"></i></span><b>93.19</b></div>
-            <div class="row final"><span>Final score</span><span class="bar"><i style="width:75.9%"></i></span><b>75.9</b></div>
+          <div class="journey" aria-hidden="true">
+            <span class="step"><span class="lbl">Algorithm alone</span><span class="chip s">S</span></span>
+            <span class="delta">&minus;16.6</span>
+            <span class="step"><span class="lbl">With the press</span><span class="chip b">B</span></span>
           </div>
-          <p>The most interesting one. The algorithm rates the Bealach the highest-scoring road in the entire database at 93.19, ahead of Hartside and everything else. What holds it to A tier is the press layer, where it carries less endorsement than the roads above it. The drive is extraordinary. The score says the consensus around it is thinner than its fame suggests.</p>
         </div>
     </div>
     <div class="col roads-close"><p class="m-intro">Those three are the argument for having two layers at all. An algorithm on its own would put Hardknott near the top. Press coverage on its own would miss every unnamed B-road in the Pennines that nobody has written about.</p></div>
@@ -264,7 +281,7 @@
 </section>
 
 <section class="m-band">
-  <article><div class="wrap"><div class="col">
+  <article><div class="wrap tiers-layout"><div>
     <p class="m-eyebrow">The tiers</p>
     <h2 class="plain" id="the-tiers" style="border:0;padding-top:0;margin-top:0">The tiers</h2>
     <div class="tier-scale" aria-hidden="true">
@@ -283,46 +300,71 @@
       </table>
     </div>
     <div class="note"><p>Roads the algorithm discovers on its own cannot reach S tier. S requires editorial backing, because a road nobody has ever written about might still be excellent and we would rather be slow to canonise it than wrong.</p></div>
-  </div></div></article>
+  </div>
+  <div class="device tilt-r ">
+          <span class="device-island"></span>
+          <div class="device-screen">
+            <picture><source type="image/webp" srcset="/uploads/app-route-options-640.webp"><img src="/uploads/app-route-options-640.jpg" alt="Cambr route options to Cheddar Gorge: Fastest, Quick, Driver&#39;s Route and Extended, each bar coloured by the tiers of road it uses" width="640" height="1387" loading="lazy" decoding="async"></picture>
+          </div>
+        </div>
+  </div></article>
 </section>
 
 <section class="m-band panel">
-  <article><div class="wrap">
-    <div class="col">
+  <article><div class="wrap drive-layout">
+    <div class="device tilt-l ">
+          <span class="device-island"></span>
+          <div class="device-screen">
+            <picture><source type="image/webp" srcset="/uploads/app-loop-drive-640.webp"><img src="/uploads/app-loop-drive-640.jpg" alt="Cambr Active Drive on a loop from Brecon, with the A4069 Black Mountain Pass scored 85.0 and the roads ahead in tier colours" width="640" height="1387" loading="lazy" decoding="async"></picture>
+          </div>
+        </div>
+    <div>
       <p class="m-eyebrow">On the road</p>
       <h2 class="plain" id="what-makes-every-drive-different" style="border:0;padding-top:0;margin-top:0">What makes every drive different</h2>
       <p class="m-intro">The score describes the road. These four things shape the drive you actually get on it.</p>
-    </div>
-    <div class="drive-grid">
-      <div class="cell"><h3>Surface on the day</h3><p>Road condition changes with the season, the weather and whoever last patched it. Drivers spot it first, which is exactly what reviews in the app are for: rate a road and say why, and the score everyone else sees moves with it.</p></div>
-      <div class="cell"><h3>How good the corners are</h3><p>Cambr measures how much a road turns. How good the turning is, the clear sight line and honest camber that make one ninety-degree bend a joy and the same bend blind and off-camber a chore, is where driver reviews earn their keep.</p></div>
-      <div class="cell"><h3>Your car</h3><p>A narrow, bumpy, committed road is a brilliant drive in a light car and a nervous one in something wide and fast. The score describes the road, and you know your car: put the two together and you’ll know which roads to point it at.</p></div>
-      <div class="cell"><h3>The day</h3><p>Traffic, weather, light and time of year move the experience more than a couple of points of score ever will. Glen Coe in October at seven in the morning and Glen Coe in July at midday are not the same road.</p></div>
+      <div class="drive-grid">
+        <div class="cell"><h3>Surface on the day</h3><p>Road condition changes with the season, the weather and whoever last patched it. Drivers spot it first, which is exactly what reviews in the app are for: rate a road and say why, and the score everyone else sees moves with it.</p></div>
+        <div class="cell"><h3>How good the corners are</h3><p>Cambr measures how much a road turns. How good the turning is, the clear sight line and honest camber that make one ninety-degree bend a joy and the same bend blind and off-camber a chore, is where driver reviews earn their keep.</p></div>
+        <div class="cell"><h3>Your car</h3><p>A narrow, bumpy, committed road is a brilliant drive in a light car and a nervous one in something wide and fast. The score describes the road, and you know your car: put the two together and you’ll know which roads to point it at.</p></div>
+        <div class="cell"><h3>The day</h3><p>Traffic, weather, light and time of year move the experience more than a couple of points of score ever will. Glen Coe in October at seven in the morning and Glen Coe in July at midday are not the same road.</p></div>
+      </div>
     </div>
   </div></article>
 </section>
 
 <section class="m-band">
-  <article><div class="wrap pair">
-    <div>
-      <p class="m-eyebrow">Versions</p>
-      <h2 class="plain" id="how-scores-change" style="border:0;padding-top:0;margin-top:0">How scores change</h2>
-      <div class="version" aria-hidden="true"><b>v3.6</b><span>Current scoring version</span></div>
-      <p>Scores are not fixed. They move when the algorithm improves, when new press coverage lands, and when drivers rate roads in the app.</p>
-      <p>Every Cambr user can rate a road out of ten with reasons, and those ratings feed back into what everyone else sees. Surface in particular is something the people driving a road know long before any dataset does. That feedback loop is the part of this that gets better with every drive.</p>
-      <p>The scoring version is published on this page and changes when the algorithm does. The current version is v3.6.</p>
+  <article><div class="wrap">
+    <div class="versions-layout">
+      <div>
+        <p class="m-eyebrow">Versions</p>
+        <h2 class="plain" id="how-scores-change" style="border:0;padding-top:0;margin-top:0">How scores change</h2>
+        <div class="version" aria-hidden="true"><b>v3.6</b><span>Current scoring version</span></div>
+        <p>Scores are not fixed. They move when the algorithm improves, when new press coverage lands, and when drivers rate roads in the app.</p>
+        <p>Every Cambr user can rate a road out of ten with reasons, and those ratings feed back into what everyone else sees. Surface in particular is something the people driving a road know long before any dataset does. That feedback loop is the part of this that gets better with every drive.</p>
+        <p>The scoring version is published on this page and changes when the algorithm does. The current version is v3.6.</p>
+      </div>
+      <div class="device tilt-r ">
+          <span class="device-island"></span>
+          <div class="device-screen">
+            <picture><source type="image/webp" srcset="/uploads/app-rate-road-640.webp"><img src="/uploads/app-rate-road-640.jpg" alt="Rating a road in Cambr: a score out of ten, what stood out and what let it down" width="640" height="1387" loading="lazy" decoding="async"></picture>
+          </div>
+        </div>
     </div>
-    <div>
-      <p class="m-eyebrow">The recipe</p>
-      <h2 class="plain" id="what-we-don-t-publish" style="border:0;padding-top:0;margin-top:0">What we don’t publish</h2>
-      <p>The exact weights, the formula and the full scored dataset stay private. That is the work, and it is the thing a competitor would copy first.</p>
-      <p>Everything else is here: what we measure, why we measure it, where the editorial layer comes from, and what makes every drive different.</p>
+    <div class="recipe">
+      <div>
+        <p class="m-eyebrow">The recipe</p>
+        <h2 class="plain" id="what-we-don-t-publish" style="border:0;padding-top:0;margin-top:0">What we don’t publish</h2>
+      </div>
+      <div>
+        <p>The exact weights, the formula and the full scored dataset stay private. That is the work, and it is the thing a competitor would copy first.</p>
+        <p>Everything else is here: what we measure, why we measure it, where the editorial layer comes from, and what makes every drive different.</p>
+      </div>
     </div>
   </div></article>
 </section>
 
 <section class="m-band deep">
-  <article><div class="wrap"><div class="col">
+  <article><div class="wrap"><div class="faq-wide">
     <p class="m-eyebrow">Questions</p>
     <h2 class="plain" id="questions" style="border:0;padding-top:0;margin-top:0">Questions</h2>
     <div class="faq-list">

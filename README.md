@@ -288,6 +288,46 @@ The copy stayed; the layout was rebuilt, and two passages were reframed.
 - **Built from the markdown by a script**, like round 1. 34 unchanged paragraphs and the nine
   run-in bodies are verified verbatim; FAQ schema drift is none.
 
+### Round 3 (2026-11-03, Neil's second review)
+
+**Homepage**
+- **Definition-band map is real geometry.** Penrith to Reeth from `curated_routes`
+  (`north-pennines-to-swaledale`), projected to British National Grid and coloured by the tier
+  of each road it uses (unscored links in grey). Behind it, dimmed, is every scored road
+  (`road_segments` + `discovered_roads`) in the box E 348000–410000, N 484500–552000. The
+  transform is `x = (E − 350000) × 520/58000`, `y = (550000 − N) × 520/58000`, generated with
+  PostGIS `ST_AsSVG` on the same affine. Hartside Pass sits north of Buttertubs, as it does on
+  the ground. Re-run it if the route or the tiers move.
+- **Tier marks** (◆ ▲ ·) on the tier cards are drawn as same-size 12px SVGs.
+- **"Why Cambr stands out" goes for the jugular**: "Route planners give you a route. Cambr gives
+  you the map." Rows are grouped as The map / The drive / The community. Every competitor cell
+  was checked against the AI planners' own store listings on 3 Nov (notes in the HTML comment
+  above the section). **Two of them do have their own turn-by-turn, one lets you draw a route
+  through roads you pick, one has a community feed, and both have group drives**, so those cells
+  say "Some". Where Cambr is alone: a published score for every road on an explorable map, the
+  press layer, the score of the road you're on, drivers' ratings feeding the scores, and being
+  on Android. **"Plan a route together, then drive it together" is "Coming soon"** (convoy is on
+  /beta's "during the beta" list). Flip it to Yes when convoy ships.
+
+**`/how-scoring-works`**
+- **Worked examples are now S / A / B with three different stories.** Duke's Pass (agree),
+  **A543 Evo Triangle** (the press lifts it: algorithm 63.04 = B, final 76.6 = A, live v3.6) and
+  Hardknott (the press pulls it down). The Bealach card is gone because it made the same point
+  as Hardknott. The A543 card copy is new and needs Neil's sign-off. A82 Glencoe makes the same
+  point (74.83 → 84.5) but it is S tier, which Duke's already holds. Each card ends in a
+  "Algorithm alone → With the press" tier line, pinned to the foot so the three line up.
+- **Dead space taken out.** The question sits beside "Why score roads at all". The press
+  mastheads are larger and centred. The tiers sit beside the route-options screen, "What makes
+  every drive different" beside a drive in progress, and "How scores change" beside the
+  rate-a-road screen. "What we don't publish" is a strip below it, and the questions are in two
+  columns. New phone images: `uploads/app-route-options-640`, `app-loop-drive-640`,
+  `app-rate-road-640` (from IMG_4822, IMG_4865 and `uploads/beta/rate-road.jpg`).
+- **No more IBM Plex Mono, anywhere.** Neil: it looks AI-generated. `--mono` in `article.css`
+  now points at Inter, and labels are set like the homepage eyebrows. **The Journal button is the
+  homepage's rosso pill**, so the Journal pages changed with the scoring page. The diagram in
+  "What makes a great driving road" is Inter too. The five held articles (`journal.css`) still
+  carry Plex. Convert them when they are revived.
+
 ## Launch day (24 November) — one switch, then a short checklist
 
 **The switch is `assets/launch.js`.** Set `live: true` and paste the App Store URL into
@@ -323,6 +363,8 @@ To preview the launch state without flipping it for everyone, run in the browser
       and, if so, where it now lives.
 - [ ] `/ios/`, `/android/` and `/beta/` are written for the test period.
 - [ ] Add `aggregateRating` to `SoftwareApplication` **only** once real store ratings exist.
+- [ ] "Why Cambr stands out": "Plan a route together, then drive it together" is **Coming soon**.
+      Flip it to Yes once convoy ships, and re-check the competitor cells against their listings.
 
 The handoff asked for the hero, "the mid-page block" and the final CTA to flip together. The page
 has no mid-page CTA — its capture points are the header, the hero and the closer — so all three of

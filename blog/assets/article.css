@@ -9,9 +9,10 @@
    the last of them does.
 
    Hairline-and-rule system: border-radius is 0 everywhere, no shadows, no
-   gradients. That restraint is the whole visual character and erodes easily. */
-
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+   gradients. That restraint is the whole visual character and erodes easily.
+   Two exceptions since 3 Nov (Neil): the button is the homepage's rosso pill, and
+   IBM Plex Mono is gone. Labels are Inter, set the way the homepage sets its
+   eyebrows (semibold, 11px, tracked caps). */
 
 :root {
   /* Editorial additions to the design system.
@@ -24,7 +25,8 @@
   --hairline:  rgba(245, 245, 245, 0.16);
   --panel:     var(--surface);           /* #1E1E1E */
   --rosso:     var(--brand-rosso);       /* #D40000 */
-  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Was IBM Plex Mono. Kept as a token so every label rule still points at one place. */
+  --mono: var(--font-sans);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -342,8 +344,8 @@ figure.diagram .fignum {
 figure.diagram .fignum b { color: var(--ink); font-weight: 500; }
 figure.diagram svg { width: 100%; height: auto; display: block; background: transparent; }
 figure.diagram svg.narrow { display: none; }
-/* Diagram captions are Inter, photo captions are Plex Mono: the diagram caption
-   carries an argument, the photo caption is a label. */
+/* Diagram captions are sentence case, photo captions are tracked caps: the diagram
+   caption carries an argument, the photo caption is a label. */
 figure.diagram figcaption {
   padding-top: 16px;
   max-width: 66ch;
@@ -449,19 +451,25 @@ figure.diagram figcaption {
   color: var(--ink-soft);
 }
 
+/* Same as the homepage's .btn-primary */
 .btn {
   margin-top: 30px;
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: 15px;
   color: #fff;
   background: var(--rosso);
-  padding: 15px 24px;
+  border-radius: 999px;
+  padding: 15px 26px;
   white-space: nowrap;
+  text-decoration: none;
+  transition: transform .2s cubic-bezier(0.16,1,0.3,1), opacity .2s ease;
 }
-.btn:hover { color: #fff; opacity: 0.86; }
+.btn:hover { color: #fff; transform: translateY(-1px); }
+.btn:active { opacity: .85; transform: none; }
 
 /* ---------- footer ---------- */
 
@@ -628,3 +636,11 @@ figure.shot img { width: 100%; height: auto; display: block; border-radius: 30px
    No JavaScript means no data-phase attribute, so the waitlist shows. */
 html:not([data-phase="launch"]) [data-show="launch"],
 html[data-phase="launch"] [data-show="waitlist"] { display: none !important; }
+
+/* Labels in Inter, as the homepage sets them (Plex Mono retired 3 Nov) */
+.kicker, .closer .lbl, .note .lbl, .sig .k, .point-num .n, figure.diagram .fignum,
+.foot-tag, .foot-inner .mono, .onward .lbl, table.data thead th {
+  font-weight: var(--fw-semibold); letter-spacing: 0.16em;
+}
+.lead-figure figcaption, figure.plate figcaption, .byline { font-weight: var(--fw-medium); letter-spacing: 0.1em; }
+.facts { font-weight: var(--fw-medium); letter-spacing: 0 !important; font-variant-numeric: tabular-nums; }

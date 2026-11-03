@@ -1,4 +1,5 @@
 /* /how-scoring-works — layered on /colors_and_type.css and /blog/assets/article.css.
+   Type is Inter throughout, like the homepage (Neil, 3 Nov: no mono).
    Page-specific layout: a hero with devices, full-bleed bands for page breaks, and
    the figures that carry the method (factors, worked roads, tier scale). */
 
@@ -55,12 +56,16 @@
 .m-band.deep { background: #0D0D0D; }
 .m-band.panel { background: linear-gradient(180deg, #181818, #131313); }
 .m-band article p { margin-bottom: 20px; }
-.m-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rosso); margin: 0 0 14px; }
+.m-eyebrow { font-family: var(--font-sans); font-weight: var(--fw-semibold); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rosso); margin: 0 0 14px; }
 .m-band h2 { margin: 0 0 22px; }
 .m-intro { font-size: 21px !important; line-height: 1.5 !important; color: var(--ink) !important; max-width: 36em; }
 
 /* A pull statement: a sentence from the copy, repeated at display size */
 .pull { margin: 46px 0 0; padding: 0; border: 0; }
+/* The question: the copy on the left, the question itself at display size on the right */
+.question-layout { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 84px; align-items: center; }
+.question-layout .pull { margin: 0; padding-left: 40px; border-left: 3px solid var(--rosso); }
+.question-layout .pull p { font-size: clamp(40px, 5.2vw, 76px) !important; max-width: 8.5em; }
 .pull p { font-family: var(--font-sans); font-weight: var(--fw-bold); font-size: clamp(30px, 4vw, 52px) !important;
   line-height: 1.08 !important; letter-spacing: -0.03em; color: var(--ink) !important; max-width: 18em; margin: 0 !important; }
 .pull p em { font-style: normal; color: var(--rosso); }
@@ -70,22 +75,23 @@
 .factors-layout .device { --w: 300px; }
 .factors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 44px; margin-top: 34px; }
 .factor { padding: 22px 0 6px; border-top: 1px solid var(--hairline); }
-.factor .n { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--rosso); }
+.factor .n { font-family: var(--font-sans); font-weight: var(--fw-bold); font-size: 13px; letter-spacing: 0.04em; color: var(--rosso); font-variant-numeric: tabular-nums; }
 .factor h3 { margin: 8px 0 8px !important; font-size: 21px !important; }
 .factor p { font-size: 16px !important; line-height: 1.58 !important; margin: 0 0 14px !important; }
 
 /* ---------- The press layer ---------- */
-.press-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); gap: 72px; align-items: start; }
+.press-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 80px; align-items: center; }
 .mastheads { margin: 0; padding: 30px 0 0; list-style: none; border-top: 1px solid var(--hairline); }
 .mastheads li { font-family: var(--font-sans); font-weight: var(--fw-extrabold); text-transform: uppercase; letter-spacing: -0.01em;
-  font-size: clamp(26px, 3vw, 40px); line-height: 1.12; color: rgba(245,245,245,0.16); }
+  font-size: clamp(30px, 4.3vw, 60px); line-height: 1.08; color: rgba(245,245,245,0.16); }
 .mastheads li:nth-child(odd) { color: rgba(245,245,245,0.28); }
-.mastheads .more { font-family: var(--mono); font-weight: var(--fw-medium); text-transform: none; font-size: 13px; letter-spacing: 0.04em; color: var(--ink-faint); margin-top: 14px; }
+.mastheads .more { font-family: var(--font-sans); font-weight: var(--fw-medium); text-transform: none; font-size: 16px; letter-spacing: 0; color: var(--ink-faint); margin-top: 16px; }
 
 /* ---------- Three worked roads ---------- */
 .roads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 40px; }
 .road-card { --t: var(--tier-s); --tf: var(--tier-s-fill);
-  background: #1B1B1B; border: 1px solid var(--hairline); border-top: 3px solid var(--t); border-radius: 16px; padding: 26px 26px 10px; }
+  background: #1B1B1B; border: 1px solid var(--hairline); border-top: 3px solid var(--t); border-radius: 16px; padding: 26px 26px 0;
+  display: flex; flex-direction: column; }
 .road-card.a { --t: var(--tier-a); --tf: var(--tier-a-fill); }
 .road-card.b { --t: var(--tier-c); --tf: var(--tier-c-fill); }
 .road-card .top { display: flex; align-items: center; gap: 14px; }
@@ -94,44 +100,72 @@
 .road-card h3 { margin: 0 !important; font-size: 19px !important; }
 .road-card .score { font-size: 46px; font-weight: var(--fw-bold); letter-spacing: -0.03em; color: var(--t); line-height: 1; margin: 22px 0 18px; font-variant-numeric: tabular-nums; }
 .meter { margin: 0 0 20px; display: grid; gap: 9px; }
-.meter .row { display: grid; grid-template-columns: 82px 1fr 46px; gap: 10px; align-items: center; font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); }
+.meter .row { display: grid; grid-template-columns: 84px 1fr 46px; gap: 10px; align-items: center; font-family: var(--font-sans); font-size: 13px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
 .meter .row b { color: var(--ink); font-weight: var(--fw-medium); text-align: right; }
 .meter .bar { height: 6px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden; }
 .meter .bar i { display: block; height: 100%; border-radius: 99px; background: rgba(255,255,255,0.45); }
 .meter .final .bar i { background: var(--t); }
 .road-card p { font-size: 16px !important; line-height: 1.58 !important; }
+/* Pinned to the foot of every card, so the three line up whatever the copy length */
+.journey { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 18px 0 22px; border-top: 1px solid var(--hairline); }
+.journey .step { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--ink-faint); white-space: nowrap; }
+.journey .step:last-child { align-items: flex-end; }
+.journey .delta { font-size: 13px; font-weight: var(--fw-bold); color: var(--ink); font-variant-numeric: tabular-nums;
+  display: flex; align-items: center; gap: 8px; }
+.journey .delta { flex: 1; justify-content: center; padding-top: 20px; }
+.journey .delta::before, .journey .delta::after { content: ""; flex: 1; max-width: 34px; height: 1px; background: var(--hairline); }
+.journey .chip, table.data.tiers .chip { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px;
+  font-weight: var(--fw-bold); font-size: 14px; border: 1.5px solid currentColor; flex: none; }
+.journey .chip.s { color: var(--tier-s); background: var(--tier-s-fill); }
+.journey .chip.a { color: var(--tier-a); background: var(--tier-a-fill); }
+.journey .chip.b { color: var(--tier-c); background: var(--tier-c-fill); }
 .roads-close { margin-top: 44px; }
 
 /* ---------- The tiers ---------- */
+.tiers-layout { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 90px; align-items: center; }
+.tiers-layout .device { --w: 290px; margin-right: 20px; }
 .tier-scale { margin: 34px 0 10px; }
 .tier-scale .track { display: grid; grid-template-columns: 12fr 10fr 23fr; height: 14px; border-radius: 99px; overflow: hidden; }
 .tier-scale .track span:nth-child(1) { background: var(--tier-c); }
 .tier-scale .track span:nth-child(2) { background: var(--tier-a); }
 .tier-scale .track span:nth-child(3) { background: linear-gradient(90deg, var(--tier-s), #d8b4fe); }
-.tier-scale .ticks { position: relative; height: 26px; font-family: var(--mono); font-size: 12px; color: var(--ink-faint); }
+.tier-scale .ticks { position: relative; height: 26px; font-family: var(--font-sans); font-size: 13px; font-weight: var(--fw-medium); color: var(--ink-faint); font-variant-numeric: tabular-nums; }
 .tier-scale .ticks span { position: absolute; top: 8px; transform: translateX(-50%); }
 table.data.tiers th[scope="row"] { width: 120px; }
-table.data.tiers .chip { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px;
-  font-weight: var(--fw-bold); font-size: 14px; border: 1.5px solid currentColor; }
 table.data.tiers .chip.s { color: var(--tier-s); background: var(--tier-s-fill); }
 table.data.tiers .chip.a { color: var(--tier-a); background: var(--tier-a-fill); }
 table.data.tiers .chip.b { color: var(--tier-c); background: var(--tier-c-fill); }
 table.data.tiers .chip.none { color: var(--ink-faint); width: auto; height: auto; border: 0; font-size: 14px; font-weight: var(--fw-semibold); }
 
 /* ---------- What makes every drive different ---------- */
-.drive-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 34px; }
+.drive-layout { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 80px; align-items: center; }
+.drive-layout .device { --w: 290px; }
+.drive-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
 .drive-grid .cell { background: #1B1B1B; border: 1px solid var(--hairline); border-radius: 16px; padding: 26px 28px 8px; }
 .drive-grid .cell h3 { font-size: 20px !important; }
 .drive-grid .cell p { font-size: 16px !important; line-height: 1.6 !important; }
 
 /* ---------- How scores change / what we don't publish ---------- */
-.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; }
+.versions-layout { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 90px; align-items: center; }
+.versions-layout .device { --w: 290px; margin-right: 20px; }
+/* What we don't publish: a full-width strip under the versions, heading left, copy right */
+.recipe { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 72px; margin-top: 72px; padding-top: 44px; border-top: 1px solid var(--hairline); }
+.recipe h2 { margin-bottom: 0 !important; }
 .version { display: flex; align-items: baseline; gap: 16px; margin: 6px 0 26px; }
 .version b { font-size: 64px; font-weight: var(--fw-bold); letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
-.version span { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+.version span { font-family: var(--font-sans); font-size: 15px; font-weight: var(--fw-medium); color: var(--ink-faint); }
+/* Questions in two columns on wide screens */
+@media (min-width: 1001px) {
+  .m-band .faq-wide .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 64px; }
+}
 
 @media (max-width: 1000px) {
-  .factors-layout, .press-layout, .pair { grid-template-columns: 1fr; gap: 44px; }
+  .factors-layout, .press-layout, .question-layout, .tiers-layout, .drive-layout, .versions-layout, .recipe { grid-template-columns: 1fr; gap: 44px; }
+  .tiers-layout .device, .drive-layout .device, .versions-layout .device { margin: 0 auto; --w: 260px; }
+  .drive-layout .device { order: 2; }
+  .question-layout .pull { padding-left: 24px; }
+  .recipe { gap: 18px; margin-top: 56px; }
   .factors-layout .device { margin: 0 auto; --w: 260px; }
   .roads { grid-template-columns: 1fr; }
 }
