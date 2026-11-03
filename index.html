@@ -546,21 +546,18 @@
      as a category, never individually. */
   .compare-scroll { margin-top: 44px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table.compare { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; text-align: left; }
-  table.compare th, table.compare td { padding: 18px 20px; vertical-align: middle; border-bottom: 1px solid var(--hairline); }
+  table.compare th, table.compare td { padding: 22px 20px; vertical-align: middle; border-bottom: 1px solid var(--hairline); }
   table.compare thead th { padding-top: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--hairline-strong); }
   table.compare thead .col-name { display: block; font-size: 17px; font-weight: var(--fw-bold); color: #FFFFFF; letter-spacing: -0.01em; }
   table.compare thead .col-sub { display: block; margin-top: 4px; font-size: 12px; font-weight: var(--fw-medium); color: var(--text-secondary); }
-  table.compare tbody th { font-size: 16px; font-weight: var(--fw-semibold); color: #FFFFFF; width: 34%; line-height: 1.35; }
+  table.compare tbody th { font-size: 17px; font-weight: var(--fw-semibold); color: #FFFFFF; width: 42%; line-height: 1.35; letter-spacing: -0.005em; }
   table.compare td { font-size: 15px; color: var(--text-secondary); line-height: 1.35; }
-  table.compare tbody:last-of-type tr:last-child th, table.compare tbody:last-of-type tr:last-child td { border-bottom: 0; }
-  /* Group rows: The map / The drive / The community */
-  table.compare tr.grp th, table.compare tr.grp td { padding-top: 34px; padding-bottom: 12px; border-bottom: 1px solid var(--hairline-strong); }
-  table.compare tr.grp th { font-size: 12px; font-weight: var(--fw-bold); letter-spacing: 0.14em; text-transform: uppercase; color: var(--brand-rosso); }
+  table.compare tbody tr:last-child th, table.compare tbody tr:last-child td { border-bottom: 0; }
   /* The Cambr column reads as one raised card */
   table.compare .is-cambr { background: linear-gradient(180deg, rgba(212,0,0,0.10), rgba(212,0,0,0.04)); color: #FFFFFF; font-weight: var(--fw-semibold);
     border-left: 1px solid rgba(212,0,0,0.45); border-right: 1px solid rgba(212,0,0,0.45); }
   table.compare thead .is-cambr { border-top: 1px solid rgba(212,0,0,0.45); border-radius: 16px 16px 0 0; }
-  table.compare tbody:last-of-type tr:last-child .is-cambr { border-bottom: 1px solid rgba(212,0,0,0.45); border-radius: 0 0 16px 16px; }
+  table.compare tbody tr:last-child .is-cambr { border-bottom: 1px solid rgba(212,0,0,0.45); border-radius: 0 0 16px 16px; }
   table.compare thead .is-cambr .col-name { display: flex; align-items: center; gap: 9px; }
   table.compare thead .is-cambr img { height: 22px; width: auto; }
   .mark { display: inline-flex; align-items: center; gap: 10px; }
@@ -572,12 +569,13 @@
   .mark.some::before { background-color: rgba(234,179,8,0.14); border: 1px solid rgba(234,179,8,0.5);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3.5 6h5' fill='none' stroke='%23EAB308' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: 12px; }
   .is-cambr .mark.yes::before { background-color: rgba(34,197,94,0.24); }
-  .mark.soon::before { background-color: rgba(192,132,252,0.14); border: 1px solid rgba(192,132,252,0.55);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='3.9' fill='none' stroke='%23C084FC' stroke-width='1.3'/%3E%3Cpath d='M6 4v2.2l1.4 1' fill='none' stroke='%23C084FC' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: 13px; }
   @media (max-width: 900px) {
     /* Keep the row labels in view while the columns scroll */
-    table.compare tbody tr:not(.grp) th, table.compare thead th:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
-    table.compare tr.grp th { position: sticky; left: 0; }
+    table.compare tbody th, table.compare thead th:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
+    table.compare { min-width: 600px; }
+    table.compare th, table.compare td { padding: 16px 12px; }
+    table.compare tbody th { width: 160px; font-size: 14.5px; }
+    table.compare td { font-size: 14px; }
   }
 
   /* ---------- What's next (roadmap) ----------
@@ -1076,18 +1074,14 @@
 </section>
 
 <!-- ===================== WHY CAMBR STANDS OUT =====================
-     Compared against categories, never named apps. "AI route planners" means the
-     AI-led driving-route apps, checked against their own store listings on 3 Nov 2026:
-       - two of the three have their own turn-by-turn (and CarPlay); the third is a web
-         planner that hands the route to Google Maps -> "Some"
-       - one shows routes on an interactive map and lets you draw a route through roads
-         you pick -> "Some" on building; none publishes a score per road or a press layer
-       - one has a community feed, clubs and follows; one shares drive cards; one has
-         distance goals and badges -> "Some" on records and feed
-       - both apps have group drives / convoys, neither lists planning together
-       - each is iPhone-only or web-only
-     Cambr cells follow /beta. "Coming soon" is convoy (during the beta): flip it to Yes
-     when it ships. Re-check the listings before changing any competitor cell. -->
+     Compared against categories, never named apps. Seven rows, each one a thing only
+     Cambr does (Neil, 3 Nov: clear USPs, not a feature audit). "AI route planners" means
+     the AI-led driving-route apps, checked against their store listings and, for the
+     route builder, Neil's hands-on use: none publishes a score per road on an
+     explorable map, none has a press layer, none lets you pick several roads off the
+     map and join them into a route (one lets you pick a road and drive to it), none
+     shows the score of the road you're on, none feeds drivers' ratings into scores,
+     and each is iPhone-only or web-only. Re-check before changing a cell. -->
 <section class="band">
   <div class="wrap">
     <div class="band-head" style="max-width:780px;">
@@ -1112,15 +1106,6 @@
             <td>Arrival time</td><td>An AI's suggestion</td><td class="is-cambr">Scored road quality</td>
           </tr>
           <tr>
-            <th scope="row">On iPhone and Android</th>
-            <td><span class="mark yes">Yes</span></td><td>iPhone or web only</td><td class="is-cambr"><span class="mark yes">Yes</span></td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr class="grp">
-            <th scope="rowgroup" colspan="3">The map</th><td class="is-cambr"></td>
-          </tr>
-          <tr>
             <th scope="row">Every road scored out of 100, on a map you can explore</th>
             <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
@@ -1129,46 +1114,20 @@
             <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Build a route by picking roads on the map</th>
-            <td><span class="mark no">No</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr class="grp">
-            <th scope="rowgroup" colspan="3">The drive</th><td class="is-cambr"></td>
-          </tr>
-          <tr>
-            <th scope="row">Turn-by-turn navigation built in, with lane guidance</th>
-            <td><span class="mark yes">Yes</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
-          </tr>
-          <tr>
-            <th scope="row">Tells you the score of the road you're on</th>
+            <th scope="row">Build a route by picking roads off the map</th>
             <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Speed camera and average-speed warnings</th>
-            <td><span class="mark some">Partly</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
-          </tr>
-          <tr>
-            <th scope="row">Records your drives, to keep or share</th>
-            <td><span class="mark no">No</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr class="grp">
-            <th scope="rowgroup" colspan="3">The community</th><td class="is-cambr"></td>
-          </tr>
-          <tr>
-            <th scope="row">A feed of other drivers' drives</th>
-            <td><span class="mark no">No</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+            <th scope="row">Navigation that tells you the score of the road you're on</th>
+            <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
             <th scope="row">Drivers' ratings feed back into the road scores</th>
             <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Plan a route together, then drive it together</th>
-            <td><span class="mark no">No</span></td><td>Group drives only</td><td class="is-cambr"><span class="mark soon">Coming soon</span></td>
+            <th scope="row">On iPhone and Android</th>
+            <td><span class="mark yes">Yes</span></td><td>iPhone or web only</td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
         </tbody>
       </table>

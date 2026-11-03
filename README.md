@@ -299,15 +299,14 @@ The copy stayed; the layout was rebuilt, and two passages were reframed.
   PostGIS `ST_AsSVG` on the same affine. Hartside Pass sits north of Buttertubs, as it does on
   the ground. Re-run it if the route or the tiers move.
 - **Tier marks** (◆ ▲ ·) on the tier cards are drawn as same-size 12px SVGs.
-- **"Why Cambr stands out" goes for the jugular**: "Route planners give you a route. Cambr gives
-  you the map." Rows are grouped as The map / The drive / The community. Every competitor cell
-  was checked against the AI planners' own store listings on 3 Nov (notes in the HTML comment
-  above the section). **Two of them do have their own turn-by-turn, one lets you draw a route
-  through roads you pick, one has a community feed, and both have group drives**, so those cells
-  say "Some". Where Cambr is alone: a published score for every road on an explorable map, the
-  press layer, the score of the road you're on, drivers' ratings feeding the scores, and being
-  on Android. **"Plan a route together, then drive it together" is "Coming soon"** (convoy is on
-  /beta's "during the beta" list). Flip it to Yes when convoy ships.
+- **"Why Cambr stands out": seven rows, each a thing only Cambr does.** The title is "Route
+  planners give you a route. Cambr gives you the map." The rows are what you pick by, a score for
+  every road on an explorable map, the press check, building a route by picking roads off the
+  map, navigation that tells you the score of the road you're on, drivers' ratings feeding the
+  scores, and iPhone plus Android. A longer grouped version with "Some" cells was cut the same
+  day (Neil: clear USPs, not a feature audit). On the route builder, one AI planner lets you
+  pick a road and drive to it, but none lets you pick several and join them into a route (Neil,
+  hands-on). Keep any new row to that standard: only add it if Cambr is the one with the tick.
 
 **`/how-scoring-works`**
 - **Worked examples are now S / A / B with three different stories.** Duke's Pass (agree),
@@ -363,8 +362,8 @@ To preview the launch state without flipping it for everyone, run in the browser
       and, if so, where it now lives.
 - [ ] `/ios/`, `/android/` and `/beta/` are written for the test period.
 - [ ] Add `aggregateRating` to `SoftwareApplication` **only** once real store ratings exist.
-- [ ] "Why Cambr stands out": "Plan a route together, then drive it together" is **Coming soon**.
-      Flip it to Yes once convoy ships, and re-check the competitor cells against their listings.
+- [ ] "Why Cambr stands out": once convoy ships, consider a row for planning a route together
+      and driving it together, and re-check the competitor cells against their listings.
 
 The handoff asked for the hero, "the mid-page block" and the final CTA to flip together. The page
 has no mid-page CTA — its capture points are the header, the hero and the closer — so all three of
