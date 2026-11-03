@@ -21,6 +21,19 @@
             }
           },
           {
+            "/": "/",
+            "?": {
+              "p": "?*"
+            },
+            "comment": "a shared driver profile: /?p=<account id> (row 19.8)"
+          },
+          {
+            "/": "/index.html",
+            "?": {
+              "p": "?*"
+            }
+          },
+          {
             "/": "/r/*",
             "comment": "links sent by the first V1 (9 Oct)"
           }
