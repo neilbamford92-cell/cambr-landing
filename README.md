@@ -127,7 +127,7 @@ the route percentages all move together. Re-run every figure after that release.
 ## Homepage 1b — schema and the cold-search sections (2026-11-02)
 
 Built from `cambr-web/homepage/copy.md` (copy) and `seo-pack.md` (meta, schema). Page order is
-now hero → definition → what we've built → how to use → comparison → honest limits → FAQ →
+now hero → definition → what we've built → how to use → why Cambr stands out → what's next → FAQ →
 closer → footer.
 
 **One `<script type="application/ld+json">` holds a three-node `@graph`:** `SoftwareApplication`,
@@ -140,7 +140,7 @@ closer → footer.
   test on both devices now and **launches on both on the same day**. That one fact touched
   seven places on this page, so check all of them together if it ever changes: the three meta
   descriptions, `operatingSystem`, the FAQ answer (twice — visible and schema), the hero
-  eyebrow, the definition line, and the honest-limits paragraph. The launch sentence is the
+  eyebrow, the definition line, and the roadmap. The launch sentence is the
   one already signed off on `/android/`: "Cambr will launch on iPhone and Android on the same day."
 - **`logo`** points at `assets/cambr-lockup-horizontal.png`, generated for this purpose. The SVG
   lockup is `#F5F5F5` on transparent, so it vanishes on the white background Google renders a
@@ -173,13 +173,14 @@ Wired on 2026-11-03, when both pages shipped. See the section below.
   to build out the features now that they are live in test): Curated Drives, Loop Generator,
   Route Builder. Claims were checked against app screenshots — "nearest to you", "x% on great
   roads", "best road in reach", "Add to route" — and "up to five stops" is from the schema
-  `featureList`. The three "Soon" cards moved to their own row, unchanged.
+  `featureList`. The three "Soon" cards (Convoy, AI Trip Planner, Tunnel Finder) moved into the
+  "What's next" roadmap on 2026-11-03, copy unchanged, so the features grid is live features only.
 - **The car spots line in Browse & Discover is not signed-off copy.** The brief asked for one
   line and supplied none, so it was written here: "There are 71 car spots on there too, the meets
   and cafes worth ending a drive at."
 - **Eleven image assets from the SEO pack are outstanding**, including the two that matter most,
   which are photographs rather than screenshots: the hero and an in-car shot. The new sections
-  are text-only by design — the honest-limits section in particular is meant to carry no icons.
+  are text-only by design.
 
 ## `/how-scoring-works` and the first ranked article (2026-11-03)
 
@@ -229,6 +230,36 @@ cut from the header graphic.
 founding elevation signal is corrected, re-run every figure and update the copy, the article's
 table and `ItemList`, `dateModified`, and the scoring page's "Last updated" line and version.
 
+### Homepage, round 2 (2026-11-03, Neil's review)
+
+- **Definition band.** The canonical line ("Cambr is a UK iPhone and Android app…") is set at
+  statement size: the defining clause in white, the rest grey, "the long way home" in rosso. The
+  words are untouched and stay plain text. Beside it is a drawn route in tier colours: the
+  article's #1 drive, Penrith to Reeth, labelled with the two S-tier roads it really crosses
+  (Hartside Pass 88.9, Buttertubs 86.0) in the app's own road-pill style. If either score
+  moves, update the pill.
+- **Feature phone.** 328px wide at 1280px and up, which makes it exactly as tall as the card grid
+  (both 683px); auto-sized card rows stretch to meet it. Between 901 and 1180px the cards wrap
+  taller than any sensible phone, so it sits centred. Interim, pending Claude Design.
+- **"Why Cambr stands out" replaces "How Cambr compares".** Title "Scored, not suggested." The
+  columns are now map apps, **AI route planners** and Cambr. The magazine-list column is gone
+  (Neil: nobody plans a trip from one in 2026). The AI planners Neil named as the real
+  competitors are described as a category and never named. Each cell was checked against their
+  store listings and press coverage on 2026-11-03:
+  - none publishes a road score out of 100 or mentions a motoring-press layer;
+  - one scores roads internally ("curves, climbs, surface and traffic") but shows no scale;
+  - two navigate turn by turn; one exports to Google Maps instead;
+  - one warns of speed cameras;
+  - every one is iPhone-only or web-only, which is why "On iPhone and Android" is a row.
+  **Re-check before changing a cell.** These apps add features fast — one already does convoys,
+  fuel prices and CarPlay, so none of those are rows.
+- **"What's next" replaces "What Cambr doesn't do yet"** (Neil: frame what's coming, not what's
+  missing). Three stages — November, after launch, on the roadmap — and every item is sourced in
+  the CSS comment. The limits are still stated, just as things on the way: offline maps, routing
+  beyond GB, CarPlay. Two FAQs were reframed the same way, in the page and the schema together:
+  offline ("Offline maps are on the roadmap. Until they arrive…") and outside the UK ("The map
+  does…").
+
 ## Launch day (24 November) — one switch, then a short checklist
 
 **The switch is `assets/launch.js`.** Set `live: true` and paste the App Store URL into
@@ -258,7 +289,8 @@ To preview the launch state without flipping it for everyone, run in the browser
 - [ ] Homepage FAQ "Is Cambr available on Android?" — the answer says *in testing now, will
       launch on both on the same day*. Change it **in the visible FAQ and in the `FAQPage` schema**.
 - [ ] `SoftwareApplication.offers.description` says "Cambr Pro available at public launch."
-- [ ] Honest-limits section: "Convoy … arrives in November" — confirm or update.
+- [ ] "What's next" roadmap: move anything that has shipped out of it, and retire the
+      "November" stage once Convoy is out.
 - [ ] Founding-member line is hidden with the form at launch. Decide whether the offer continues
       and, if so, where it now lives.
 - [ ] `/ios/`, `/android/` and `/beta/` are written for the test period.

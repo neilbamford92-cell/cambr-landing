@@ -93,7 +93,7 @@
         {
           "@type": "Question",
           "name": "Does Cambr work offline?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Offline maps are on the roadmap but are not in the app today, so you need a mobile signal to navigate." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Offline maps are on the roadmap. Until they arrive, Cambr needs a mobile signal to navigate." }
         },
         {
           "@type": "Question",
@@ -103,7 +103,7 @@
         {
           "@type": "Question",
           "name": "Does it work outside the UK?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Roads in Ireland are scored and on the map, and 71 European roads are on there marked as coming soon. Turn-by-turn routing currently works in Great Britain only." }
+          "acceptedAnswer": { "@type": "Answer", "text": "The map does. Every driving road in Ireland is scored, and 71 European roads are on there too. Turn-by-turn routing covers Great Britain today, with Ireland and Europe on the way." }
         },
         {
           "@type": "Question",
@@ -475,41 +475,118 @@
   .closer form.capture { margin: 38px auto 0; }
   .closer .form-note { text-align: center; }
 
-  /* ---------- Definition line (plain text, quotable standalone) ---------- */
-  section.define { padding: 60px 0; border-bottom: 1px solid var(--hairline); }
-  .define p {
-    font-size: clamp(18px, 2.1vw, 26px);
-    line-height: 1.45; letter-spacing: -0.015em;
-    color: var(--text-primary); max-width: 48ch; text-wrap: pretty;
+  /* ---------- Definition line (plain text, quotable standalone) ----------
+     The words are the canonical line and stay plain text in the DOM; the spans only
+     set tone. The route beside it is the article's #1 drive, Penrith to Reeth, with
+     the two S-tier roads it really does cross, labelled the way the app labels them. */
+  section.define { padding: 92px 0; position: relative; overflow: hidden;
+    background:
+      radial-gradient(60% 80% at 82% 50%, rgba(192,132,252,0.10), transparent 70%),
+      radial-gradient(40% 60% at 70% 70%, rgba(34,197,94,0.07), transparent 70%),
+      var(--bg);
+    border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+  .define-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+  .define-line {
+    font-size: clamp(24px, 2.75vw, 38px); line-height: 1.24; letter-spacing: -0.022em;
+    font-weight: var(--fw-medium); color: var(--text-secondary); text-wrap: pretty;
+  }
+  .define-line strong { color: #FFFFFF; font-weight: var(--fw-semibold); }
+  .define-line .accent { color: var(--brand-rosso); font-weight: var(--fw-semibold); }
+  .define-route { position: relative; }
+  .define-route svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .define-route .seg { fill: none; stroke-width: 6; stroke-linecap: round; }
+  .define-route .glow { fill: none; stroke-width: 14; stroke-linecap: round; opacity: .55; filter: url(#define-blur); }
+  .define-route .s { stroke: var(--tier-s); } .define-route .a { stroke: var(--tier-a); } .define-route .b { stroke: var(--tier-c); }
+  .define-route .net { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 1.2; }
+  .define-route .pin { fill: var(--bg); stroke: #FFFFFF; stroke-width: 3.5; }
+  .define-route .place { fill: #FFFFFF; font: 600 13px var(--font-sans); }
+  .road-chip {
+    position: absolute; transform: translate(-50%, -50%);
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    background: rgba(20,20,20,0.92); border: 1px solid var(--hairline-strong); border-radius: 999px;
+    padding: 6px 12px 6px 6px; font-size: 13px; font-weight: var(--fw-semibold); color: #FFFFFF;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.45);
+  }
+  .road-chip .t { width: 22px; height: 22px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: var(--fw-bold); color: #141414; background: var(--tier-s); }
+  .road-chip b { color: var(--tier-s); font-weight: var(--fw-bold); }
+  .road-chip.c1 { left: 15%; top: 58%; }
+  .road-chip.c2 { left: 63%; top: 19%; }
+  .define-caption { margin-top: 14px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
+  .define-caption a { color: var(--text-primary); border-bottom: 1px solid var(--brand-rosso); }
+  @media (max-width: 900px) {
+    section.define { padding: 64px 0; }
+    .define-inner { grid-template-columns: 1fr; gap: 34px; }
+    .define-route { max-width: 520px; }
+  }
+  @media (max-width: 560px) {
+    .road-chip { font-size: 11.5px; gap: 6px; padding: 4px 9px 4px 4px; }
+    .road-chip .t { width: 18px; height: 18px; font-size: 10px; }
+    .road-chip.c1 { left: 25%; top: 56%; }
   }
 
-  /* ---------- Comparison table. Stays a <table>: it is the element most ----
-     likely to be pulled into a search result, so it must not become cards. */
-  .compare-scroll { margin-top: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table.compare { width: 100%; min-width: 820px; border-collapse: collapse; text-align: left; }
-  table.compare th, table.compare td {
-    padding: 15px 16px; font-size: 15px; line-height: 1.4;
-    border-bottom: 1px solid var(--hairline); vertical-align: top;
+  /* ---------- Why Cambr stands out (comparison) ----------
+     Stays a <table>: it is the element most likely to be pulled into a search result
+     or an AI answer. Each mark carries its word ("Yes", "No", "Some") as text, so the
+     table reads the same to a machine as it looks to a person. Competitors are named
+     as a category, never individually. */
+  .compare-scroll { margin-top: 44px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.compare { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; text-align: left; }
+  table.compare th, table.compare td { padding: 18px 20px; vertical-align: middle; border-bottom: 1px solid var(--hairline); }
+  table.compare thead th { padding-top: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--hairline-strong); }
+  table.compare thead .col-name { display: block; font-size: 17px; font-weight: var(--fw-bold); color: #FFFFFF; letter-spacing: -0.01em; }
+  table.compare thead .col-sub { display: block; margin-top: 4px; font-size: 12px; font-weight: var(--fw-medium); color: var(--text-secondary); }
+  table.compare tbody th { font-size: 16px; font-weight: var(--fw-semibold); color: #FFFFFF; width: 34%; line-height: 1.35; }
+  table.compare td { font-size: 15px; color: var(--text-secondary); line-height: 1.35; }
+  table.compare tbody tr:last-child th, table.compare tbody tr:last-child td { border-bottom: 0; }
+  /* The Cambr column reads as one raised card */
+  table.compare .is-cambr { background: linear-gradient(180deg, rgba(212,0,0,0.10), rgba(212,0,0,0.04)); color: #FFFFFF; font-weight: var(--fw-semibold);
+    border-left: 1px solid rgba(212,0,0,0.45); border-right: 1px solid rgba(212,0,0,0.45); }
+  table.compare thead .is-cambr { border-top: 1px solid rgba(212,0,0,0.45); border-radius: 16px 16px 0 0; }
+  table.compare tbody tr:last-child .is-cambr { border-bottom: 1px solid rgba(212,0,0,0.45); border-radius: 0 0 16px 16px; }
+  table.compare thead .is-cambr .col-name { display: flex; align-items: center; gap: 9px; }
+  table.compare thead .is-cambr img { height: 22px; width: auto; }
+  .mark { display: inline-flex; align-items: center; gap: 10px; }
+  .mark::before { content: ""; flex: none; width: 22px; height: 22px; border-radius: 999px; background-repeat: no-repeat; background-position: center; }
+  .mark.yes::before { background-color: rgba(34,197,94,0.16); border: 1px solid rgba(34,197,94,0.55);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.2L9.5 3.6' fill='none' stroke='%2322C55E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: 12px; }
+  .mark.no::before { background-color: transparent; border: 1px solid rgba(255,255,255,0.18);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3.8 3.8l4.4 4.4M8.2 3.8l-4.4 4.4' fill='none' stroke='%238A8A8A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: 11px; }
+  .mark.some::before { background-color: rgba(234,179,8,0.14); border: 1px solid rgba(234,179,8,0.5);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3.5 6h5' fill='none' stroke='%23EAB308' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: 12px; }
+  .is-cambr .mark.yes::before { background-color: rgba(34,197,94,0.24); }
+  @media (max-width: 900px) {
+    /* Keep the row labels in view while the columns scroll */
+    table.compare tbody th, table.compare thead th:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
   }
-  table.compare thead th {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
-    font-weight: var(--fw-semibold); color: var(--text-secondary);
-    border-bottom-color: var(--hairline-strong);
-  }
-  table.compare tbody th { font-weight: var(--fw-medium); color: var(--text-secondary); width: 28%; }
-  table.compare td { color: var(--text-secondary); }
-  table.compare .is-cambr {
-    color: var(--text-primary); font-weight: var(--fw-semibold);
-    background: rgba(255,255,255,0.03);
-  }
-  table.compare thead .is-cambr { color: var(--brand-rosso); }
-  .compare-note { margin-top: 26px; max-width: 62ch; font-size: 16px; line-height: 1.6; color: var(--text-secondary); }
 
-  /* ---------- What Cambr doesn't do yet. Plain text, no icons: the ----------
-     honesty is the asset and decorating it undercuts it. */
-  .limits-body { margin-top: 26px; max-width: 64ch; }
-  .limits-body p { font-size: 16px; line-height: 1.62; color: var(--text-secondary); }
-  .limits-body p + p { margin-top: 15px; }
+  /* ---------- What's next (roadmap) ----------
+     Replaced "What Cambr doesn't do yet" on 3 Nov (Neil: frame what is coming, not
+     what is missing). Every item is sourced: Convoy in November (signed-off limits
+     copy), CarPlay/Android Auto, fuel finder and convoy walkie-talkie after launch
+     (/beta), AI Trip Planner post-launch (Neil), offline maps and routing beyond GB
+     on the roadmap (the FAQ). Update the stages as things ship. */
+  .roadmap { list-style: none; margin: 52px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; position: relative; }
+  .roadmap::before { content: ""; position: absolute; left: 0; right: 0; top: 9px; height: 2px;
+    background: linear-gradient(90deg, var(--brand-rosso) 0%, rgba(212,0,0,0.5) 34%, rgba(255,255,255,0.22) 34%, rgba(255,255,255,0.08) 100%); }
+  .stage-head { position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+  .stage .node { width: 20px; height: 20px; border-radius: 999px; background: var(--bg-map); border: 2px solid rgba(255,255,255,0.4); flex: none; }
+  .stage.now .node { border-color: var(--brand-rosso); box-shadow: 0 0 0 5px rgba(212,0,0,0.18), 0 0 18px rgba(212,0,0,0.55); background: var(--brand-rosso); }
+  .stage .when { background: var(--bg-map); padding: 0 12px 0 2px; position: relative; font-size: 11px; font-weight: var(--fw-semibold); text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-secondary); }
+  .stage.now .when { color: #FFFFFF; }
+  .stage .item { padding: 0 0 22px; }
+  .stage .item + .item { padding-top: 20px; border-top: 1px solid var(--hairline); }
+  .stage .item h3 { font-size: 17px; font-weight: var(--fw-bold); color: #FFFFFF; letter-spacing: -0.01em; line-height: 1.3; }
+  .stage .item p { margin-top: 6px; font-size: 15px; line-height: 1.55; color: var(--text-secondary); }
+  .stage.now .item h3 { font-size: 22px; }
+  .stage.now .item p { font-size: 16px; color: var(--text-primary); }
+  @media (max-width: 900px) {
+    .roadmap { grid-template-columns: 1fr; gap: 10px; }
+    .roadmap::before { top: 0; bottom: 0; left: 9px; right: auto; width: 2px; height: auto;
+      background: linear-gradient(180deg, var(--brand-rosso) 0%, rgba(255,255,255,0.22) 30%, rgba(255,255,255,0.08) 100%); }
+    .stage { padding-left: 40px; position: relative; }
+    .stage-head { margin-left: -40px; }
+  }
 
   /* ---------- FAQ. Visible text, no accordion, so an answer engine ----------
      can read every answer without running any JavaScript. */
@@ -602,6 +679,8 @@
   .score-layout { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 46px; align-items: start; }
   .score-shot { display: flex; flex-direction: column; align-items: center; flex: none; position: sticky; top: 24px; }
   .phone.shot-phone { width: 250px; }
+  .feature-shot .phone.shot-phone { width: 328px; }
+  @media (max-width: 1180px) and (min-width: 901px) { .feature-shot .phone.shot-phone { width: 272px; } }
   .score-caption {
     margin-top: 16px; font-size: 11px; color: var(--text-secondary);
     text-transform: uppercase; letter-spacing: 0.1em; text-align: center; font-weight: var(--fw-semibold);
@@ -623,17 +702,15 @@
      the phone takes 250 and the two card columns get ~420 each. */
   .feature-layout {
     display: grid; grid-template-columns: minmax(0, 1fr) auto;
-    gap: 46px; align-items: start; margin-top: 56px;
+    gap: 46px; align-items: stretch; margin-top: 56px;
   }
+  /* The phone is sized to stand at least as tall as the cards; auto-sized card rows
+     then stretch to meet it, so phone and cards share a top and a bottom edge. */
   .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  /* Live features sit beside the phone; what is coming next gets its own row below,
-     so the section reads "works now" before "on the way". */
-  .feature-next { margin-top: 44px; }
-  .feature-next .band-eyebrow { color: var(--text-secondary); }
-  .feature-grid.next { grid-template-columns: repeat(3, 1fr); }
+
   .feature-shot {
-    display: flex; flex-direction: column; align-items: center;
-    flex: none; position: sticky; top: 24px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    flex: none;
   }
   .feature {
     background: var(--card); border: 1px solid var(--hairline); border-radius: 18px;
@@ -679,7 +756,7 @@
     .phone-wrap { padding: 12px 0 64px; justify-content: center; }
     .phone { width: 260px; }
     .hero-scrim { background: linear-gradient(0deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.15) 45%, rgba(20,20,20,0.75) 100%); }
-    .tiers, .modes-grid, .feature-grid, .feature-grid.next, .build-grid.two { grid-template-columns: 1fr; }
+    .tiers, .modes-grid, .feature-grid, .build-grid.two { grid-template-columns: 1fr; }
     .score-layout, .feature-layout { grid-template-columns: 1fr; gap: 28px; }
     .score-shot, .feature-shot { order: -1; position: static; }
     section.band { padding: 72px 0; }
@@ -814,8 +891,43 @@
      nothing around it. This is the sentence that gets quoted when someone asks
      an answer engine for an app that finds driving roads. Do not put it in an image. -->
 <section class="band define">
-  <div class="wrap">
-    <p>Cambr is a UK iPhone and Android app that scores every driving road in Britain and Ireland for how good it is to drive, and builds routes along the best of them rather than the quickest. It was built for people who choose the long way home.</p>
+  <div class="wrap define-inner">
+    <p class="define-line"><strong>Cambr is a UK iPhone and Android app that scores every driving road in Britain and Ireland</strong> for how good it is to drive, and builds routes along the best of them rather than the quickest. It was built for people who choose <span class="accent">the long way home</span>.</p>
+
+    <div class="define-visual">
+    <figure class="define-route" aria-hidden="true">
+      <svg viewBox="0 0 520 360">
+        <defs><filter id="define-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter></defs>
+        <g class="net">
+          <path d="M0 300 C 120 280, 200 330, 320 300 S 470 250, 520 270"/>
+          <path d="M60 0 C 80 90, 40 170, 90 260 S 120 340, 110 360"/>
+          <path d="M260 0 C 240 60, 300 120, 270 200 S 300 300, 330 360"/>
+          <path d="M0 120 C 90 140, 160 90, 250 110 S 420 70, 520 120"/>
+          <path d="M420 0 C 400 80, 460 170, 440 250 S 470 330, 500 360"/>
+          <path d="M0 200 C 70 210, 120 180, 190 205"/>
+        </g>
+        <g class="glows">
+          <path class="glow s" d="M34 318 C 70 316, 98 268, 150 230"/>
+          <path class="glow a" d="M150 230 C 200 195, 176 150, 236 140"/>
+          <path class="glow b" d="M236 140 C 290 130, 300 190, 346 180"/>
+          <path class="glow s" d="M346 180 C 396 168, 382 106, 430 90"/>
+          <path class="glow a" d="M430 90 C 466 80, 470 52, 496 42"/>
+        </g>
+        <path class="seg s" d="M34 318 C 70 316, 98 268, 150 230"/>
+        <path class="seg a" d="M150 230 C 200 195, 176 150, 236 140"/>
+        <path class="seg b" d="M236 140 C 290 130, 300 190, 346 180"/>
+        <path class="seg s" d="M346 180 C 396 168, 382 106, 430 90"/>
+        <path class="seg a" d="M430 90 C 466 80, 470 52, 496 42"/>
+        <circle class="pin" cx="34" cy="318" r="8"/>
+        <circle class="pin" cx="496" cy="42" r="8"/>
+        <text class="place" x="34" y="346" text-anchor="middle">Penrith</text>
+        <text class="place" x="496" y="20" text-anchor="middle">Reeth</text>
+      </svg>
+      <span class="road-chip c1"><span class="t">S</span>Hartside Pass <b>88.9</b></span>
+      <span class="road-chip c2"><span class="t">S</span>Buttertubs <b>86.0</b></span>
+    </figure>
+    <p class="define-caption"><a href="/blog/best-driving-routes-uk#north-pennines-to-swaledale">North Pennines to Swaledale</a> &middot; the best driving route in the UK</p>
+    </div>
   </div>
 </section>
 
@@ -950,100 +1062,96 @@
       </div>
     </div>
 
-    <div class="feature-next">
-      <div class="band-eyebrow">Coming soon</div>
-      <div class="feature-grid next">
-        <div class="feature">
-        <div class="feature-icon"><ion-icon name="people-outline"></ion-icon></div>
-        <h3>Convoy Mode <span class="tag soon">Soon</span></h3>
-        <p>Plan an epic route and share it with the crew. Stay together, see everyone live on the route, chat to each other. Real-life Forza Horizon.</p>
-      </div>
-        <div class="feature">
-        <div class="feature-icon"><ion-icon name="calendar-outline"></ion-icon></div>
-        <h3>AI Trip Planner <span class="tag soon">Soon</span></h3>
-        <p>Tell Cambr you've got an adventure coming up and it builds the whole trip: the best roads, overnight stops and the most epic views.</p>
-      </div>
-        <div class="feature">
-        <div class="feature-icon"><ion-icon name="trail-sign-outline"></ion-icon></div>
-        <h3>Tunnel Finder + More <span class="tag soon">Soon</span></h3>
-        <p>Everyone loves to hear their car in a tunnel. Find the best ones and add them to your route so you never miss out on the noise.</p>
-      </div>
-      </div>
-    </div>
-
     <p class="build-outro">Our team has wanted an app like Cambr for years — <b>so we decided to build it.</b></p>
   </div>
 </section>
 
-<!-- ===================== HOW CAMBR COMPARES ===================== -->
+<!-- ===================== WHY CAMBR STANDS OUT =====================
+     Compared against categories, not named apps. "AI route planners" means the
+     AI-led driving-route apps (checked against their store listings, 3 Nov 2026):
+     none publishes a road score or a press layer, some navigate turn by turn,
+     some warn of cameras, and each is iPhone-only or web-only. Re-check before
+     changing a cell. -->
 <section class="band">
   <div class="wrap">
-    <div class="band-head">
-      <div class="band-eyebrow">How Cambr compares</div>
-      <h2 class="band-title">Against the <span class="accent">alternatives</span>.</h2>
+    <div class="band-head" style="max-width:760px;">
+      <div class="band-eyebrow">Why Cambr stands out</div>
+      <h2 class="band-title">Scored, <span class="accent">not suggested</span>.</h2>
+      <p class="band-sub">An AI planner gives you a route it thinks you'll like. Cambr has measured every road, shows you exactly why each one scores what it does, and routes you through the best of them.</p>
     </div>
 
-    <div class="compare-scroll" role="region" aria-label="How Cambr compares with the alternatives" tabindex="0">
+    <div class="compare-scroll" role="region" aria-label="How Cambr compares with map apps and AI route planners" tabindex="0">
       <table class="compare">
         <thead>
           <tr>
-            <th scope="col"><span class="vh">What we compared</span></th>
-            <th scope="col">General map apps</th>
-            <th scope="col">Web route planners</th>
-            <th scope="col">A magazine list</th>
-            <th scope="col" class="is-cambr">Cambr</th>
+            <th scope="col"><span class="vh">Feature</span></th>
+            <th scope="col"><span class="col-name">Map apps</span><span class="col-sub">Built to get you there fast</span></th>
+            <th scope="col"><span class="col-name">AI route planners</span><span class="col-sub">Routes written by a model</span></th>
+            <th scope="col" class="is-cambr"><span class="col-name"><img src="/assets/cambr-mark.svg" alt="" width="20" height="22">Cambr</span><span class="col-sub">Every road measured</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">Optimises for</th>
-            <td>Arrival time</td><td>Scenery or input</td><td>Editorial opinion</td>
-            <td class="is-cambr">Driving quality, scored</td>
+            <th scope="row">Picks your route by</th>
+            <td>Arrival time</td><td>An AI's suggestion</td><td class="is-cambr">Scored road quality</td>
           </tr>
           <tr>
-            <th scope="row">Every road rated</th>
-            <td>No</td><td>No</td><td>No</td>
-            <td class="is-cambr">Yes, out of 100</td>
+            <th scope="row">Every road scored out of 100, on one map</th>
+            <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Works as sat-nav in the car</th>
-            <td>Yes</td><td>No</td><td>No</td>
-            <td class="is-cambr">Yes</td>
+            <th scope="row">Scores checked against 30 years of motoring press</th>
+            <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Camera and average-speed warnings</th>
-            <td>Partly</td><td>No</td><td>No</td>
-            <td class="is-cambr">Yes</td>
+            <th scope="row">Tells you the score of the road you're on</th>
+            <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Tells you what you're driving as you drive it</th>
-            <td>No</td><td>No</td><td>No</td>
-            <td class="is-cambr">Yes</td>
+            <th scope="row">Turn-by-turn navigation</th>
+            <td><span class="mark yes">Yes</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Coverage</th>
-            <td>Everywhere</td><td>Varies</td><td>A handful of roads</td>
-            <td class="is-cambr">Britain and Ireland</td>
+            <th scope="row">Speed camera and average-speed warnings</th>
+            <td><span class="mark some">Partly</span></td><td><span class="mark some">Some</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
+          </tr>
+          <tr>
+            <th scope="row">On iPhone and Android</th>
+            <td><span class="mark yes">Yes</span></td><td>iPhone or web only</td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <p class="compare-note">A magazine list of the ten best roads in Britain is a good read and a bad tool. It has ten roads in it, none of them near you, and no way to get from one to the next.</p>
   </div>
 </section>
 
-<!-- ===================== WHAT CAMBR DOESN'T DO YET ===================== -->
-<section class="band deep">
+<!-- ===================== WHAT'S NEXT ===================== -->
+<section class="band deep" id="whats-next">
   <div class="wrap">
-    <div class="band-head">
-      <div class="band-eyebrow">Straight answers</div>
-      <h2 class="band-title">What Cambr <span class="accent">doesn't do yet</span>.</h2>
+    <div class="band-head" style="max-width:720px;">
+      <div class="band-eyebrow">What's next</div>
+      <h2 class="band-title">Plenty more <span class="accent">on the way</span>.</h2>
+      <p class="band-sub">Cambr is in beta on iPhone and Android now, and the list of what's coming is a long one. Here it is, in the order it's arriving.</p>
     </div>
-    <div class="limits-body">
-      <p>Being straight about this up front saves everyone time.</p>
-      <p>Routing works in Great Britain; roads in Ireland and across Europe are on the map and scored, but routes stay in GB for the moment. There are no offline maps yet, so you need a signal. No CarPlay or Android Auto. Convoy, which lets a group drive the same route together, arrives in November.</p>
-    </div>
+    <ol class="roadmap">
+      <li class="stage now">
+        <div class="stage-head"><span class="node"></span><span class="when">November</span></div>
+        <div class="item"><h3>Convoy Mode</h3><p>Plan an epic route and share it with the crew. Stay together, see everyone live on the route, chat to each other. Real-life Forza Horizon.</p></div>
+      </li>
+      <li class="stage">
+        <div class="stage-head"><span class="node"></span><span class="when">After launch</span></div>
+        <div class="item"><h3>CarPlay and Android Auto</h3><p>Cambr on your car's own screen, scores and all.</p></div>
+        <div class="item"><h3>AI Trip Planner</h3><p>Tell Cambr you've got an adventure coming up and it builds the whole trip: the best roads, overnight stops and the most epic views.</p></div>
+        <div class="item"><h3>Convoy walkie-talkie</h3><p>Live voice for everyone in the convoy, hands on the wheel.</p></div>
+        <div class="item"><h3>Fuel finder</h3><p>Fuel along your route, found before you need it.</p></div>
+      </li>
+      <li class="stage">
+        <div class="stage-head"><span class="node"></span><span class="when">On the roadmap</span></div>
+        <div class="item"><h3>Routing in Ireland and Europe</h3><p>Ireland and 71 European roads are already scored and on the map. Turn-by-turn routing there is on the way.</p></div>
+        <div class="item"><h3>Offline maps</h3><p>Navigation that keeps going when the signal doesn't.</p></div>
+        <div class="item"><h3>Tunnel Finder</h3><p>Everyone loves to hear their car in a tunnel. Find the best ones and add them to your route so you never miss out on the noise.</p></div>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -1070,7 +1178,7 @@
       </div>
       <div class="q">
         <h3>Does Cambr work offline?</h3>
-        <p>No. Offline maps are on the roadmap but are not in the app today, so you need a mobile signal to navigate.</p>
+        <p>Offline maps are on the roadmap. Until they arrive, Cambr needs a mobile signal to navigate.</p>
       </div>
       <div class="q">
         <h3>Can Cambr plan a round trip from my house?</h3>
@@ -1078,7 +1186,7 @@
       </div>
       <div class="q">
         <h3>Does it work outside the UK?</h3>
-        <p>Roads in Ireland are scored and on the map, and 71 European roads are on there marked as coming soon. Turn-by-turn routing currently works in Great Britain only.</p>
+        <p>The map does. Every driving road in Ireland is scored, and 71 European roads are on there too. Turn-by-turn routing covers Great Britain today, with Ireland and Europe on the way.</p>
       </div>
       <div class="q">
         <h3>Is Cambr a speed camera detector?</h3>
