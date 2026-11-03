@@ -542,3 +542,8 @@ footer.site { border-top: 1px solid var(--hairline); }
   figure.diagram svg.wide { display: none; }
   figure.diagram svg.narrow { display: block; max-width: 420px; }
 }
+
+/* Launch switch (assets/launch.js): waitlist CTAs until launch, download CTAs after.
+   No JavaScript means no data-phase attribute, so the waitlist shows. */
+html:not([data-phase="launch"]) [data-show="launch"],
+html[data-phase="launch"] [data-show="waitlist"] { display: none !important; }

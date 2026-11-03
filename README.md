@@ -183,6 +183,45 @@ grep -n 'TODO wire' index.html
   which are photographs rather than screenshots: the hero and an in-car shot. The new sections
   are text-only by design — the honest-limits section in particular is meant to carry no icons.
 
+## Launch day (24 November) — one switch, then a short checklist
+
+**The switch is `assets/launch.js`.** Set `live: true` and paste the App Store URL into
+`appStore`. The Play URL is already in (`uk.cambr.app`, the same package as `assetlinks.json`).
+That one edit flips every CTA on every page that loads the file:
+
+| Where | Waitlist (now) | Launch |
+|---|---|---|
+| Header CTA, homepage + Journal | Get early access → | Download Cambr → |
+| Hero eyebrow | Now live in beta testing · iPhone and Android | Out now · iPhone and Android |
+| Hero | email form + founding-member note | App Store + Google Play badges, in the copy column |
+| Under the hero phone | "Coming soon" badges | hidden |
+| Closer | email form | the two store badges |
+| Journal closer button | Get early access | Download Cambr |
+
+How it works: elements carry `data-show="waitlist"` or `data-show="launch"`, and one CSS rule
+per stylesheet (search **"Launch switch"** — `index.html` and `blog/assets/article.css`) hides
+whichever phase is not current. `launch.js` loads synchronously in `<head>` so the attribute is set
+before first paint. **No JavaScript means waitlist**, which is the safe default. Links marked
+`data-store="appStore"` / `"googlePlay"` get their `href` from the file.
+
+To preview the launch state without flipping it for everyone, run in the browser console:
+`document.documentElement.dataset.phase = 'launch'`.
+
+**The switch does not touch prose or JSON-LD.** Do these by hand on the day:
+
+- [ ] Homepage FAQ "Is Cambr available on Android?" — the answer says *in testing now, will
+      launch on both on the same day*. Change it **in the visible FAQ and in the `FAQPage` schema**.
+- [ ] `SoftwareApplication.offers.description` says "Cambr Pro available at public launch."
+- [ ] Honest-limits section: "Convoy … arrives in November" — confirm or update.
+- [ ] Founding-member line is hidden with the form at launch. Decide whether the offer continues
+      and, if so, where it now lives.
+- [ ] `/ios/`, `/android/` and `/beta/` are written for the test period.
+- [ ] Add `aggregateRating` to `SoftwareApplication` **only** once real store ratings exist.
+
+The handoff asked for the hero, "the mid-page block" and the final CTA to flip together. The page
+has no mid-page CTA — its capture points are the header, the hero and the closer — so all three of
+those are covered.
+
 ## Analytics and consent
 
 GA4 property **G-42KLZHNL5B**, loaded from `assets/analytics.js` on every page. One file, one
