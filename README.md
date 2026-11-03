@@ -153,16 +153,9 @@ eight and the copy is the signed-off source, so cutting two to match a summary t
 been an edit to final copy. The two extra are "Is Cambr a speed camera detector?" and "Who is
 Cambr for?".
 
-### Held links
+### Links to the scoring page and article 1
 
-Two internal links are deliberately absent until their pages exist. Both are marked in place:
-
-```
-grep -n 'TODO wire' index.html
-```
-
-`/how-scoring-works` (work item 2) from the score callout, and `/best-driving-routes-uk`
-(work item 3) from the final CTA, anchor text "best driving routes".
+Wired on 2026-11-03, when both pages shipped. See the section below.
 
 ### Other notes
 
@@ -187,6 +180,54 @@ grep -n 'TODO wire' index.html
 - **Eleven image assets from the SEO pack are outstanding**, including the two that matter most,
   which are photographs rather than screenshots: the hero and an in-car shot. The new sections
   are text-only by design — the honest-limits section in particular is meant to carry no icons.
+
+## `/how-scoring-works` and the first ranked article (2026-11-03)
+
+Both built from `cambr-web - UPDATED` and published together, so neither ever links to a page
+that does not exist yet. Both use the Journal design (`blog/assets/article.css`).
+
+| Page | File | Source |
+|---|---|---|
+| `/how-scoring-works` | `how-scoring-works.html` (root, flat) | `how-scoring-works/copy.md` + `seo-pack.md` |
+| `/blog/best-driving-routes-uk` | `blog/best-driving-routes-uk.html` | `article-1-best-driving-routes/copy.md` + `seo-pack.md` |
+
+**The article lives under `/blog/`.** The handoff gives its slug as `/best-driving-routes-uk`;
+the Journal lives at `/blog/`, so the slug is kept, undated, and the breadcrumb reads
+Cambr › Journal › article like the other Journal pieces.
+
+**The copy was generated from the markdown, not retyped**, then checked line by line against
+the source: 85 of 85 lines on the article and 51 of 51 on the scoring page appear verbatim. The
+Journal sets curly quotes, so straight quotes were typeset; no words changed. Deliberate changes:
+the article's publish date is **3 November 2026** (Neil: ship date), and the
+`[LINK: app page]` placeholder became a link on the word "Cambr".
+
+**FAQ schema mirrors the visible page on both**, as on the homepage. That meant departing from
+the packs in two places, because Google requires FAQ answers to be visible:
+
+- The scoring pack's schema asked **"What makes a good driving road?"**, which is not one of the
+  page's five visible questions. It is out of the schema. If you want it, add it to the visible
+  Questions section and the schema together — it is the page's primary query.
+- The article pack's schema carried 4 of the 7 visible questions, some with shortened answers.
+  The schema now carries all 7, word for word.
+
+**CTAs use the launch switch.** The scoring copy's CTA label was "Get Cambr for iPhone", which
+predates the both-platforms launch; both pages use the switch's labels instead
+(Get early access → Download Cambr).
+
+**Internal links (article pack's table):** intro → `/how-scoring-works`; methodology → `/`;
+FAQ → `/`. The three links to the **sibling roads article** (Hartside, Buttertubs, "Britain's 22
+S-tier roads") are held until it exists: `grep -rn 'TODO wire' blog/`. The homepage now links
+to both new pages: "Read how the scoring works in full" under the Duke's Pass callout, and
+"46 drives and loops" in the closer.
+
+**Route graphics** (Claude Design, 1920×1080) are in `assets/journal/best-driving-routes-uk/`,
+named per the SEO pack, each as 800/1200/1600 WebP plus a 1600 JPG, with alt text from the pack.
+14 MB of PNG became 2.9 MB across every size. The OG card and the Journal index thumbnail are
+cut from the header graphic.
+
+⚠️ **Scores date together.** Both pages say so in a comment at the top of the file. When the
+founding elevation signal is corrected, re-run every figure and update the copy, the article's
+table and `ItemList`, `dateModified`, and the scoring page's "Last updated" line and version.
 
 ## Launch day (24 November) — one switch, then a short checklist
 

@@ -471,6 +471,7 @@
     color: #FFFFFF;
   }
   .closer .sub { margin: 20px auto 0; }
+  .closer .sub a { color: var(--text-primary); border-bottom: 1px solid var(--brand-rosso); }
   .closer form.capture { margin: 38px auto 0; }
   .closer .form-note { text-align: center; }
 
@@ -589,6 +590,8 @@
     border-radius: 12px; padding: 14px 18px;
     font-size: 15px; line-height: 1.45; color: var(--text-primary);
   }
+  .score-more { margin-top: 18px; font-size: 15px; font-weight: var(--fw-semibold); }
+  .score-more a { color: var(--text-primary); border-bottom: 1px solid var(--brand-rosso); padding-bottom: 2px; }
   .callout .s-chip {
     flex: none; width: 27px; height: 27px; border-radius: 999px;
     display: inline-flex; align-items: center; justify-content: center;
@@ -864,12 +867,11 @@
             </div>
           </div>
 
-          <!-- TODO wire to /how-scoring-works when work item 2 ships: add the signed-off
-               line "Read how the scoring works in full" as a link here (copy.md, The scoring). -->
           <div class="callout">
             <span class="s-chip">S</span>
             <span><b>Duke's Pass scores 86.5.</b> That puts it in <b>S-Tier</b>. Tap it and you can see exactly why.</span>
           </div>
+          <p class="score-more"><a href="/how-scoring-works">Read how the scoring works in full &rarr;</a></p>
         </div>
       </div>
     </div>
@@ -1096,10 +1098,7 @@
     <img class="closer-mark" src="/assets/cambr-mark.svg" alt="" width="46" height="50">
     <div class="band-eyebrow" style="margin-bottom:16px; font-size:15px; letter-spacing:0.1em;">The navigation tool for car enthusiasts</div>
     <h2>Rip Turns. Arrive Late.</h2>
-    <p class="band-sub sub">Every road in Britain and Ireland, scored. 46 drives and loops ready to go, and a route builder for the ones you invent yourself.</p>
-    <!-- TODO wire to /best-driving-routes-uk when work item 3 ships: "46 drives and loops"
-         is the internal link to article 1, anchor text "best driving routes". -->
-
+    <p class="band-sub sub">Every road in Britain and Ireland, scored. <a href="/blog/best-driving-routes-uk">46 drives and loops</a> ready to go, and a route builder for the ones you invent yourself.</p>
     <div data-show="waitlist">
     <form class="capture" id="closer-form" novalidate>
       <label class="vh" for="closer-email">Email address</label>

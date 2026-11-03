@@ -543,6 +543,87 @@ footer.site { border-top: 1px solid var(--hairline); }
   figure.diagram svg.narrow { display: block; max-width: 420px; }
 }
 
+/* ---------- reference pages: ranked lists, methodology ----------
+   Added for /blog/best-driving-routes-uk and /how-scoring-works. */
+
+/* Inline links in prose. The global a rule has no underline, which is fine in
+   navigation and invisible mid-sentence. */
+article p a, article td a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--rosso);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+article p a:hover, article td a:hover { color: var(--rosso); }
+
+/* Second-level headings inside a section, e.g. one route in a ranked list */
+article h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: clamp(21px, 2.2vw, 25px);
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+article h2 + p, article h3 + p { margin-top: 0; }
+
+/* The facts line under each ranked entry: start, end, distance, time, share.
+   Structured and liftable on its own, which is what an answer engine quotes. */
+.facts {
+  font-family: var(--mono);
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.01em;
+  color: var(--ink) !important;
+  margin: 0 0 18px !important;
+}
+section.entry { margin-top: 8px; }
+
+/* Data tables. These stay <table>s in the markup: a table is what gets pulled into a
+   search result or an AI answer, so it must never become an image or a card grid. */
+.table-scroll { margin: 34px 0 40px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.data { width: 100%; border-collapse: collapse; font-size: 15.5px; line-height: 1.4; }
+table.data th, table.data td {
+  text-align: left; vertical-align: top;
+  padding: 12px 14px 12px 0;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink-soft);
+}
+table.data thead th {
+  font-family: var(--mono); font-weight: var(--fw-medium);
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink-faint);
+}
+table.data tbody th, table.data td.name { color: var(--ink); font-weight: var(--fw-semibold); }
+table.data .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.data.ranked { min-width: 640px; }
+
+/* Question and answer lists. Visible text, no accordion: every answer is
+   readable without JavaScript, and the FAQPage schema mirrors it word for word. */
+.faq-list { margin: 26px 0 0; }
+.faq-list .q { border-top: 1px solid var(--hairline); padding: 24px 0 6px; }
+.faq-list .q:last-child { border-bottom: 1px solid var(--hairline); padding-bottom: 20px; }
+.faq-list h3 { font-size: 19px; margin-bottom: 8px; }
+
+/* A section with an app screenshot in the right-hand gutter. The column stays at
+   760px on the left (see .col); the shot uses the space the asymmetry leaves. */
+.with-aside { display: grid; grid-template-columns: minmax(0, 760px) minmax(0, 270px); gap: 60px; align-items: start; }
+figure.shot { margin: 64px 0 0; position: sticky; top: 28px; }
+figure.shot img { width: 100%; height: auto; display: block; border-radius: 30px; border: 1px solid var(--hairline); }
+
+/* A single onward link set apart from the prose */
+.onward { margin: 46px 0 0; padding: 22px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+.onward a { color: var(--ink); font-weight: var(--fw-semibold); text-decoration: none; }
+.onward a:hover { color: var(--rosso); }
+.onward .lbl { display: block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 6px; }
+
+@media (max-width: 900px) {
+  .with-aside { grid-template-columns: 1fr; gap: 0; }
+  figure.shot { position: static; max-width: 290px; margin: 34px auto 0; }
+}
+
 /* Launch switch (assets/launch.js): waitlist CTAs until launch, download CTAs after.
    No JavaScript means no data-phase attribute, so the waitlist shows. */
 html:not([data-phase="launch"]) [data-show="launch"],

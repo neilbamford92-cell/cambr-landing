@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Cambr Scores a Driving Road | Methodology</title>
+<meta name="description" content="What makes a good driving road? Cambr measures six factors and combines them with thirty years of motoring press coverage. The full method, explained.">
+<link rel="canonical" href="https://cambr.uk/how-scoring-works">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Cambr">
+<meta property="og:title" content="How Cambr scores a driving road">
+<meta property="og:description" content="What makes a good driving road? Cambr measures six factors and combines them with thirty years of motoring press coverage. The full method, explained.">
+<meta property="og:url" content="https://cambr.uk/how-scoring-works">
+<meta property="og:image" content="https://cambr.uk/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#141414">
+<!-- Icons. ⚠️ Google wants a favicon whose dimensions are a MULTIPLE OF 48 — a 32px
+     source gets downscaled from too little detail and the three lanes turn to mush.
+     Artwork: assets/brand/.../CURRENT - CENTERED. Supersedes the old red "C." square. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/blog/assets/article.css">
+<!-- The methodology page. Rules: no weights, no formula, and no description of how the
+     algorithm and press layers combine (they do not fit a single linear blend, and
+     describing it wrongly here is worse than not describing it). Every figure is live
+     as of 3 November 2026 under v3.6 and moves with the next re-score: update the
+     "Last updated" line, the version, and dateModified together. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How Cambr scores a driving road",
+      "description": "What makes a good driving road? Cambr measures six factors and combines them with thirty years of motoring press coverage. The full method, explained.",
+      "datePublished": "2026-11-03",
+      "dateModified": "2026-11-03",
+      "author": {
+        "@type": "Organization",
+        "name": "Cambr",
+        "url": "https://cambr.uk"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Cambr",
+        "url": "https://cambr.uk"
+      },
+      "mainEntityOfPage": "https://cambr.uk/how-scoring-works",
+      "about": {
+        "@type": "Thing",
+        "name": "Driving road scoring methodology"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many roads has Cambr scored?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every driving road in Britain and Ireland, swept region by region. 152 of them are editorially validated founding roads with a press layer; the rest are scored algorithmically."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a road’s score go down?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Scores are recalculated when the algorithm changes, and roads move between tiers when they do. We would rather correct a score than defend an old one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is a road I love rated badly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most often it’s flow, width or road type. A road that’s wonderful to ride a bike along or beautiful to look at can still score poorly as a drive. If you think we have it wrong, rate it in the app and say why. That’s the mechanism."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you score roads outside the UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ireland is scored and on the map. 71 European roads are on there marked as coming soon. Routing stays in Great Britain for now."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the score about speed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Nothing in the score rewards driving fast, and camera coverage counts against a road because constant enforcement changes how it feels, not because we think you should be speeding on it."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Cambr",
+          "item": "https://cambr.uk/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How Cambr scores a driving road"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script src="/assets/launch.js"></script>
+<script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a href="/" aria-label="Cambr home"><img class="logo-lockup" src="/assets/cambr-lockup-horizontal.svg" alt="" width="102" height="28"></a>
+    <nav class="top-nav">
+      <a href="/">Home</a>
+      <a href="/blog/">Journal</a>
+    </nav>
+    <a href="/#waitlist" class="top-cta"><span data-show="waitlist">Get early access</span><span data-show="launch">Download Cambr</span> &rarr;</a>
+  </div>
+</header>
+
+<div class="head">
+  <div class="wrap">
+    <p class="kicker">Methodology</p>
+    <h1>How Cambr scores a driving road<span class="dot">.</span></h1>
+    <p class="byline">
+      <span>Last updated <b>3 November 2026</b></span>
+      <span>Scoring v3.6</span>
+      <span>7 minute read</span>
+    </p>
+  </div>
+</div>
+
+<article>
+  <div class="wrap">
+    <div class="col lede">
+      <p>Cambr gives every driving road in Britain and Ireland a score out of 100. The score comes from two things: an algorithm that measures the road, and three decades of what the motoring press has said about it. A road scoring 77 or above is S tier, 67 to 76.9 is A tier, and 55 to 66.9 is B tier. Below 55 we don’t put it on the map.</p>
+      <p>This page explains what gets measured and why. It does not publish the weights or the formula, which is the one piece of this we keep to ourselves.</p>
+    </div>
+
+    <div class="col">
+      <h2 class="plain" id="why-score-roads-at-all">Why score roads at all</h2>
+      <p>Every navigation app in the world optimises for arrival time, and they are right to. Almost every journey anyone makes is about getting somewhere.</p>
+      <p>The problem is that nothing measures the other thing. Ask which road between two points is the better drive and the honest answers available to you are a magazine list of ten famous roads, a forum thread from 2014, or local knowledge you only have where you live. None of that scales, and none of it helps when you are two hundred miles from home with an afternoon spare.</p>
+      <p>So we built something that does scale. The question Cambr answers is narrow and specific: how good is this road to drive?</p>
+    </div>
+
+    <div class="col">
+      <h2 class="plain" id="the-six-things-the-algorithm-measures">The six things the algorithm measures</h2>
+      <p>Tap any road in Cambr and you see the same six factors, with the road’s result against each.</p>
+      <p><b>Corners.</b> How much the road turns, how often, and whether the turning is sustained or arrives in one short burst. A road that corners continuously for twelve miles is a different proposition from one with four good bends and a lot of straight.</p>
+      <p><b>Climb.</b> Elevation gained and lost, and how dramatically. Gradient changes what a corner asks of you and what the road feels like from the driver’s seat.</p>
+      <p><b>Scenery.</b> How much of the road runs through a national park, an area of outstanding natural beauty or equivalent protected landscape. It turns out to be a strong predictor. Almost every road anyone rates highly runs through land somebody else already decided was worth protecting.</p>
+      <p><b>Flow.</b> Whether you can actually get a rhythm going. This is the one most lists ignore. A technically superb road that is full of traffic, interrupted by villages or capped at 40 is not delivering what it looks like it should on a map.</p>
+      <p><b>Width and surface.</b> How wide the road physically is, and what condition it is in. Width matters more than people expect. A road you cannot commit to because you are watching for oncoming traffic is a worse drive than a slower road you can read.</p>
+      <p><b>Road type.</b> What class of road it is. B-roads and secondary A-roads score best, which matches what the press has been saying for thirty years. Trunk roads and dual carriageways score badly or are excluded entirely.</p>
+    </div>
+
+    <div class="col">
+      <h2 class="plain" id="the-press-layer">The press layer</h2>
+      <p>The algorithm is only half of it.</p>
+      <p>Evo, Top Gear, Autocar, PistonHeads, Rush and a couple of dozen other publications have been arguing about Britain’s best roads for decades. That argument is evidence. A road that a dozen journalists have driven, written up and returned to is telling you something that no amount of geometry can.</p>
+      <p>So every founding road carries a second input built from that coverage, and the two are combined into the score you see. For most roads the two agree, and the editorial layer just confirms what the measurement found.</p>
+      <p>The interesting cases are the ones where they don’t.</p>
+    </div>
+
+    <div class="with-aside">
+    <div class="col">
+      <h2 class="plain" id="three-roads-that-show-how-it-works">Three roads that show how it works</h2>
+      <p><b>A821 Duke’s Pass, 86.5, S tier.</b> The straightforward case. The algorithm rates it 88.63 and the press layer agrees. Its corner score is a perfect 25 out of 25, its flow is 11.8 out of 13, and the road’s press reputation adds 9.9 on top. Everything points the same way, and it lands comfortably in S tier.</p>
+      <p><b>Hardknott Pass, 66.9, B tier.</b> The algorithm loves Hardknott. It scores 83.48, which would put it among the best roads in the country. Then the editorial layer pulls it down to 66.9 and B tier, because for all its reputation as the hardest road in England, the driving press has never really endorsed it as a <i>good drive</i>. A 1-in-3 gradient on a single-track lane with blind hairpins is a test, and a test is not the same as a great road. The score reflects that, and plenty of people will disagree with it.</p>
+      <p><b>Bealach na Bà, 75.9, A tier.</b> The most interesting one. The algorithm rates the Bealach the highest-scoring road in the entire database at 93.19, ahead of Hartside and everything else. What holds it to A tier is the press layer, where it carries less endorsement than the roads above it. The drive is extraordinary. The score says the consensus around it is thinner than its fame suggests.</p>
+      <p>Those three are the argument for having two layers at all. An algorithm on its own would put Hardknott near the top. Press coverage on its own would miss every unnamed B-road in the Pennines that nobody has written about.</p>
+    </div>
+      <figure class="shot">
+        <picture>
+          <source type="image/webp" srcset="/uploads/app-dukes-640.webp">
+          <img src="/uploads/app-dukes-640.jpg" alt="Cambr road detail for A821 Duke's Pass scored 86.5, showing the six scoring factors and its S tier badge" width="640" height="1387" loading="lazy" decoding="async">
+        </picture>
+      </figure>
+    </div>
+
+    <div class="col">
+      <h2 class="plain" id="the-tiers">The tiers</h2>
+      <div class="table-scroll" role="region" aria-label="Cambr road tiers and their score ranges" tabindex="0">
+        <table class="data">
+          <thead><tr><th scope="col">Tier</th><th scope="col">Score</th><th scope="col">What it means</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><b>S</b></th><td>77 and above</td><td>22 roads currently. The ones worth planning a trip around</td></tr>
+            <tr><th scope="row"><b>A</b></th><td>67 to 76.9</td><td>Excellent roads worth a detour</td></tr>
+            <tr><th scope="row"><b>B</b></th><td>55 to 66.9</td><td>Good backroads worth taking when you are nearby</td></tr>
+            <tr><th scope="row">Not shown</th><td>Below 55</td><td>Not surfaced in the app</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Roads the algorithm discovers on its own cannot reach S tier. S requires editorial backing, because a road nobody has ever written about might still be excellent and we would rather be slow to canonise it than wrong.</p>
+    </div>
+
+    <div class="col">
+      <h2 class="plain" id="what-the-score-cannot-tell-you">What the score cannot tell you</h2>
+      <p>Four things, and being straight about them is more useful than pretending otherwise.</p>
+      <p><b>Surface on the day you drive it.</b> Road condition changes with the season, the weather and whoever last patched it. The data we work from is a snapshot and sometimes an old one. This is the single biggest gap, and it is why driver reviews exist.</p>
+      <p><b>Corner quality, as opposed to corner quantity.</b> A ninety-degree bend with a clear sight line and good camber is a completely different experience to the same bend blind and off-camber. We can measure how much a road turns. We cannot yet measure how good the turning is.</p>
+      <p><b>Your car.</b> A narrow, bumpy, committed road is a brilliant drive in a light car and a nervous one in something wide and fast. The score describes the road, not the match between the road and what you are driving.</p>
+      <p><b>The day.</b> Traffic, weather, light and time of year move the experience more than a couple of points of score ever will. Glen Coe in October at seven in the morning and Glen Coe in July at midday are not the same road.</p>
+    </div>
+
+    <div class="col">
+      <h2 class="plain" id="how-scores-change">How scores change</h2>
+      <p>Scores are not fixed. They move when the algorithm improves, when new press coverage lands, and when drivers rate roads in the app.</p>
+      <p>Every Cambr user can rate a road out of ten with reasons, and those ratings feed back into what everyone else sees. Surface in particular is something the people driving a road know long before any dataset does. That feedback loop is the part of this that gets better with every drive.</p>
+      <p>The scoring version is published on this page and changes when the algorithm does. The current version is v3.6.</p>
+    </div>
+
+    <div class="col">
+      <h2 class="plain" id="what-we-don-t-publish">What we don’t publish</h2>
+      <p>The exact weights, the formula and the full scored dataset stay private. That is the work, and it is the thing a competitor would copy first.</p>
+      <p>Everything else is here: what we measure, why we measure it, where the editorial layer comes from, and where the whole thing falls short.</p>
+    </div>
+
+    <div class="col">
+      <h2 class="plain" id="questions">Questions</h2>
+      <div class="faq-list">
+        <div class="q">
+          <h3>How many roads has Cambr scored?</h3>
+          <p>Every driving road in Britain and Ireland, swept region by region. 152 of them are editorially validated founding roads with a press layer; the rest are scored algorithmically.</p>
+        </div>
+        <div class="q">
+          <h3>Can a road’s score go down?</h3>
+          <p>Yes. Scores are recalculated when the algorithm changes, and roads move between tiers when they do. We would rather correct a score than defend an old one.</p>
+        </div>
+        <div class="q">
+          <h3>Why is a road I love rated badly?</h3>
+          <p>Most often it’s flow, width or road type. A road that’s wonderful to ride a bike along or beautiful to look at can still score poorly as a drive. If you think we have it wrong, rate it in the app and say why. That’s the mechanism.</p>
+        </div>
+        <div class="q">
+          <h3>Do you score roads outside the UK?</h3>
+          <p>Ireland is scored and on the map. 71 European roads are on there marked as coming soon. Routing stays in Great Britain for now.</p>
+        </div>
+        <div class="q">
+          <h3>Is the score about speed?</h3>
+          <p>No. Nothing in the score rewards driving fast, and camera coverage counts against a road because constant enforcement changes how it feels, not because we think you should be speeding on it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <p class="onward"><a href="/blog/best-driving-routes-uk">The 10 best driving routes in the UK</a>, ranked by how much of each drive is on a top-tier road.</p>
+    </div>
+  </div>
+</article>
+
+<section class="closer">
+  <div class="inner">
+    <h3>See every scored road on the map.</h3>
+    <a href="/#waitlist" class="btn"><span data-show="waitlist">Get early access</span><span data-show="launch">Download Cambr</span></a>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="foot-inner">
+    <div>
+      <a href="/" aria-label="Cambr home"><img class="logo-lockup" src="/assets/cambr-lockup-horizontal.svg" alt="" width="102" height="28"></a>
+      <div class="foot-tag">Rip Turns. Arrive Late.</div>
+    </div>
+    <div class="mono"><a href="https://www.instagram.com/cambr.app/">Instagram</a></div>
+  </div>
+  <div class="foot-legal">
+    <p class="legal">Cambr Technologies Ltd is a company registered in England and Wales, company number 17371232. Registered office: 71&ndash;75 Shelton Street, Covent Garden, London WC2H 9JQ.</p>
+  </div>
+</footer>
+
+</body>
+</html>
