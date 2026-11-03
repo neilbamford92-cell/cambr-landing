@@ -61,12 +61,14 @@ serif and its colours to hardcoded defaults. Each figure ships two artboards —
 separate narrow drawing swapped in below 680px, because scaling the 700px artboard into a phone
 viewport renders its 10–11px labels at about 5px.
 
-### Five articles are HELD, not published
+### Four articles are HELD, not published
 
-`best-driving-roads-uk`, `-wales`, `-yorkshire-dales-north-pennines`, `evo-triangle-guide` and
+`best-driving-roads-wales`, `-yorkshire-dales-north-pennines`, `evo-triangle-guide` and
 `most-photographed-roads-britain` are **`noindex`**, absent from `sitemap.xml` and unlinked from
 the Journal index. They state **23** top-tier roads while listing **18**, and the by-region table
-sums to 18. They still use the legacy cream `journal.css`.
+sums to 18. They still use the legacy cream `journal.css`. (The fifth, the old held
+`best-driving-roads-uk`, was replaced on 3 Nov by article 2 at the same URL. The draft is in git
+history.)
 
 To publish one: get the corrected count and regions, fix the list and the table, convert it to
 `article.css`, drop the `noindex`, and add it back to the index and the sitemap.
@@ -326,6 +328,30 @@ The copy stayed; the layout was rebuilt, and two passages were reframed.
   homepage's rosso pill**, so the Journal pages changed with the scoring page. The diagram in
   "What makes a great driving road" is Inter too. The five held articles (`journal.css`) still
   carry Plex. Convert them when they are revived.
+
+## Article 2: `/blog/best-driving-roads-uk` (2026-11-03)
+
+"10 of the best driving roads in the UK and Ireland", built from the **newest** handoff zip
+(`cambr-web-handoff - new blogs.zip`, 22:28), whose copy is a light edit of the earlier one. Ten of
+the 22 S-tier roads count down from rank 20 to the R115 at 89.3. Every rank, score, length and the
+England 11 / Wales 6 / Scotland 3 / Ireland 2 split were checked against the live database on
+3 Nov.
+
+- **Images:** `assets/journal/best-driving-roads-uk/`, the same ladder as article 1 (800/1200/1600
+  WebP, 1600 JPG, OG 1200×630, index thumbs), from `~/Downloads/export-blog-howmany`. Alt text is
+  the SEO pack's.
+- **Schema:** Article, ItemList (positions 1–10, best first, as the pack notes), FAQPage mirroring
+  all seven visible answers, and BreadcrumbList.
+- **Links:** out to `/how-scoring-works` and to article 1 ("the highest-rated driving route in the
+  country"). Article 1's three sibling placeholders now point here: "the highest-scoring road in
+  Britain", "Buttertubs" and "Britain's 22 S-tier roads". No anchor between the two uses the other
+  page's word.
+- **Two changes to the signed-off copy, both factual.** (1) The FAQ "Can I navigate these in the
+  app?" said all 22 have turn-by-turn, but #1 and R574 are in Ireland, where routing is not live
+  yet. It now says the 20 in Britain do and Ireland is on the way. (2) The CTA button said "Get Cambr
+  for iPhone". It now uses the launch switch like every other page.
+- **Before the next re-score:** the B6276 and B6295 still have no description in the database (the
+  pack's note), and R115/R574 are on v3.4 scores.
 
 ## Launch day (24 November) — one switch, then a short checklist
 
