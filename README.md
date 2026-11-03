@@ -353,6 +353,11 @@ England 11 / Wales 6 / Scotland 3 / Ireland 2 split were checked against the liv
 - **Before the next re-score:** the B6276 and B6295 still have no description in the database (the
   pack's note), and R115/R574 are on v3.4 scores.
 
+**Journal index order (3 Nov):** roads article, then `/how-scoring-works` as a Methodology tile
+(Neil: it breaks up the two "10 best" tiles), then the routes article, then the founder's note. The
+scoring page stays at its root URL; only the tile lives in the Journal. Its thumbnail is in
+`assets/journal/how-scoring-works/`, rendered from the page's own phone mock-ups.
+
 ## Launch day (24 November) — one switch, then a short checklist
 
 **The switch is `assets/launch.js`.** Set `live: true` and paste the App Store URL into
