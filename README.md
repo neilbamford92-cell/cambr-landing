@@ -260,6 +260,32 @@ table and `ItemList`, `dateModified`, and the scoring page's "Last updated" line
   offline ("Offline maps are on the roadmap. Until they arrive…") and outside the UK ("The map
   does…").
 
+### `/how-scoring-works`, round 2 (2026-11-03, Neil's review)
+
+The copy stayed; the layout was rebuilt, and two passages were reframed.
+
+- **Layout** lives in `assets/method.css`, on top of the Journal's `article.css`: a hero with two
+  phones, full-bleed bands as page breaks, a pull statement, the six factors as a numbered grid
+  beside the Duke's Pass sheet, three tier-coloured road cards, a 55→100 tier scale above the
+  table, and the version as a display figure.
+- **`.device` is a realistic iPhone**, drawn in CSS: titanium edge, side buttons, Dynamic Island,
+  glass sheen, optional 3D tilt (`tilt-l`, `tilt-r`). It scales from one variable, `--w`, so any
+  page can use it by loading `method.css`. Screenshots go in at 1179×2556 from `uploads/`.
+- **The road cards' bars** plot the algorithm score against the final score, both taken from the
+  copy (Duke's 88.63 → 86.5, Hardknott 83.48 → 66.9, Bealach 93.19 → 75.9). They show that the
+  press layer moved the number without explaining how — the page's rule is never to describe
+  the combination.
+- **The six factors and the three roads** set their bold lead-ins as headings. Every word is
+  kept and the bodies are checked verbatim.
+- **Reframed (Neil: what's coming, not what's missing).** "What the score cannot tell you"
+  became **"What makes every drive different"**, the same four topics written as what drivers and
+  reviews bring. "The day" is unchanged. The "outside the UK" answer leads with what is scored,
+  in the page and the schema. The last clause of "What we don't publish" ("…where the whole
+  thing falls short") pointed at the old section, so it now reads "…and what makes every drive
+  different".
+- **Built from the markdown by a script**, like round 1. 34 unchanged paragraphs and the nine
+  run-in bodies are verified verbatim; FAQ schema drift is none.
+
 ## Launch day (24 November) — one switch, then a short checklist
 
 **The switch is `assets/launch.js`.** Set `live: true` and paste the App Store URL into

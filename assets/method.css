@@ -1,0 +1,150 @@
+/* /how-scoring-works — layered on /colors_and_type.css and /blog/assets/article.css.
+   Page-specific layout: a hero with devices, full-bleed bands for page breaks, and
+   the figures that carry the method (factors, worked roads, tier scale). */
+
+/* ---------- A realistic iPhone ----------
+   Everything scales from --w, so one rule draws any size. Proportions follow an
+   iPhone 15 Pro: titanium edge, 3.6% bezel, Dynamic Island, side buttons, glass sheen.
+   Screenshots go in at 1179x2556 (status bar included; the island is drawn on top). */
+.device {
+  --w: 280px;
+  position: relative; width: var(--w); flex: none;
+  padding: calc(var(--w) * 0.036);
+  border-radius: calc(var(--w) * 0.17);
+  background: linear-gradient(135deg, #9a9aa0 0%, #45454a 9%, #1c1c1f 34%, #232326 66%, #57575c 90%, #a1a1a6 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.28),
+    inset 0 0 0 calc(var(--w) * 0.014) #0c0c0e,
+    0 calc(var(--w) * 0.2) calc(var(--w) * 0.32) calc(var(--w) * -0.08) rgba(0,0,0,0.8),
+    0 calc(var(--w) * 0.04) calc(var(--w) * 0.09) rgba(0,0,0,0.55);
+}
+.device::before, .device::after { content: ""; position: absolute; width: calc(var(--w) * 0.013); background: linear-gradient(90deg, #2c2c30, #6b6b70); }
+.device::before {   /* action button, then volume up and down */
+  left: calc(var(--w) * -0.011); top: 17%; height: 4.4%; border-radius: 3px 0 0 3px;
+  box-shadow: 0 calc(var(--w) * 0.14) 0 #4d4d52, 0 calc(var(--w) * 0.31) 0 #4d4d52;
+}
+.device::after { right: calc(var(--w) * -0.011); top: 27%; height: 11%; border-radius: 0 3px 3px 0; background: linear-gradient(270deg, #2c2c30, #6b6b70); }
+.device-screen { position: relative; overflow: hidden; border-radius: calc(var(--w) * 0.135); aspect-ratio: 1179 / 2556; background: #000; }
+.device-screen img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.device-screen::after {   /* glass */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(118deg, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.04) 26%, rgba(255,255,255,0) 44%);
+}
+.device-island { position: absolute; z-index: 2; left: 50%; transform: translateX(-50%);
+  top: calc(var(--w) * 0.062); width: calc(var(--w) * 0.295); height: calc(var(--w) * 0.087); border-radius: 999px; background: #000; }
+.device.tilt-r { transform: perspective(2200px) rotateY(-17deg) rotateX(5deg) rotateZ(1.5deg); }
+.device.tilt-l { transform: perspective(2200px) rotateY(17deg) rotateX(5deg) rotateZ(-1.5deg); }
+
+/* ---------- Hero ---------- */
+.m-hero { position: relative; overflow: hidden; padding: 64px 0 84px; border-bottom: 1px solid var(--hairline);
+  background:
+    radial-gradient(42% 60% at 78% 46%, rgba(192,132,252,0.16), transparent 70%),
+    radial-gradient(34% 50% at 66% 70%, rgba(34,197,94,0.10), transparent 70%); }
+.m-hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 40px; align-items: center; }
+.m-hero h1 { margin-top: 0; }
+.m-hero .standfirst-lg { margin-top: 26px; font-size: clamp(19px, 1.7vw, 23px); line-height: 1.5; color: var(--ink); max-width: 34em; text-wrap: pretty; }
+.m-hero .aside-note { margin-top: 16px; font-size: 16px; line-height: 1.55; color: var(--ink-faint); max-width: 36em; }
+.m-hero .byline { margin-top: 30px; }
+.hero-devices { position: relative; height: 560px; }
+.hero-devices .device { position: absolute; }
+.hero-devices .back { --w: 230px; left: 6%; top: 10px; opacity: 0.92; }
+.hero-devices .front { --w: 250px; right: 4%; top: 70px; }
+
+/* ---------- Bands: full-bleed page breaks ---------- */
+.m-band { padding: 96px 0; border-bottom: 1px solid var(--hairline); }
+.m-band.deep { background: #0D0D0D; }
+.m-band.panel { background: linear-gradient(180deg, #181818, #131313); }
+.m-band article p { margin-bottom: 20px; }
+.m-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rosso); margin: 0 0 14px; }
+.m-band h2 { margin: 0 0 22px; }
+.m-intro { font-size: 21px !important; line-height: 1.5 !important; color: var(--ink) !important; max-width: 36em; }
+
+/* A pull statement: a sentence from the copy, repeated at display size */
+.pull { margin: 46px 0 0; padding: 0; border: 0; }
+.pull p { font-family: var(--font-sans); font-weight: var(--fw-bold); font-size: clamp(30px, 4vw, 52px) !important;
+  line-height: 1.08 !important; letter-spacing: -0.03em; color: var(--ink) !important; max-width: 18em; margin: 0 !important; }
+.pull p em { font-style: normal; color: var(--rosso); }
+
+/* ---------- The six factors ---------- */
+.factors-layout { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 80px; align-items: center; }
+.factors-layout .device { --w: 300px; }
+.factors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 44px; margin-top: 34px; }
+.factor { padding: 22px 0 6px; border-top: 1px solid var(--hairline); }
+.factor .n { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--rosso); }
+.factor h3 { margin: 8px 0 8px !important; font-size: 21px !important; }
+.factor p { font-size: 16px !important; line-height: 1.58 !important; margin: 0 0 14px !important; }
+
+/* ---------- The press layer ---------- */
+.press-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); gap: 72px; align-items: start; }
+.mastheads { margin: 0; padding: 30px 0 0; list-style: none; border-top: 1px solid var(--hairline); }
+.mastheads li { font-family: var(--font-sans); font-weight: var(--fw-extrabold); text-transform: uppercase; letter-spacing: -0.01em;
+  font-size: clamp(26px, 3vw, 40px); line-height: 1.12; color: rgba(245,245,245,0.16); }
+.mastheads li:nth-child(odd) { color: rgba(245,245,245,0.28); }
+.mastheads .more { font-family: var(--mono); font-weight: var(--fw-medium); text-transform: none; font-size: 13px; letter-spacing: 0.04em; color: var(--ink-faint); margin-top: 14px; }
+
+/* ---------- Three worked roads ---------- */
+.roads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 40px; }
+.road-card { --t: var(--tier-s); --tf: var(--tier-s-fill);
+  background: #1B1B1B; border: 1px solid var(--hairline); border-top: 3px solid var(--t); border-radius: 16px; padding: 26px 26px 10px; }
+.road-card.a { --t: var(--tier-a); --tf: var(--tier-a-fill); }
+.road-card.b { --t: var(--tier-c); --tf: var(--tier-c-fill); }
+.road-card .top { display: flex; align-items: center; gap: 14px; }
+.tier-badge { width: 46px; height: 46px; border-radius: 999px; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  font-weight: var(--fw-bold); font-size: 19px; color: var(--t); background: var(--tf); border: 1.5px solid var(--t); }
+.road-card h3 { margin: 0 !important; font-size: 19px !important; }
+.road-card .score { font-size: 46px; font-weight: var(--fw-bold); letter-spacing: -0.03em; color: var(--t); line-height: 1; margin: 22px 0 18px; font-variant-numeric: tabular-nums; }
+.meter { margin: 0 0 20px; display: grid; gap: 9px; }
+.meter .row { display: grid; grid-template-columns: 82px 1fr 46px; gap: 10px; align-items: center; font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); }
+.meter .row b { color: var(--ink); font-weight: var(--fw-medium); text-align: right; }
+.meter .bar { height: 6px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.meter .bar i { display: block; height: 100%; border-radius: 99px; background: rgba(255,255,255,0.45); }
+.meter .final .bar i { background: var(--t); }
+.road-card p { font-size: 16px !important; line-height: 1.58 !important; }
+.roads-close { margin-top: 44px; }
+
+/* ---------- The tiers ---------- */
+.tier-scale { margin: 34px 0 10px; }
+.tier-scale .track { display: grid; grid-template-columns: 12fr 10fr 23fr; height: 14px; border-radius: 99px; overflow: hidden; }
+.tier-scale .track span:nth-child(1) { background: var(--tier-c); }
+.tier-scale .track span:nth-child(2) { background: var(--tier-a); }
+.tier-scale .track span:nth-child(3) { background: linear-gradient(90deg, var(--tier-s), #d8b4fe); }
+.tier-scale .ticks { position: relative; height: 26px; font-family: var(--mono); font-size: 12px; color: var(--ink-faint); }
+.tier-scale .ticks span { position: absolute; top: 8px; transform: translateX(-50%); }
+table.data.tiers th[scope="row"] { width: 120px; }
+table.data.tiers .chip { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px;
+  font-weight: var(--fw-bold); font-size: 14px; border: 1.5px solid currentColor; }
+table.data.tiers .chip.s { color: var(--tier-s); background: var(--tier-s-fill); }
+table.data.tiers .chip.a { color: var(--tier-a); background: var(--tier-a-fill); }
+table.data.tiers .chip.b { color: var(--tier-c); background: var(--tier-c-fill); }
+table.data.tiers .chip.none { color: var(--ink-faint); width: auto; height: auto; border: 0; font-size: 14px; font-weight: var(--fw-semibold); }
+
+/* ---------- What makes every drive different ---------- */
+.drive-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 34px; }
+.drive-grid .cell { background: #1B1B1B; border: 1px solid var(--hairline); border-radius: 16px; padding: 26px 28px 8px; }
+.drive-grid .cell h3 { font-size: 20px !important; }
+.drive-grid .cell p { font-size: 16px !important; line-height: 1.6 !important; }
+
+/* ---------- How scores change / what we don't publish ---------- */
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; }
+.version { display: flex; align-items: baseline; gap: 16px; margin: 6px 0 26px; }
+.version b { font-size: 64px; font-weight: var(--fw-bold); letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
+.version span { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+
+@media (max-width: 1000px) {
+  .factors-layout, .press-layout, .pair { grid-template-columns: 1fr; gap: 44px; }
+  .factors-layout .device { margin: 0 auto; --w: 260px; }
+  .roads { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .m-hero .wrap { grid-template-columns: 1fr; }
+  .hero-devices { height: 470px; max-width: 420px; margin: 10px auto 0; width: 100%; }
+  .hero-devices .back { --w: 190px; left: 2%; }
+  .hero-devices .front { --w: 205px; right: 2%; top: 50px; }
+  .m-band { padding: 68px 0; }
+  .factors, .drive-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .hero-devices { height: 400px; }
+  .hero-devices .back { --w: 160px; }
+  .hero-devices .front { --w: 175px; }
+}
