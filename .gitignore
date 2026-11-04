@@ -9,3 +9,6 @@
 #   cambr-lockup-horizontal.svg · cambr-mark.svg
 # Source of truth stays at assets/brand/Cambr logo - final/CURRENT - CENTERED/.
 assets/brand/
+
+# Local output of tools/build_site.py (the deploy builds its own copy in CI).
+_site/

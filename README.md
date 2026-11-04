@@ -3,8 +3,9 @@
 Static marketing/waitlist landing page for **Cambr** — Britain's best driving roads, on a map.
 
 Single self-contained static site: one `index.html`, `colors_and_type.css`, and an `assets/` +
-`uploads/` folder. **No build step.** Opens by double-clicking `index.html`; deploys as-is to
-GitHub Pages. Mobile-first (most visitors arrive on a phone from an Instagram link).
+`uploads/` folder. **No build step for the pages you edit.** Opens by double-clicking `index.html`.
+The deploy (GitHub Actions) copies every file as it is, and renders the partner pages such as
+`/carmods` from `index.html`. See *Partner pages* and *Deploy* below. Mobile-first (most visitors arrive on a phone from an Instagram link).
 
 > **Copy is locked.** The text in `index.html` is signed off and is the single source of truth.
 > Do not edit, rephrase, or re-tier any wording, numbers, road names, scores, or mode names.
@@ -43,6 +44,8 @@ data/                        # unlisted road-scores feed (JSON + CSV). Disallowe
 assets/analytics.js          # GA4 + consent banner, loaded on every page
 robots.txt                   # Allow all except /data/; declares the sitemap
 sitemap.xml                  # 3 URLs — the five held guides are deliberately absent
+tools/build_site.py          # the deploy build: copies the site, renders partner pages from index.html
+.github/workflows/pages.yml  # runs that build and deploys to GitHub Pages on every push to main
 ```
 
 ## The Journal (`/blog/`)
@@ -393,6 +396,9 @@ To preview the launch state without flipping it for everyone, run in the browser
       and, if so, where it now lives.
 - [ ] `/ios/`, `/android/` and `/beta/` are written for the test period.
 - [ ] Add `aggregateRating` to `SoftwareApplication` **only** once real store ratings exist.
+- [ ] Partner pages (`/carmods`) are the homepage, so they flip too: the partner form hides with
+      the homepage form and the store badges show. Decide whether partner attribution still matters
+      after launch; if it does, the store links would need their own campaign parameters.
 - [ ] "Why Cambr stands out": once convoy ships, consider a row for planning a route together
       and driving it together, and re-check the competitor cells against their listings.
 
@@ -472,6 +478,48 @@ email as the field `email_address` (Kit's expected name) and shows the design's 
 2xx, or a short retry message on failure. **The welcome email is configured in Kit, not here.** No
 API keys live in the page. Each form also has a hidden honeypot field for basic spam protection.
 
+Partner pages post to their own Kit form through this same code. See *Partner pages* below.
+
+## Partner pages (`/carmods`)
+
+A partner page is the homepage with a different Kit form, so that sign-ups from a partner's email
+are counted separately in Kit. **It is not a copy of the homepage.** `tools/build_site.py` renders
+it from `index.html` at deploy time, and it is never committed, so it cannot drift: every edit to the
+homepage reaches `/carmods` on the same deploy.
+
+| Page | Kit form | Line above the beta pill |
+|---|---|---|
+| `/carmods` | **10143048** "carmods partner nov" | For carmods.ai subscribers |
+
+The page differs from the homepage in exactly three places, and nothing else:
+
+1. **The Kit form ID** in the `KIT_FORM_ACTION` line. The signup code, field names, honeypot,
+   `?ref=` handling, success and error states and the `cambrTrack('signup')` event are the
+   homepage's own. In GA4 a partner sign-up shows as the same event on page `/carmods`.
+2. **`<meta name="robots" content="noindex, nofollow">`** in place of the canonical link. Partner
+   pages are absent from `sitemap.xml` (the build fails if one is added) and nothing links to them.
+3. **The partner line**, inserted at the `<!-- partner-eyebrow -->` comment in the hero, styled by
+   `.partner-eyebrow` in `index.html` (unused on the homepage).
+
+⚠️ **Keep the three anchors in `index.html`**: the one-line `const KIT_FORM_ACTION = "…/forms/<id>/subscriptions";`,
+the `<link rel="canonical">` tag and the `<!-- partner-eyebrow: … -->` comment. If one goes missing
+the build stops and **nothing deploys**, with an error naming the missing anchor. That is deliberate:
+a partner link that quietly 404s, or collects into the homepage form, would go unnoticed.
+
+Query strings pass straight through (`/carmods?utm_source=carmods&utm_medium=email&utm_campaign=partner_nov26`
+loads the page as normal; GA4 reads the UTMs). `apple-app-site-association` only claims `/` and
+`/index.html` with `?r=`/`?p=`, and `/r/*`, so a partner link opens in the browser even when the
+app is installed.
+
+**The tag is set in Kit, not here.** A static page cannot tag a subscriber (see *Ref-tag
+attribution*). The `source: carmods` tag comes from a Kit rule: *subscribes to form "carmods partner
+nov" → add tag `source: carmods`*. If a test subscriber has the form but not the tag, that rule is
+missing.
+
+**To add a partner:** create the Kit form and its tag rule, add an entry to `PARTNERS` in
+`tools/build_site.py`, push, then send one real sign-up through it and confirm the form and tag on
+the subscriber record. To preview locally: `python3 tools/build_site.py _site` and serve `_site/`.
+
 ## Ref-tag attribution (`?ref=`)
 
 Printed flyers carry a **static** QR encoding exactly `https://cambr.uk/?ref=ph`. That QR is in
@@ -544,9 +592,24 @@ edits.
 
 ## Deploy
 
-GitHub Pages, from this repo's default branch (root). A `CNAME` file mapping `cambr.uk` is added at
-deploy time; DNS is configured in Squarespace. Full step-by-step is done interactively during
-deploy.
+GitHub Pages, deployed by **GitHub Actions** (`.github/workflows/pages.yml`) on every push to
+`main`, since 4 Nov 2026. Before that it was the branch deploy, which served the repo as it was.
+The workflow runs `tools/build_site.py`, which copies every tracked file byte for byte (except
+`.github/` and `tools/`), so every page is served exactly as before. Its one addition is the
+partner pages. The custom domain `cambr.uk` is set in the repo's Pages settings; DNS is configured
+in Squarespace.
+
+Check a deploy: `gh run list --workflow pages.yml -L 1` (or `gh run watch`). The old
+`gh api repos/{owner}/{repo}/pages/builds/latest` check reports **branch** builds only, and
+stopped updating at the switch.
+
+⚠️ `.well-known/` (the iOS and Android app-link files) is a dot-folder. `upload-pages-artifact@v4`
+and later drop dot-folders unless `include-hidden-files: true` is set, which the workflow does. Do not
+remove it. After a change to the workflow, check `https://cambr.uk/.well-known/apple-app-site-association`.
+
+To go back to the branch deploy:
+`gh api -X PUT repos/{owner}/{repo}/pages -f build_type=legacy -f 'source[branch]=main' -f 'source[path]=/'`.
+Partner pages then 404, since they exist only in the build.
 
 ## Notes
 

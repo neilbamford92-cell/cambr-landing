@@ -282,6 +282,13 @@
     70%, 100% { box-shadow: 0 0 0 7px rgba(212,0,0,0); }
   }
   @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+  /* Partner pages only (/carmods): the line above the beta pill. Unused on the homepage. */
+  .partner-eyebrow {
+    font-weight: var(--fw-semibold); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: rgba(245,245,245,0.94);
+    margin-bottom: 14px;
+  }
 
   /* ---------- Store badges ---------- */
   .hero-badges { margin-bottom: 30px; }
@@ -835,6 +842,7 @@
 
   <div class="hero-inner">
     <div class="hero-copy">
+      <!-- partner-eyebrow: tools/build_site.py puts the partner line here on /carmods. Keep this comment. -->
       <p class="eyebrow live"><span class="live-dot" aria-hidden="true"></span><span data-show="waitlist">Now live in beta testing</span><span data-show="launch">Out now</span> <span class="k">· iPhone and Android</span></p>
       <h1 class="display">The first navigation app for people who <span class="accent">love to drive</span>.</h1>
       <p class="sub">No-one has ever created a map of great driving roads. <strong>So we did.</strong></p>
@@ -1275,6 +1283,8 @@
   // Email capture — both forms (hero + closer) POST to the same Kit form.
   // Paste your Kit form submission endpoint here (Kit ▸ your form ▸ Embed ▸ share/HTML,
   // e.g. https://app.kit.com/forms/XXXXXX/subscriptions). Kit sends the welcome email.
+  // Partner pages (/carmods) are this page with a different form ID swapped into the
+  // line below at deploy time by tools/build_site.py. Keep it on one line, in this shape.
   const KIT_FORM_ACTION = "https://app.kit.com/forms/9666617/subscriptions";
 
   // ---------------------------------------------------------------
