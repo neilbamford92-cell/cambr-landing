@@ -376,7 +376,7 @@ public, and nothing shows it while `live` is false). That one edit flips every C
 | Under the hero phone | "Coming soon" badges | hidden |
 | Closer | email form | the two store badges |
 | Journal closer button | Get early access | Download Cambr |
-| Convoy invite page (`/c/<code>`) — **Download Cambr** | the homepage sign-up (`#waitlist`) | iPhone / iPad: the App Store · Android: Google Play · computer: both badges; on a phone the tap copies the code first (row 41.12) |
+| Convoy invite page (`/c/<code>`) — primary button | **Get Cambr** → the homepage sign-up (`#waitlist`) | **Download Cambr** → iPhone / iPad: the App Store · Android: Google Play · computer: both badges; on a phone the tap copies the code first (row 41.12) |
 
 How it works: elements carry `data-show="waitlist"` or `data-show="launch"`, and one CSS rule
 per stylesheet (search **"Launch switch"** — `index.html` and `blog/assets/article.css`) hides
@@ -401,6 +401,9 @@ To preview the launch state without flipping it for everyone, run in the browser
 - [ ] Partner pages (`/carmods`) are the homepage, so they flip too: the partner form hides with
       the homepage form and the store badges show. Decide whether partner attribution still matters
       after launch; if it does, the store links would need their own campaign parameters.
+- [ ] **Convoy invites:** the invite page (`/c/<code>`) sends phones to the stores at launch and tells people to
+      "open Cambr after installing and paste" the code. That is only true if the app's join screen is on for
+      everyone: the Cambr app's `convoy_drive` flag must be released (not held) before `live: true`.
 - [ ] "Why Cambr stands out": once convoy ships, consider a row for planning a route together
       and driving it together, and re-check the competitor cells against their listings.
 
@@ -614,15 +617,15 @@ app installed the phone opens the app (AASA `/c/*`; `assetlinks.json` lists `uk.
 `uk.cambr.app.dev`, whose fingerprint is the EAS-generated key of its Android builds). Without the app, `/c/<code>`
 has no file behind it, so Pages serves `404.html`, which sends a valid code on to `/#c=<code>`; links from older app
 builds arrive as `/?c=<code>`. `index.html` then shows the invite instead of the hero copy (`html[data-invite]`):
-the code; **Download Cambr**, which follows the launch switch (waitlist: the homepage sign-up; launch: straight to the
-App Store on an iPhone or iPad, Google Play on Android, both badges on a computer — and on a phone the tap first copies
-the code, saying "Code K7QX copied: open Cambr after installing and paste it to join", because an install loses the
-page); and **Already have Cambr? Open in Cambr** (`cambr://convoy?c=<code>`, the store app's scheme; Cambr Dev's is
+the code; a primary button on the launch switch (waitlist: **Get Cambr**, the homepage sign-up; launch: **Download
+Cambr**, straight to the App Store on an iPhone or iPad, Google Play on Android, both badges on a computer — and on a
+phone the tap first copies the code, saying "Code K7QX copied: open Cambr after installing and paste it to join.",
+because an install loses the page); and **Already have Cambr? Open in Cambr** (`cambr://convoy?c=<code>`, the store app's scheme; Cambr Dev's is
 `cambr-dev`). The code is a live convoy's way in, so it never reaches analytics: the page reads it and then takes it out
 of the address (query and fragment) before `analytics.js` runs, keeping it for the tab in `sessionStorage` (cleared by
-Download Cambr before launch); `404.html` sends no referrer and loads no analytics; no link's `href` ever holds it (Open
+Get Cambr before launch); `404.html` sends no referrer and loads no analytics; no link's `href` ever holds it (Open
 in Cambr adds it only as the tap navigates; Download Cambr's `href` is the store's). To confirm after a deploy, open
-`https://cambr.uk/c/TEST` in a browser without the app, tap **Open in Cambr** and **Download Cambr**, and check that GA4
+`https://cambr.uk/c/TEST` in a browser without the app, tap **Open in Cambr** and the primary button, and check that GA4
 DebugView shows `https://cambr.uk/` with no referrer and no `TEST` anywhere. To preview the launch state of the invite
 page on a phone, there is no console switch: the button reads `live` once on load, so test it on a branch build or
 after the flip. Every other missing path gets its plain "Page not found".

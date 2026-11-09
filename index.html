@@ -40,7 +40,7 @@
      instead of the homepage hero (html[data-invite], CSS "Convoy invite" below).
      The code is a live convoy's way in, so it never reaches analytics: it is read here and then taken out of the
      address (query AND fragment) before analytics.js (deferred) runs, so GA4's page_location is the bare page. It is
-     kept for this tab only (sessionStorage) so a reload still shows the invite, until "Get Cambr" is tapped. 404.html
+     kept for this tab only (sessionStorage) so a reload still shows the invite, until Get Cambr is tapped (before launch). 404.html
      sends no referrer, so /c/<code> is not the page_referrer either. Same alphabet as the app (lib/convoy.ts
      CODE_ALPHABET: no 0 / O / 1 / I); anything else is ignored. */
   (function () {
@@ -703,7 +703,7 @@
     margin-top: 16px; max-width: 44ch; font-size: 15px; line-height: 1.5; color: #FFFFFF;
     font-weight: var(--fw-medium);
   }
-  .invite-copied[hidden] { display: none; }
+  .invite-copied:empty { display: none; }
   .invite-have {
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 26px;
     font-size: 15px; color: rgba(233,233,233,0.86);
@@ -929,7 +929,7 @@
              launch = straight to the visitor's store (App Store on iPhone / iPad, Google Play on Android), or both
              badges on a computer. The script at the end of the page wires it. -->
         <div class="invite-actions">
-          <a class="btn-primary" data-invite-download href="#waitlist">Download Cambr</a>
+          <a class="btn-primary" data-invite-download href="#waitlist"><span data-show="waitlist">Get Cambr</span><span data-show="launch">Download Cambr</span></a>
           <div class="store-badges invite-badges" data-invite-badges hidden>
             <a href="/#waitlist" class="badge" data-store="appStore" aria-label="Download on the App Store">
               <span class="glyph"><ion-icon name="logo-apple"></ion-icon></span>
@@ -948,7 +948,7 @@
             </a>
           </div>
         </div>
-        <p class="invite-copied" data-invite-copied aria-live="polite" hidden></p>
+        <p class="invite-copied" data-invite-copied aria-live="polite"></p>
         <div class="invite-have">
           <span>Already have Cambr?</span>
           <a class="btn-secondary" data-invite-open href="cambr://convoy">Open in Cambr</a>
@@ -1509,6 +1509,9 @@
       window.location.href = 'cambr://convoy?c=' + encodeURIComponent(code);
     });
 
+    const download = document.querySelector('[data-invite-download]');
+    const badges = document.querySelector('[data-invite-badges]');
+
     const leaveInvite = function () {
       document.documentElement.removeAttribute('data-invite');
       try { sessionStorage.removeItem('cambr_invite'); } catch (e) { /* ignore */ }
@@ -1523,14 +1526,15 @@
         const t = document.createElement('textarea');
         t.value = code;
         t.setAttribute('readonly', '');
-        t.setAttribute('aria-hidden', 'true');
+        t.setAttribute('tabindex', '-1');
         t.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;font-size:16px;';
         document.body.appendChild(t);
-        t.focus();
+        t.focus({ preventScroll: true });
         t.select();
         t.setSelectionRange(0, code.length);
         done = document.execCommand('copy');
         document.body.removeChild(t);
+        if (download) download.focus({ preventScroll: true });
       } catch (e) { /* not allowed here */ }
       if (!done && navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(code).then(onCopied, function () { /* the message still gives the code */ });
@@ -1544,11 +1548,8 @@
       note.textContent = copied
         ? 'Code ' + code + ' copied: open Cambr after installing and paste it to join.' // DRAFT
         : 'Your code is ' + code + ': open Cambr after installing and enter it to join.'; // DRAFT
-      note.hidden = false;
     };
 
-    const download = document.querySelector('[data-invite-download]');
-    const badges = document.querySelector('[data-invite-badges]');
     const launch = window.cambrLaunch || {};
     // The SAME switch as every other store link (assets/launch.js): before launch, Download keeps today's path, the
     // homepage sign-up (#waitlist), exactly as "Get Cambr" did.

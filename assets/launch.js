@@ -21,11 +21,14 @@
 
   document.documentElement.setAttribute('data-phase', LAUNCH.live ? 'launch' : 'waitlist');
 
+  // Store links get their URLs only at launch, so before it the page is exactly its static HTML (no hidden link to a
+  // listing that is not public yet).
   document.addEventListener('DOMContentLoaded', function () {
+    if (!LAUNCH.live) return;
     document.querySelectorAll('a[data-store]').forEach(function (a) {
       var url = LAUNCH[a.getAttribute('data-store')];
       if (url) a.setAttribute('href', url);
-      else if (LAUNCH.live) console.warn('Cambr launch switch: no URL for', a.getAttribute('data-store'));
+      else console.warn('Cambr launch switch: no URL for', a.getAttribute('data-store'));
     });
   });
 
