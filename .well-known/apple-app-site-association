@@ -34,6 +34,23 @@
             }
           },
           {
+            "/": "/c/*",
+            "comment": "a convoy invite: /c/<code> (Cambr row 41.12; the app's link from 41.12 on)"
+          },
+          {
+            "/": "/",
+            "?": {
+              "c": "?*"
+            },
+            "comment": "a convoy invite as the app sent it before row 41.12: /?c=<code>"
+          },
+          {
+            "/": "/index.html",
+            "?": {
+              "c": "?*"
+            }
+          },
+          {
             "/": "/r/*",
             "comment": "links sent by the first V1 (9 Oct)"
           }

@@ -33,6 +33,34 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <script src="/assets/launch.js"></script>
+<script>
+  /* Convoy invite (Cambr app row 41.12). A link from the app is https://cambr.uk/c/<code>; with the app installed the
+     phone opens the app and this page never loads. Without it, /c/<code> 404s on the static host and 404.html sends
+     it here as /#c=<code>; links the app sent before 41.12 arrive as /?c=<code>. Either way this page shows the invite
+     instead of the homepage hero (html[data-invite], CSS "Convoy invite" below).
+     The code is a live convoy's way in, so it is kept out of the address analytics reads: a ?c= is moved to the
+     fragment before analytics.js (deferred) runs, and the fragment is never sent. Same alphabet as the app
+     (lib/convoy.ts CODE_ALPHABET: no 0 / O / 1 / I); anything else is ignored. */
+  (function () {
+    try {
+      var code = null;
+      var params = new URLSearchParams(window.location.search);
+      var fromQuery = params.get("c");
+      var fromHash = /^#c=([A-Za-z0-9]{4})$/.exec(window.location.hash);
+      var raw = String(fromQuery || (fromHash && fromHash[1]) || "").toUpperCase();
+      if (/^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{4}$/.test(raw)) code = raw;
+      if (fromQuery !== null) {
+        params.delete("c");
+        var rest = params.toString();
+        window.history.replaceState(null, "", window.location.pathname + (rest ? "?" + rest : "") + (code ? "#c=" + code : ""));
+      }
+      if (code) {
+        document.documentElement.setAttribute("data-invite", code);
+        window.cambrInvite = code;
+      }
+    } catch (e) { /* no invite state: the homepage as it is */ }
+  })();
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -317,7 +345,7 @@
   .hero-badges.under-phone { margin-top: 26px; margin-bottom: 0; text-align: center; }
   .hero-badges.under-phone .badge-eyebrow { text-align: center; color: #FFFFFF; }
   .hero-badges.under-phone .store-badges { justify-content: center; }
-  h1.display {
+  h1.display, .invite-title {
     font-weight: var(--fw-bold);
     font-size: clamp(38px, 4.6vw, 66px);
     line-height: 1.02;
@@ -326,7 +354,7 @@
     max-width: 24ch;
     color: #FFFFFF;
   }
-  h1.display .accent { color: var(--brand-rosso); }
+  h1.display .accent, .invite-title .accent { color: var(--brand-rosso); }
   .band-title .accent { color: var(--brand-rosso); }
   .sub {
     font-size: clamp(16px, 1.35vw, 19px);
@@ -635,6 +663,34 @@
   html:not([data-phase="launch"]) [data-show="launch"],
   html[data-phase="launch"] [data-show="waitlist"] { display: none !important; }
   .hero-download { margin-top: 38px; }
+
+  /* ---------- Convoy invite (row 41.12; set in <head>) ----------
+     With html[data-invite] the hero copy shows only the invite card; the phone and the rest of the page stay. */
+  html:not([data-invite]) .invite { display: none !important; }
+  html[data-invite] .hero-copy > :not(.invite) { display: none !important; }
+  .invite-code-label {
+    font-weight: var(--fw-semibold); font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em;
+    color: rgba(228,228,228,0.82); margin-top: 30px;
+  }
+  .invite-code {
+    font-weight: var(--fw-extrabold); font-size: clamp(44px, 6vw, 64px); letter-spacing: 0.16em; line-height: 1.05;
+    color: #FFFFFF; margin-top: 8px; font-variant-numeric: tabular-nums;
+  }
+  .invite-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .btn-secondary {
+    font-family: var(--font-sans); font-weight: var(--fw-semibold); font-size: 15px;
+    color: #fff; background: rgba(10,10,10,0.38); border: 1px solid rgba(255,255,255,0.30);
+    border-radius: 999px; padding: 14px 26px; white-space: nowrap; display: inline-flex; align-items: center;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    transition: transform .2s cubic-bezier(0.16,1,0.3,1), border-color .2s ease, opacity .2s ease;
+  }
+  .btn-secondary:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.62); }
+  .btn-secondary:active { opacity: .85; transform: none; }
+  .invite .hero-body { max-width: 44ch; }
+  @media (max-width: 560px) {
+    .invite-actions { flex-direction: column; }
+    .invite-actions a { justify-content: center; }
+  }
   .closer .store-badges { justify-content: center; margin-top: 38px; }
 
   /* ---------- Footer ---------- */
@@ -842,6 +898,17 @@
 
   <div class="hero-inner">
     <div class="hero-copy">
+      <!-- Convoy invite (row 41.12): shown instead of the hero copy when the page opens with an invite code. DRAFT copy. -->
+      <div class="invite" id="invite">
+        <h2 class="invite-title">You're invited to a <span class="accent">convoy</span></h2>
+        <p class="invite-code-label">Code</p>
+        <p class="invite-code" data-invite-code aria-live="polite"></p>
+        <div class="invite-actions">
+          <a class="btn-primary" data-invite-open href="cambr://convoy">Open in Cambr</a>
+          <a class="btn-secondary" data-invite-get href="#waitlist">Get Cambr</a>
+        </div>
+        <p class="hero-body">Already have Cambr? Open it, tap Drive, then Multiplayer, and join with the code.</p>
+      </div>
       <!-- partner-eyebrow: tools/build_site.py puts the partner line here on /carmods. Keep this comment. -->
       <p class="eyebrow live"><span class="live-dot" aria-hidden="true"></span><span data-show="waitlist">Now live in beta testing</span><span data-show="launch">Out now</span> <span class="k">· iPhone and Android</span></p>
       <h1 class="display">The first navigation app for people who <span class="accent">love to drive</span>.</h1>
@@ -1381,6 +1448,20 @@
     });
   }
   document.querySelectorAll('form.capture').forEach(wireForm);
+
+  // Convoy invite (row 41.12): the code, the app link, and "Get Cambr" back to the homepage's own sign-up / download.
+  (function () {
+    const code = window.cambrInvite;
+    if (!code) return;
+    const box = document.querySelector('[data-invite-code]');
+    if (box) box.textContent = code;
+    const open = document.querySelector('[data-invite-open]');
+    if (open) open.setAttribute('href', 'cambr://convoy?c=' + encodeURIComponent(code));
+    const get = document.querySelector('[data-invite-get]');
+    if (get) get.addEventListener('click', function () {
+      document.documentElement.removeAttribute('data-invite');
+    });
+  })();
 </script>
 
 </body>

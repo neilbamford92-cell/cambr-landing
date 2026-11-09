@@ -508,7 +508,7 @@ a partner link that quietly 404s, or collects into the homepage form, would go u
 
 Query strings pass straight through (`/carmods?utm_source=carmods&utm_medium=email&utm_campaign=partner_nov26`
 loads the page as normal; GA4 reads the UTMs). `apple-app-site-association` only claims `/` and
-`/index.html` with `?r=`/`?p=`, and `/r/*`, so a partner link opens in the browser even when the
+`/index.html` with `?r=`/`?p=`/`?c=`, and `/r/*` and `/c/*`, so a partner link opens in the browser even when the
 app is installed.
 
 **The tag is set in Kit, not here.** A static page cannot tag a subscriber (see *Ref-tag
@@ -606,6 +606,15 @@ stopped updating at the switch.
 ⚠️ `.well-known/` (the iOS and Android app-link files) is a dot-folder. `upload-pages-artifact@v4`
 and later drop dot-folders unless `include-hidden-files: true` is set, which the workflow does. Do not
 remove it. After a change to the workflow, check `https://cambr.uk/.well-known/apple-app-site-association`.
+
+**Convoy invites (Cambr row 41.12, 9 Nov 2026).** The app's invite link is `https://cambr.uk/c/<code>`. With the
+app installed the phone opens the app (AASA `/c/*`; `assetlinks.json` lists `uk.cambr.app` and Cambr Dev,
+`uk.cambr.app.dev`, whose fingerprint is the EAS-generated key of its Android builds). Without the app, `/c/<code>`
+has no file behind it, so Pages serves `404.html`, which sends a valid code on to `/#c=<code>`; links from older app
+builds arrive as `/?c=<code>`. `index.html` then shows the invite instead of the hero copy (`html[data-invite]`):
+the code, **Open in Cambr** (`cambr://convoy?c=<code>`) and **Get Cambr** (back to the homepage). The code is a live
+convoy's way in, so the page moves a `?c=` into the fragment before `analytics.js` runs and GA4 never sees it.
+`404.html` loads no analytics. Every other missing path gets its plain "Page not found".
 
 To go back to the branch deploy:
 `gh api -X PUT repos/{owner}/{repo}/pages -f build_type=legacy -f 'source[branch]=main' -f 'source[path]=/'`.
