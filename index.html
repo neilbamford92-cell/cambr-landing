@@ -697,10 +697,21 @@
   }
   .btn-secondary:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.62); }
   .btn-secondary:active { opacity: .85; transform: none; }
-  .invite .hero-body { max-width: 44ch; }
+  .invite-badges { margin: 0; }
+  .invite-badges[hidden] { display: none; }
+  .invite-copied {
+    margin-top: 16px; max-width: 44ch; font-size: 15px; line-height: 1.5; color: #FFFFFF;
+    font-weight: var(--fw-medium);
+  }
+  .invite-copied[hidden] { display: none; }
+  .invite-have {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 26px;
+    font-size: 15px; color: rgba(233,233,233,0.86);
+  }
   @media (max-width: 560px) {
     .invite-actions { flex-direction: column; }
-    .invite-actions a { justify-content: center; }
+    .invite-actions > a { justify-content: center; }
+    .invite-have .btn-secondary { justify-content: center; flex: 1; }
   }
   .closer .store-badges { justify-content: center; margin-top: 38px; }
 
@@ -914,11 +925,34 @@
         <h2 class="invite-title">You're invited to a <span class="accent">convoy</span></h2>
         <p class="invite-code-label">Code</p>
         <p class="invite-code" data-invite-code aria-live="polite"></p>
+        <!-- Download Cambr follows the launch switch (assets/launch.js): waitlist = the homepage sign-up, as before;
+             launch = straight to the visitor's store (App Store on iPhone / iPad, Google Play on Android), or both
+             badges on a computer. The script at the end of the page wires it. -->
         <div class="invite-actions">
-          <a class="btn-primary" data-invite-open href="cambr://convoy">Open in Cambr</a>
-          <a class="btn-secondary" data-invite-get href="#waitlist">Get Cambr</a>
+          <a class="btn-primary" data-invite-download href="#waitlist">Download Cambr</a>
+          <div class="store-badges invite-badges" data-invite-badges hidden>
+            <a href="/#waitlist" class="badge" data-store="appStore" aria-label="Download on the App Store">
+              <span class="glyph"><ion-icon name="logo-apple"></ion-icon></span>
+              <span class="txt"><span class="small">Download on the</span><span class="big">App Store</span></span>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=uk.cambr.app" class="badge" data-store="googlePlay" aria-label="Get it on Google Play">
+              <span class="glyph">
+              <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                <path fill="#00C3FF" d="M3.6 2.4c-.3.3-.5.8-.5 1.4v16.4c0 .6.2 1.1.5 1.4l.1.1L12.9 12v-.1L3.6 2.4z"/>
+                <path fill="#FFCE00" d="M16 15.1l-3.1-3v-.2L16 8.9l.1.1 3.6 2.1c1 .6 1 1.6 0 2.2L16 15.1z"/>
+                <path fill="#00E676" d="M16.1 15L12.9 12 3.6 21.6c.3.4 1 .4 1.6.1L16.1 15z"/>
+                <path fill="#FF3D47" d="M16.1 9L5.2 2.3C4.6 2 3.9 2 3.6 2.4L12.9 12 16.1 9z"/>
+              </svg>
+              </span>
+              <span class="txt"><span class="small up">Get it on</span><span class="big">Google Play</span></span>
+            </a>
+          </div>
         </div>
-        <p class="hero-body">Already have Cambr? Open it and join the convoy with this code.</p>
+        <p class="invite-copied" data-invite-copied aria-live="polite" hidden></p>
+        <div class="invite-have">
+          <span>Already have Cambr?</span>
+          <a class="btn-secondary" data-invite-open href="cambr://convoy">Open in Cambr</a>
+        </div>
       </div>
       <!-- partner-eyebrow: tools/build_site.py puts the partner line here on /carmods. Keep this comment. -->
       <p class="eyebrow live"><span class="live-dot" aria-hidden="true"></span><span data-show="waitlist">Now live in beta testing</span><span data-show="launch">Out now</span> <span class="k">· iPhone and Android</span></p>
@@ -1460,12 +1494,13 @@
   }
   document.querySelectorAll('form.capture').forEach(wireForm);
 
-  // Convoy invite (row 41.12): the code, the app link, and "Get Cambr" back to the homepage's own sign-up / download.
+  // Convoy invite (row 41.12): the code; Download Cambr on the launch switch; Open in Cambr for those who have it.
   (function () {
     const code = window.cambrInvite;
     if (!code) return;
     const box = document.querySelector('[data-invite-code]');
     if (box) box.textContent = code;
+
     // The link's href stays code-free (cambr://convoy): GA4's enhanced measurement records an outbound click's link_url,
     // so the code is added only as the tap navigates.
     const open = document.querySelector('[data-invite-open]');
@@ -1473,10 +1508,71 @@
       e.preventDefault();
       window.location.href = 'cambr://convoy?c=' + encodeURIComponent(code);
     });
-    const get = document.querySelector('[data-invite-get]');
-    if (get) get.addEventListener('click', function () {
+
+    const leaveInvite = function () {
       document.documentElement.removeAttribute('data-invite');
       try { sessionStorage.removeItem('cambr_invite'); } catch (e) { /* ignore */ }
+    };
+
+    // Copy the code, inside the tap (an install loses the page). Synchronous first — a hidden textarea and
+    // execCommand('copy'), which in-app browsers still allow — then the async clipboard as a second try, whose success
+    // turns the message into "copied" (onCopied). The textarea sits outside every form and goes at once.
+    const copyCode = function (onCopied) {
+      let done = false;
+      try {
+        const t = document.createElement('textarea');
+        t.value = code;
+        t.setAttribute('readonly', '');
+        t.setAttribute('aria-hidden', 'true');
+        t.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;font-size:16px;';
+        document.body.appendChild(t);
+        t.focus();
+        t.select();
+        t.setSelectionRange(0, code.length);
+        done = document.execCommand('copy');
+        document.body.removeChild(t);
+      } catch (e) { /* not allowed here */ }
+      if (!done && navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(onCopied, function () { /* the message still gives the code */ });
+      }
+      return done;
+    };
+
+    const note = document.querySelector('[data-invite-copied]');
+    const say = function (copied) {
+      if (!note) return;
+      note.textContent = copied
+        ? 'Code ' + code + ' copied: open Cambr after installing and paste it to join.' // DRAFT
+        : 'Your code is ' + code + ': open Cambr after installing and enter it to join.'; // DRAFT
+      note.hidden = false;
+    };
+
+    const download = document.querySelector('[data-invite-download]');
+    const badges = document.querySelector('[data-invite-badges]');
+    const launch = window.cambrLaunch || {};
+    // The SAME switch as every other store link (assets/launch.js): before launch, Download keeps today's path, the
+    // homepage sign-up (#waitlist), exactly as "Get Cambr" did.
+    if (!launch.live || !download) {
+      if (download) download.addEventListener('click', leaveInvite);
+      return;
+    }
+    const ua = navigator.userAgent || '';
+    const ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const android = /Android/i.test(ua);
+    const store = ios ? launch.appStore : android ? launch.googlePlay : '';
+    if (!store) {
+      // A computer (or a store URL missing): both badges instead of the one button. They get their links from
+      // launch.js like every badge on the site; the code stays on screen to type in on the phone.
+      download.hidden = true;
+      download.style.display = 'none';
+      if (badges) badges.hidden = false;
+      return;
+    }
+    // A phone: straight to its store. The href is the store's (no code in it); the copy happens inside the tap and the
+    // link then opens the store as any link does.
+    download.setAttribute('href', store);
+    download.addEventListener('click', function () {
+      say(copyCode(function () { say(true); }));
     });
   })();
 </script>

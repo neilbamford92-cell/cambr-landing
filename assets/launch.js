@@ -1,10 +1,11 @@
 /* Launch switch: waitlist -> download, on every page that loads this file.
  *
- * ON LAUNCH DAY, edit this file only:
- *   1. live: true
- *   2. paste the App Store URL into appStore
+ * ON LAUNCH DAY, edit this file only: live: true
+ *   (both store URLs are already in: the App Store one is the app's Apple ID from App Store Connect, 9 Nov 2026,
+ *   and only works once the listing is public. With live: false nothing shows it.)
  * Every CTA marked data-show="waitlist" hides, every one marked data-show="launch"
- * shows, and every link marked data-store="appStore" / "googlePlay" gets its URL.
+ * shows, and every link marked data-store="appStore" / "googlePlay" gets its URL. The convoy invite page's
+ * Download Cambr (index.html, row 41.12) reads this too: waitlist = the sign-up, launch = the visitor's store.
  * The CSS that does the hiding sits next to each page's styles; search "Launch switch".
  *
  * Copy in prose and in JSON-LD does not flip with this. README > "Launch day" lists it.
@@ -14,7 +15,7 @@
 (function () {
   var LAUNCH = {
     live: false,
-    appStore: '',  // e.g. https://apps.apple.com/gb/app/cambr/id0000000000
+    appStore: 'https://apps.apple.com/gb/app/id6807563296',  // Apple ID 6807563296 (App Store Connect, uk.cambr.app)
     googlePlay: 'https://play.google.com/store/apps/details?id=uk.cambr.app'
   };
 
