@@ -1466,8 +1466,13 @@
     if (!code) return;
     const box = document.querySelector('[data-invite-code]');
     if (box) box.textContent = code;
+    // The link's href stays code-free (cambr://convoy): GA4's enhanced measurement records an outbound click's link_url,
+    // so the code is added only as the tap navigates.
     const open = document.querySelector('[data-invite-open]');
-    if (open) open.setAttribute('href', 'cambr://convoy?c=' + encodeURIComponent(code));
+    if (open) open.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location.href = 'cambr://convoy?c=' + encodeURIComponent(code);
+    });
     const get = document.querySelector('[data-invite-get]');
     if (get) get.addEventListener('click', function () {
       document.documentElement.removeAttribute('data-invite');
