@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
+<!-- The address can hold a convoy code (/c/<code>): never pass it on as the next page's referrer (analytics reads it). -->
+<meta name="referrer" content="no-referrer">
 <title>Cambr</title>
 <meta name="theme-color" content="#141414">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -13,8 +15,9 @@
      A convoy invite (Cambr app row 41.12) is https://cambr.uk/c/<code>: with the app installed the phone opens the app
      (apple-app-site-association /c/*, assetlinks.json + the app's /c/ intent filter) and this never loads. Without the
      app it lands here, and goes on to the homepage's invite state with the code in the fragment (index.html,
-     html[data-invite]) — the fragment never reaches analytics, and this page loads none. Every other missing path
-     shows the plain "not found" below. Same alphabet as the app (lib/convoy.ts CODE_ALPHABET). */
+     html[data-invite]), which takes the code out of the address before analytics loads. This page loads no analytics
+     and, with no-referrer above, the homepage never sees /c/<code> as its referrer. Every other missing path shows the
+     plain "not found" below (its three strings are DRAFT). Same alphabet as the app (lib/convoy.ts CODE_ALPHABET). */
   (function () {
     var m = /^\/c\/([A-Za-z0-9]{4})\/?$/.exec(window.location.pathname);
     if (!m) return;

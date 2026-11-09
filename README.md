@@ -612,9 +612,13 @@ app installed the phone opens the app (AASA `/c/*`; `assetlinks.json` lists `uk.
 `uk.cambr.app.dev`, whose fingerprint is the EAS-generated key of its Android builds). Without the app, `/c/<code>`
 has no file behind it, so Pages serves `404.html`, which sends a valid code on to `/#c=<code>`; links from older app
 builds arrive as `/?c=<code>`. `index.html` then shows the invite instead of the hero copy (`html[data-invite]`):
-the code, **Open in Cambr** (`cambr://convoy?c=<code>`) and **Get Cambr** (back to the homepage). The code is a live
-convoy's way in, so the page moves a `?c=` into the fragment before `analytics.js` runs and GA4 never sees it.
-`404.html` loads no analytics. Every other missing path gets its plain "Page not found".
+the code, **Open in Cambr** (`cambr://convoy?c=<code>`, the store app's scheme; Cambr Dev's is `cambr-dev`) and
+**Get Cambr** (back to the homepage). The code is a live convoy's way in, so the page reads it and then takes it out of
+the address (query and fragment) before `analytics.js` runs, keeping it for the tab in `sessionStorage` (cleared by
+Get Cambr). `404.html` sends no referrer (`<meta name="referrer" content="no-referrer">`) and loads no analytics, so
+neither GA4's `page_location` nor its `page_referrer` holds the code. To confirm after a deploy, open
+`https://cambr.uk/c/TEST` in a browser without the app and check that GA4 DebugView shows `https://cambr.uk/` with no
+referrer. Every other missing path gets its plain "Page not found".
 
 To go back to the branch deploy:
 `gh api -X PUT repos/{owner}/{repo}/pages -f build_type=legacy -f 'source[branch]=main' -f 'source[path]=/'`.

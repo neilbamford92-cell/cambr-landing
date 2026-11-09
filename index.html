@@ -38,22 +38,33 @@
      phone opens the app and this page never loads. Without it, /c/<code> 404s on the static host and 404.html sends
      it here as /#c=<code>; links the app sent before 41.12 arrive as /?c=<code>. Either way this page shows the invite
      instead of the homepage hero (html[data-invite], CSS "Convoy invite" below).
-     The code is a live convoy's way in, so it is kept out of the address analytics reads: a ?c= is moved to the
-     fragment before analytics.js (deferred) runs, and the fragment is never sent. Same alphabet as the app
-     (lib/convoy.ts CODE_ALPHABET: no 0 / O / 1 / I); anything else is ignored. */
+     The code is a live convoy's way in, so it never reaches analytics: it is read here and then taken out of the
+     address (query AND fragment) before analytics.js (deferred) runs, so GA4's page_location is the bare page. It is
+     kept for this tab only (sessionStorage) so a reload still shows the invite, until "Get Cambr" is tapped. 404.html
+     sends no referrer, so /c/<code> is not the page_referrer either. Same alphabet as the app (lib/convoy.ts
+     CODE_ALPHABET: no 0 / O / 1 / I); anything else is ignored. */
   (function () {
+    var KEY = "cambr_invite";
+    var VALID = /^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{4}$/;
     try {
       var code = null;
       var params = new URLSearchParams(window.location.search);
       var fromQuery = params.get("c");
       var fromHash = /^#c=([A-Za-z0-9]{4})$/.exec(window.location.hash);
       var raw = String(fromQuery || (fromHash && fromHash[1]) || "").toUpperCase();
-      if (/^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{4}$/.test(raw)) code = raw;
-      if (fromQuery !== null) {
+      if (VALID.test(raw)) code = raw;
+      if (fromQuery !== null || fromHash) {
         params.delete("c");
         var rest = params.toString();
-        window.history.replaceState(null, "", window.location.pathname + (rest ? "?" + rest : "") + (code ? "#c=" + code : ""));
+        window.history.replaceState(null, "", window.location.pathname + (rest ? "?" + rest : ""));
       }
+      try {
+        if (code) window.sessionStorage.setItem(KEY, code);
+        else if (fromQuery === null && !fromHash) {
+          var kept = String(window.sessionStorage.getItem(KEY) || "");
+          if (VALID.test(kept)) code = kept;
+        }
+      } catch (e) { /* no storage: the invite shows until a reload */ }
       if (code) {
         document.documentElement.setAttribute("data-invite", code);
         window.cambrInvite = code;
@@ -907,7 +918,7 @@
           <a class="btn-primary" data-invite-open href="cambr://convoy">Open in Cambr</a>
           <a class="btn-secondary" data-invite-get href="#waitlist">Get Cambr</a>
         </div>
-        <p class="hero-body">Already have Cambr? Open it, tap Drive, then Multiplayer, and join with the code.</p>
+        <p class="hero-body">Already have Cambr? Open it and join the convoy with this code.</p>
       </div>
       <!-- partner-eyebrow: tools/build_site.py puts the partner line here on /carmods. Keep this comment. -->
       <p class="eyebrow live"><span class="live-dot" aria-hidden="true"></span><span data-show="waitlist">Now live in beta testing</span><span data-show="launch">Out now</span> <span class="k">· iPhone and Android</span></p>
@@ -1460,6 +1471,7 @@
     const get = document.querySelector('[data-invite-get]');
     if (get) get.addEventListener('click', function () {
       document.documentElement.removeAttribute('data-invite');
+      try { sessionStorage.removeItem('cambr_invite'); } catch (e) { /* ignore */ }
     });
   })();
 </script>
