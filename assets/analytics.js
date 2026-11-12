@@ -74,7 +74,11 @@
   gtag('js', new Date());
   // No anonymize_ip: that is a Universal Analytics flag. GA4 ignores it and
   // drops the full IP natively, so passing it would imply a control we do not have.
-  gtag('config', MEASUREMENT_ID);
+  // Profile links are cambr.uk/?p=<account id>: never send that id to Google. Drop only `p`, so
+  // campaign parameters (utm_*) still reach Analytics.
+  var pageUrl = new URL(window.location.href);
+  pageUrl.searchParams.delete('p');
+  gtag('config', MEASUREMENT_ID, { page_location: pageUrl.toString() });
 
   var s = document.createElement('script');
   s.async = true;
