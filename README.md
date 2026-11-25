@@ -364,6 +364,16 @@ England 11 / Wales 6 / Scotland 3 / Ireland 2 split were checked against the liv
 scoring page stays at its root URL; only the tile lives in the Journal. Its thumbnail is in
 `assets/journal/how-scoring-works/`, rendered from the page's own phone mock-ups.
 
+## Homepage (25 Nov 2026)
+
+Neil: smaller and cleaner. The hero stops short of the fold on desktop so the next section always shows; the phone in it
+scales with the window height. Below the definition line everything is a size down. The sizes live in one block at the end of the inline
+`<style>`, "Compact pass". "How to use Cambr" is navigation only (six features round a phone); the Feed, profiles and
+reviews sit in their own community section; Europe has its own panel. App shots in `/uploads`: `app-map-uk-ireland`,
+`app-map-europe`, `app-feed` (number plate blurred), `app-profile`; status bars tidied, Display P3 converted to sRGB.
+Country counts come from `public.teaser_roads` (147 in 14 countries on 25 Nov). Ratings never change a score by
+themselves: never write that they do.
+
 ## Pricing page (`/pricing`)
 
 `pricing.html` + `assets/pricing.css`, on the Journal template. It explains free vs Pro and sends people to the
@@ -396,6 +406,13 @@ stores. **Nothing is sold on the website**: no Buy, Subscribe or Start-trial con
 - Badge ids (`pricing-<hero|pro|closer>-<appstore|play>`) are how GA4 tells the badges apart. Keep them.
 
 ## Launch day (24 November) — one switch, then a short checklist
+
+> **Launched 25 Nov 2026.** `live: true`, and the waitlist markup is gone from the HTML: the forms, the "Coming soon" badges
+> and every `data-show` attribute were removed and store links are static, so pages read the same without JavaScript. The
+> convoy invite's Download button still reads `assets/launch.js`. Going back to a waitlist means reverting that commit, not
+> flipping the switch. The Kit script in `index.html` stays because `tools/build_site.py` looks for it; it wires no form
+> now, so `/carmods` is the homepage with its partner line and collects nothing (Neil: its job is done). `/ios` and
+> `/android` go to the stores; `/beta` says it has ended. The checklist and table below are how it worked before.
 
 **The switch is `assets/launch.js`.** Set `live: true`. Both store URLs are already in: Google Play
 (`uk.cambr.app`, the same package as `assetlinks.json`) and, since 9 Nov 2026, the App Store

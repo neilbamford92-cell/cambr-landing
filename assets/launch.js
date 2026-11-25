@@ -14,7 +14,7 @@
  * page never flashes the wrong CTA. Without JavaScript the page shows the waitlist. */
 (function () {
   var LAUNCH = {
-    live: false,
+    live: true,
     appStore: 'https://apps.apple.com/gb/app/id6807563296',  // Apple ID 6807563296 (App Store Connect, uk.cambr.app)
     googlePlay: 'https://play.google.com/store/apps/details?id=uk.cambr.app'
   };

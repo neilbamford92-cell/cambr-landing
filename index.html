@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cambr: Britain's Driving Roads, Scored and Routed</title>
-<meta name="description" content="Cambr scores every driving road in Britain and Ireland out of 100, then routes you along the best ones instead of the fastest. Free on iPhone and Android.">
+<meta name="description" content="Cambr scores every driving road in Britain and Ireland out of 100, then routes you along the best ones instead of the fastest. Free to download on iPhone and Android.">
 <link rel="canonical" href="https://cambr.uk/">
 <meta name="theme-color" content="#141414">
 
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cambr">
 <meta property="og:title" content="Cambr: Britain's Driving Roads, Scored and Routed">
-<meta property="og:description" content="Cambr scores every driving road in Britain and Ireland out of 100, then routes you along the best ones instead of the fastest. Free on iPhone and Android.">
+<meta property="og:description" content="Cambr scores every driving road in Britain and Ireland out of 100, then routes you along the best ones instead of the fastest. Free to download on iPhone and Android.">
 <meta property="og:url" content="https://cambr.uk/">
 <meta property="og:image" content="https://cambr.uk/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="A mountain road in the Azores sweeping toward a bank of cloud, with the Cambr wordmark.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cambr: Britain's Driving Roads, Scored and Routed">
-<meta name="twitter:description" content="Cambr scores every driving road in Britain and Ireland out of 100, then routes you along the best ones instead of the fastest. Free on iPhone and Android.">
+<meta name="twitter:description" content="Cambr scores every driving road in Britain and Ireland out of 100, then routes you along the best ones instead of the fastest. Free to download on iPhone and Android.">
 <meta name="twitter:image" content="https://cambr.uk/assets/og-image.jpg">
 
 <link rel="preload" as="image" type="image/webp" imagesizes="100vw" imagesrcset="assets/photography/thumbs/glencoe-800.webp 800w, assets/photography/thumbs/glencoe-1200.webp 1200w, assets/photography/thumbs/glencoe-1600.webp 1600w, assets/photography/thumbs/glencoe-2000.webp 2000w">
@@ -89,18 +89,18 @@
         "S, A and B tier road ratings",
         "Turn-by-turn navigation along the best roads",
         "Round-trip loop generator by time and direction",
-        "Route builder with up to five stops",
+        "Route builder with up to ten stops",
         "Speed camera and average-speed zone warnings",
         "46 curated drives and loops",
         "Drive log and road ratings"
       ],
-      "countriesSupported": "GB",
+      "countriesSupported": "GB, IE",
       "publisher": { "@type": "Organization", "name": "Cambr Technologies Ltd", "url": "https://cambr.uk" },
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "GBP",
-        "description": "Free to explore the map and scored roads. Cambr Pro available at public launch."
+        "description": "Free to download. Cambr Pro is £4.99 a month or £39.99 a year, with a 14-day free trial."
       }
     },
     {
@@ -127,7 +127,7 @@
         {
           "@type": "Question",
           "name": "Is Cambr available on Android?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Cambr is in testing on iPhone and Android now, and will launch on both on the same day. Join the email list and we'll tell you when." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Cambr is on the App Store and Google Play in the UK and Ireland." }
         },
         {
           "@type": "Question",
@@ -142,7 +142,7 @@
         {
           "@type": "Question",
           "name": "Does it work outside the UK?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The map does. Every driving road in Ireland is scored, and 71 European roads are on there too. Turn-by-turn routing covers Great Britain today, with Ireland and Europe on the way." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, across the UK and Ireland, with routes and turn-by-turn in both. 147 great roads across 14 European countries are on the map as a preview of where we're going next." }
         },
         {
           "@type": "Question",
@@ -626,14 +626,13 @@
 
   /* ---------- What's next (roadmap) ----------
      Replaced "What Cambr doesn't do yet" on 3 Nov (Neil: frame what is coming, not
-     what is missing). Stages follow /beta's own roadmap (updated 3 Nov): convoy,
-     landscape and the social features during the beta; CarPlay/Android Auto, routes
-     in Ireland and Europe, fuel finder and convoy walkie-talkie after launch. AI Trip
-     Planner is post-launch (Neil). Offline maps and Tunnel Finder are not on /beta,
-     so they sit under "on the roadmap". When /beta's roadmap moves, move this. */
-  .roadmap { list-style: none; margin: 52px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; position: relative; }
+     what is missing). Two stages since launch (25 Nov 2026 hand-off): what shipped in
+     the beta moved up to the Live cards. No dates. When something ships, move it to a Live card. */
+  .roadmap { list-style: none; margin: 52px 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 0 40px; position: relative; }
+  .roadmap .items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
+  .roadmap .items .item:nth-child(2) { padding-top: 0; border-top: 0; }
   .roadmap::before { content: ""; position: absolute; left: 0; right: 0; top: 9px; height: 2px;
-    background: linear-gradient(90deg, var(--brand-rosso) 0%, rgba(212,0,0,0.5) 34%, rgba(255,255,255,0.22) 34%, rgba(255,255,255,0.08) 100%); }
+    background: linear-gradient(90deg, var(--brand-rosso) 0%, rgba(212,0,0,0.5) 66%, rgba(255,255,255,0.22) 66%, rgba(255,255,255,0.08) 100%); }
   .stage-head { position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
   .stage .node { width: 20px; height: 20px; border-radius: 999px; background: var(--bg-map); border: 2px solid rgba(255,255,255,0.4); flex: none; }
   .stage.now .node { border-color: var(--brand-rosso); box-shadow: 0 0 0 5px rgba(212,0,0,0.18), 0 0 18px rgba(212,0,0,0.55); background: var(--brand-rosso); }
@@ -647,6 +646,8 @@
   .stage.now .item p { font-size: 16px; color: var(--text-primary); }
   @media (max-width: 900px) {
     .roadmap { grid-template-columns: 1fr; gap: 10px; }
+    .roadmap .items { grid-template-columns: 1fr; }
+    .roadmap .items .item:nth-child(2) { padding-top: 20px; border-top: 1px solid var(--hairline); }
     .roadmap::before { top: 0; bottom: 0; left: 9px; right: auto; width: 2px; height: auto;
       background: linear-gradient(180deg, var(--brand-rosso) 0%, rgba(255,255,255,0.22) 30%, rgba(255,255,255,0.08) 100%); }
     .stage { padding-left: 40px; position: relative; }
@@ -783,8 +784,6 @@
   .score-layout { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 46px; align-items: start; }
   .score-shot { display: flex; flex-direction: column; align-items: center; flex: none; position: sticky; top: 24px; }
   .phone.shot-phone { width: 250px; }
-  .feature-shot .phone.shot-phone { width: 328px; }
-  @media (max-width: 1180px) and (min-width: 901px) { .feature-shot .phone.shot-phone { width: 272px; } }
   .score-caption {
     margin-top: 16px; font-size: 11px; color: var(--text-secondary);
     text-transform: uppercase; letter-spacing: 0.1em; text-align: center; font-weight: var(--fw-semibold);
@@ -801,51 +800,6 @@
   .tier-b .tier-badge { background: var(--tier-c-fill); color: var(--tier-c); border: 1px solid var(--tier-c); }
   .tier-b h3 .glyph { color: var(--tier-c); }
 
-  /* ---------- How to use (feature grid) ---------- */
-  /* Cards on the left in 2 x 3, the app shot on the right. At 1160px of content
-     the phone takes 250 and the two card columns get ~420 each. */
-  .feature-layout {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto;
-    gap: 46px; align-items: stretch; margin-top: 56px;
-  }
-  /* The phone is sized to stand at least as tall as the cards; auto-sized card rows
-     then stretch to meet it, so phone and cards share a top and a bottom edge. */
-  .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-
-  .feature-shot {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    flex: none;
-  }
-  .feature {
-    background: var(--card); border: 1px solid var(--hairline); border-radius: 18px;
-    padding: 24px 26px 26px;
-    display: grid; grid-template-columns: auto 1fr;
-    column-gap: 16px; row-gap: 6px; align-items: start;
-  }
-  .feature-icon {
-    width: 44px; height: 44px; border-radius: 12px; flex: none;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--card-raised); border: 1px solid var(--hairline-strong);
-    color: var(--brand-rosso); font-size: 24px;
-    grid-column: 1; grid-row: 1 / span 2; align-self: start;
-  }
-  .feature h3 {
-    grid-column: 2; grid-row: 1; margin: 0;
-    font-weight: var(--fw-bold); font-size: 16px; letter-spacing: -0.01em; color: #FFFFFF;
-    line-height: 1.3; min-height: 44px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .feature p {
-    grid-column: 2; grid-row: 2; margin: 0;
-    font-size: 14px; line-height: 1.5; color: var(--text-primary);
-  }
-  .tag {
-    flex: none;
-    font-weight: var(--fw-semibold); font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em;
-    border-radius: 999px; padding: 4px 11px; line-height: 1; white-space: nowrap;
-  }
-  .tag.live { color: var(--tier-a); background: var(--tier-a-fill); border: 1px solid rgba(34,197,94,0.42); }
-  .tag.soon { color: var(--text-secondary); background: transparent; border: 1px solid var(--hairline-strong); }
   .build-outro {
     margin-top: 44px; text-align: center;
     font-size: clamp(18px, 1.7vw, 24px); font-weight: var(--fw-medium);
@@ -860,15 +814,21 @@
     .phone-wrap { padding: 12px 0 64px; justify-content: center; }
     .phone { width: 260px; }
     .hero-scrim { background: linear-gradient(0deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.15) 45%, rgba(20,20,20,0.75) 100%); }
-    .tiers, .modes-grid, .feature-grid, .build-grid.two { grid-template-columns: 1fr; }
-    .score-layout, .feature-layout { grid-template-columns: 1fr; gap: 28px; }
-    .score-shot, .feature-shot { order: -1; position: static; }
+    .tiers, .modes-grid, .build-grid.two { grid-template-columns: 1fr; }
+    .score-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .score-shot { order: -1; position: static; }
     section.band { padding: 72px 0; }
     .top-cta { display: none; }
   }
   @media (max-width: 560px) {
     .wrap { padding: 0 22px; }
     .top-inner { padding: 22px; }
+  }
+  @media (max-width: 360px) {
+    .top-inner { gap: 14px; }
+    .top-nav { gap: 14px; }
+  }
+  @media (max-width: 560px) {
     .hero-inner { padding: 0 22px; }
     .hero-copy { padding: 100px 0 4px; }
     .phone { width: 232px; }
@@ -891,6 +851,166 @@
     width: 1px; height: 1px; opacity: 0; pointer-events: none;
   }
   .form-note.error { color: var(--brand-rosso); font-weight: var(--fw-medium); display: none; }
+
+  /* ---------- The hero stops short of the fold (Neil, 25 Nov 2026) ----------
+     A full-height hero reads as the end of the page. On a desktop the phone scales with the window's height and the
+     hero is capped, so the top of the next section always shows. Phones keep the natural height: the shot is cut by
+     the fold there already. */
+  @media (min-width: 901px) {
+    .hero, .hero-inner { min-height: min(82vh, 800px); }
+    .hero-copy, .phone-wrap { padding: 104px 0 48px; }
+    .hero .phone { width: clamp(206px, 29vh, 276px); border-radius: clamp(38px, 5.2vh, 50px); padding: clamp(8px, 1.1vh, 11px); }
+    .hero .phone::after { border-radius: clamp(37px, 5.1vh, 49px); }
+    .hero .phone-screen { border-radius: clamp(30px, 4.2vh, 40px); }
+    .hero .phone-island { top: 2.2%; width: 30%; height: auto; aspect-ratio: 90 / 26; }
+    section.define { padding-top: 64px; }
+  }
+  @media (min-width: 901px) and (max-height: 830px) {   /* laptops */
+    .hero-copy, .phone-wrap { padding: 82px 0 26px; }
+    .hero h1.display { font-size: clamp(36px, 3.9vw, 54px); }
+    .hero-copy .eyebrow { margin-bottom: 16px; }
+    .hero-copy .sub { margin-top: 14px; }
+    .hero-copy .hero-body, .hero-copy .region { margin-top: 10px; }
+    .hero-copy .hero-download { margin-top: 20px; }
+  }
+
+  /* ---------- Compact pass (Neil, 25 Nov 2026) ----------
+     Everything below the hero and the definition line, a size down. Those two keep their own sizes. */
+  section.band:not(.define) { padding: 68px 0; }
+  .band:not(.define) .band-eyebrow { margin-bottom: 10px; }
+  .band:not(.define) h2.band-title { font-size: clamp(25px, 2.7vw, 34px); line-height: 1.1; }
+  .band:not(.define) .band-sub { font-size: 15.5px; margin-top: 10px; max-width: 64ch; }
+  .band-head { max-width: 760px; }
+  /* what we've built */
+  .score-block { margin-top: 26px; }
+  .build-block { border-radius: 14px; padding: 24px 26px; }
+  .build-block > p, .score-main > p { font-size: 14.5px; line-height: 1.55; }
+  .build-head { margin-bottom: 10px; gap: 10px; }
+  .build-icon { width: 34px; height: 34px; border-radius: 9px; font-size: 18px; }
+  .build-head h3 { font-size: 16px; }
+  .score-layout { gap: 34px; }
+  .phone.shot-phone { width: 214px; border-radius: 40px; padding: 9px; }
+  .phone.shot-phone::after { border-radius: 39px; }
+  .phone.shot-phone .phone-screen { border-radius: 32px; }
+  .phone.shot-phone .phone-island { top: 11px; width: 66px; height: 19px; }
+  .tiers.in-score { gap: 8px; margin-top: 16px; }
+  .tiers.in-score .tier-card { border-radius: 12px; padding: 11px 16px; column-gap: 14px; row-gap: 1px; }
+  .tier-badge { width: 36px; height: 36px; font-size: 16px; }
+  .tier-card h3 { font-size: 15.5px; }
+  .tier-card p { font-size: 13.5px; line-height: 1.45; }
+  .callout { margin-top: 14px; padding: 10px 14px; font-size: 14px; }
+  .score-more { margin-top: 12px; font-size: 14px; }
+  .build-grid.two { gap: 14px; margin-top: 14px; }
+  /* how to use: three features, the phone, three features */
+  .use { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 52px; align-items: center; margin-top: 34px; }
+  .use-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 30px; }
+  .use-list li { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 14px; align-items: start; }
+  .use-list .ui { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; background: var(--card); border: 1px solid var(--hairline); color: var(--brand-rosso); font-size: 20px; }
+  .use-list h3 { font-size: 16.5px; line-height: 1.3; font-weight: var(--fw-bold); letter-spacing: -0.012em; color: #FFFFFF; }
+  .use-list p { margin-top: 4px; font-size: 14.5px; line-height: 1.5; color: rgba(233,233,233,0.82); text-wrap: pretty; }
+  .use-shot .phone.shot-phone { width: 252px; }
+  .phone.rec .phone-island { width: 41% !important; height: auto !important; aspect-ratio: 282 / 64; top: 3% !important; }   /* that shot has its own, wider island */
+  .pro-strip { display: flex; align-items: center; justify-content: space-between; gap: 14px 32px; margin: 38px 0 0; padding: 16px 22px; border: 1px solid var(--brand-rosso); border-radius: 14px; background: var(--card); font-size: 14.5px; line-height: 1.5; color: rgba(233,233,233,0.88); }
+  .pro-strip b { color: #FFFFFF; font-weight: var(--fw-semibold); }
+  .pro-strip a { flex: none; font-weight: var(--fw-semibold); color: #FFFFFF; border-bottom: 1px solid var(--brand-rosso); padding: 3px 0; }
+  /* community */
+  .community { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 64px; align-items: center; }
+  .community-shots { position: relative; width: 420px; height: 500px; }
+  .community-shots .phone { position: absolute; border-radius: 40px; padding: 9px; }
+  .community-shots .phone::after { border-radius: 39px; }
+  .community-shots .phone-screen { border-radius: 32px; }
+  .community-shots .front { left: 0; top: 0; width: 230px; z-index: 2; }
+  .community-shots .back { right: 0; top: 44px; width: 208px; }
+  .community-copy .use-list { margin-top: 26px; gap: 22px; }
+  .build-outro { margin-top: 40px; font-size: clamp(16px, 1.5vw, 20px); }
+  /* comparison */
+  .compare-scroll { margin-top: 26px; }
+  table.compare th, table.compare td { padding: 11px 16px; }
+  table.compare thead th { padding-top: 13px; padding-bottom: 11px; }
+  table.compare thead .col-name { font-size: 15px; }
+  table.compare thead .is-cambr img { height: 18px; }
+  table.compare tbody th { font-size: 14.5px; }
+  table.compare td { font-size: 14px; }
+  .mark::before { width: 19px; height: 19px; background-size: 10px !important; }
+  /* Europe: the phone runs off the bottom of the panel */
+  .europe { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 56px; padding: 0 64px 0 48px; border: 1px solid var(--hairline); border-radius: 18px; background: var(--card); overflow: hidden; }
+  .europe-copy { align-self: center; padding: 44px 0; }
+  .countries { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; max-width: 560px; }
+  .countries li { font-size: 13px; line-height: 1; padding: 7px 11px; border-radius: 999px; border: 1px solid var(--hairline-strong); color: rgba(233,233,233,0.9); }
+  .countries b { margin-left: 4px; font-weight: var(--fw-bold); color: #EC4899; }   /* the app's own pink for European roads */
+  /* cut under the Susten Pass card's Switzerland line: the whole map and most of the card show */
+  .europe-shot { height: 538px; padding-top: 34px; }
+  .europe-shot .phone { width: 284px; border-radius: 44px; padding: 10px; box-shadow: none; }
+  .europe-shot .phone::after { border-radius: 43px; }
+  .europe-shot .phone-screen { border-radius: 35px; }
+  .europe-shot .phone-island { top: 14px; width: 84px; height: 24px; }
+  /* what's next */
+  .roadmap { margin-top: 30px; }
+  .stage-head { margin-bottom: 16px; }
+  .stage .item { padding-bottom: 14px; }
+  .stage .item + .item { padding-top: 14px; }
+  .stage .item h3, .stage.now .item h3 { font-size: 16.5px; }
+  .stage .item p, .stage.now .item p { margin-top: 4px; font-size: 14.5px; line-height: 1.5; }
+  /* questions: two columns, answers under their questions */
+  .faq { margin-top: 24px; }
+  .faq .q { display: block; padding: 15px 0; }
+  .faq .q h3 { font-size: 15.5px; }
+  .faq .q p { margin-top: 5px; font-size: 14.5px; line-height: 1.52; }
+  @media (min-width: 901px) {
+    .faq { columns: 2; column-gap: 56px; border-top: 1px solid var(--hairline); }
+    .faq .q { break-inside: avoid; border-top: 0; border-bottom: 1px solid var(--hairline); }
+  }
+  section.band.closer { padding: 60px 0; }
+  .closer-mark { height: 40px; margin-bottom: 14px; }
+  .closer h2 { font-size: clamp(28px, 3.2vw, 42px); }
+  .closer .store-badges { margin-top: 24px; }
+  footer.site { padding: 32px 0 40px; }
+  @media (max-width: 1080px) and (min-width: 901px) {
+    .use { gap: 32px; }
+    .use-shot .phone.shot-phone { width: 220px; }
+    .community { gap: 40px; }
+    .europe { gap: 32px; padding: 0 36px; }
+  }
+  @media (max-width: 900px) {
+    section.band:not(.define) { padding: 52px 0; }
+    .use { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 24px; }
+    .use-list { gap: 18px; }
+    .use-shot { order: -1; height: 300px; overflow: hidden; display: flex; justify-content: center; -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
+    .pro-strip { flex-direction: column; align-items: flex-start; margin-top: 28px; padding: 15px 18px; }
+    .community { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+    .community-shots { width: 100%; max-width: 360px; height: 350px; margin: 0 auto; overflow: hidden; -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
+    .community-shots .front { left: 2%; width: 190px; }
+    .community-shots .back { right: 2%; width: 166px; top: 30px; }
+    .score-shot { height: 290px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
+    .score-layout { gap: 18px; }
+    .europe { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 26px; }
+    .europe-copy { padding: 30px 0 0; }
+    .europe-shot { height: 462px; padding-top: 28px; display: flex; justify-content: center; }
+    .europe-shot .phone { width: 246px; }
+    .countries { gap: 6px; margin-top: 16px; }
+    .countries li { font-size: 12px; padding: 6px 9px; }
+    .roadmap { margin-top: 22px; }
+    /* the comparison fits a phone now: no sideways scroll */
+    table.compare { min-width: 0; table-layout: fixed; }
+    table.compare tbody th, table.compare thead th:first-child { position: static; background: none; }
+    table.compare th, table.compare td { padding: 10px 8px; }
+    table.compare tbody th { width: auto; font-size: 13.5px; }
+    table.compare thead th:first-child { width: 40%; }
+    table.compare thead .col-name { font-size: 13px; }
+    table.compare thead .col-sub { display: none; }
+    table.compare td { font-size: 12.5px; }
+  }
+  @media (max-width: 560px) {
+    section.band:not(.define) { padding: 44px 0; }
+    .build-block { padding: 18px 18px 20px; }
+    .tiers.in-score .tier-card { padding: 11px 13px; column-gap: 11px; }
+    .compare-scroll { overflow: visible; }
+    table.compare th, table.compare td { padding: 9px 5px; text-align: center; }
+    table.compare tbody th, table.compare thead th:first-child { text-align: left; padding-left: 0; padding-right: 8px; }
+    table.compare thead .is-cambr .col-name { flex-direction: column; gap: 3px; }
+    .mark { flex-direction: column; gap: 4px; font-size: 11.5px; }
+    table.compare td { font-size: 11.5px; line-height: 1.25; }
+  }
 </style>
 <script src="/assets/analytics.js" defer></script>
 </head>
@@ -904,7 +1024,7 @@
       <a href="/blog/" class="top-link">Journal</a>
       <a href="/pricing" class="top-link">Pricing</a>
     </nav>
-    <a href="#waitlist" class="top-cta"><span data-show="waitlist">Get early access</span><span data-show="launch">Download Cambr</span> →</a>
+    <a href="#waitlist" class="top-cta">Download Cambr →</a>
   </div>
 </header>
 
@@ -926,13 +1046,13 @@
         <h2 class="invite-title">You're invited to a <span class="accent">convoy</span></h2>
         <p class="invite-code-label">Code</p>
         <p class="invite-code" data-invite-code aria-live="polite"></p>
-        <!-- Download Cambr follows the launch switch (assets/launch.js): waitlist = the homepage sign-up, as before;
-             launch = straight to the visitor's store (App Store on iPhone / iPad, Google Play on Android), or both
+        <!-- Download Cambr follows assets/launch.js (live: true since launch):
+             straight to the visitor's store (App Store on iPhone / iPad, Google Play on Android), or both
              badges on a computer. The script at the end of the page wires it. -->
         <div class="invite-actions">
-          <a class="btn-primary" data-invite-download href="#waitlist"><span data-show="waitlist">Get Cambr</span><span data-show="launch">Download Cambr</span></a>
+          <a class="btn-primary" data-invite-download href="#waitlist">Download Cambr</a>
           <div class="store-badges invite-badges" data-invite-badges hidden>
-            <a href="/#waitlist" class="badge" data-store="appStore" aria-label="Download on the App Store">
+            <a href="https://apps.apple.com/gb/app/id6807563296" class="badge" data-store="appStore" aria-label="Download on the App Store">
               <span class="glyph"><ion-icon name="logo-apple"></ion-icon></span>
               <span class="txt"><span class="small">Download on the</span><span class="big">App Store</span></span>
             </a>
@@ -956,25 +1076,14 @@
         </div>
       </div>
       <!-- partner-eyebrow: tools/build_site.py puts the partner line here on /carmods. Keep this comment. -->
-      <p class="eyebrow live"><span class="live-dot" aria-hidden="true"></span><span data-show="waitlist">Beta full · launching this month</span><span data-show="launch">Out now</span> <span class="k">· iPhone and Android</span></p>
+      <p class="eyebrow live"><span class="live-dot" aria-hidden="true"></span>Out now <span class="k">· iPhone and Android</span></p>
       <h1 class="display">The first navigation app for people who <span class="accent">love to drive</span>.</h1>
       <p class="sub">No-one has ever created a map of great driving roads. <strong>So we did.</strong></p>
-      <p class="hero-body">We measured every road in the UK, scored them on the six things that make a drive worth taking, and built a map that plans your route through the great ones instead of around them.</p>
-      <p class="region">UK now. <strong>Europe next.</strong></p>
+      <p class="hero-body">We measured every road in the UK and Ireland, scored them on the six things that make a drive worth taking, and built a map that plans your route through the great ones instead of around them.</p>
+      <p class="region">UK and Ireland now. <strong>Europe next.</strong></p>
 
-      <div data-show="waitlist">
-      <form class="capture" id="hero-form" novalidate>
-        <label class="vh" for="hero-email">Email address</label>
-        <input type="email" id="hero-email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required>
-        <input type="text" class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button type="submit" class="btn-primary">Get early access</button>
-      </form>
-      <p class="form-note" data-note>Founding-member pricing for life for the first 100 people to create an account and test Cambr.</p>
-      <p class="form-note success" data-success>You're on the list. We'll be in touch before launch.</p>
-      <p class="form-note error" data-error>Something went wrong — please try again.</p>
-      </div>
-      <div class="store-badges hero-download" data-show="launch">
-          <a href="/#waitlist" class="badge" data-store="appStore" aria-label="Download on the App Store">
+      <div class="store-badges hero-download">
+          <a href="https://apps.apple.com/gb/app/id6807563296" class="badge" data-store="appStore" aria-label="Download on the App Store">
             <span class="glyph"><ion-icon name="logo-apple"></ion-icon></span>
             <span class="txt"><span class="small">Download on the</span><span class="big">App Store</span></span>
           </a>
@@ -997,29 +1106,9 @@
         <div class="phone-island"></div>
         <div class="phone-screen">
           <picture>
-            <source type="image/webp" srcset="uploads/app-map-640.webp">
-            <img src="uploads/app-map-640.jpg" alt="Cambr map of Britain and Ireland with scored roads in tier colours, showing A39 Exmoor Porlock to Lynton scored 87.8" width="640" height="1387" decoding="async">
+            <source type="image/webp" srcset="uploads/app-map-uk-ireland-640.webp">
+            <img src="uploads/app-map-uk-ireland-640.jpg" alt="Cambr's map of the UK and Ireland with scored roads in tier colours, and the A686 Hartside Pass scored 88.9, S tier" width="640" height="1387" decoding="async">
           </picture>
-        </div>
-      </div>
-      <div class="hero-badges under-phone" data-show="waitlist">
-        <span class="badge-eyebrow">Coming soon</span>
-        <div class="store-badges">
-          <span class="badge" role="img" aria-label="App Store, coming soon">
-            <span class="glyph"><ion-icon name="logo-apple"></ion-icon></span>
-            <span class="txt"><span class="small">Download on the</span><span class="big">App Store</span></span>
-          </span>
-          <span class="badge" role="img" aria-label="Google Play, coming soon">
-            <span class="glyph">
-              <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-                <path fill="#00C3FF" d="M3.6 2.4c-.3.3-.5.8-.5 1.4v16.4c0 .6.2 1.1.5 1.4l.1.1L12.9 12v-.1L3.6 2.4z"/>
-                <path fill="#FFCE00" d="M16 15.1l-3.1-3v-.2L16 8.9l.1.1 3.6 2.1c1 .6 1 1.6 0 2.2L16 15.1z"/>
-                <path fill="#00E676" d="M16.1 15L12.9 12 3.6 21.6c.3.4 1 .4 1.6.1L16.1 15z"/>
-                <path fill="#FF3D47" d="M16.1 9L5.2 2.3C4.6 2 3.9 2 3.6 2.4L12.9 12 16.1 9z"/>
-              </svg>
-            </span>
-            <span class="txt"><span class="small up">Get it on</span><span class="big">Google Play</span></span>
-          </span>
         </div>
       </div>
     </div>
@@ -1143,42 +1232,14 @@
       <h2 class="band-title">Everything you need to enjoy the drive. <span class="accent">Minimal faff.</span></h2>
     </div>
 
-    <div class="feature-layout">
-    <div class="feature-grid">
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="map-outline"></ion-icon></div>
-        <h3>Browse &amp; Discover <span class="tag live">Live</span></h3>
-        <p>Open the map, see every great road near you, colour-coded by score. Tap to see why, and get the best route to drive them. There are 71 car spots on there too, the meets and cafes worth ending a drive at.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="navigate-outline"></ion-icon></div>
-        <h3>Active Drive <span class="tag live">Live</span></h3>
-        <p>Planned a route? Drive it inside Cambr. Our own driving interface calls out every scored road as you reach it, instead of handing you off to Google Maps.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="compass-outline"></ion-icon></div>
-        <h3>Curated Drives <span class="tag live">Live</span></h3>
-        <p>46 drives and loops built by hand on the best roads in Britain. Find one near you, see how much of it is on great road before you set off, and drive it turn by turn.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="repeat-outline"></ion-icon></div>
-        <h3>Loop Generator <span class="tag live">Live</span></h3>
-        <p>No destination, just an afternoon? Tell Cambr how long you've got and which direction you fancy, and it builds a round trip through the best roads in reach that brings you home.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="git-commit-outline"></ion-icon></div>
-        <h3>Route Builder <span class="tag live">Live</span></h3>
-        <p>Build your own trip with up to five stops. Add the roads you want to drive straight from the map, and Cambr routes you between them along the best roads it can find.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon"><ion-icon name="add-circle-outline"></ion-icon></div>
-        <h3>Community Reviews <span class="tag live">Live</span></h3>
-        <p>Drove a road we underrate? Let us know. Community feedback helps to build Cambr and directly impacts the road scores. AllTrails for roads.</p>
-      </div>
-    </div>
-
-      <div class="feature-shot">
-        <div class="phone shot-phone">
+    <div class="use">
+      <ul class="use-list">
+        <li><span class="ui"><ion-icon name="map-outline" aria-hidden="true"></ion-icon></span><div><h3>Browse and discover</h3><p>Every great road near you, colour-coded by score. Plus 98 car spots, the meets and cafes worth ending a drive at.</p></div></li>
+        <li><span class="ui"><ion-icon name="compass-outline" aria-hidden="true"></ion-icon></span><div><h3>Curated drives</h3><p>46 drives and loops built by hand on the best roads in Britain. Find one near you and go.</p></div></li>
+        <li><span class="ui"><ion-icon name="repeat-outline" aria-hidden="true"></ion-icon></span><div><h3>Loop generator</h3><p>Say how long you've got and which way you fancy. Cambr builds a round trip through the best roads in reach.</p></div></li>
+      </ul>
+      <div class="use-shot">
+        <div class="phone shot-phone rec">
           <div class="phone-island"></div>
           <div class="phone-screen">
             <picture>
@@ -1187,6 +1248,44 @@
             </picture>
           </div>
         </div>
+      </div>
+      <ul class="use-list">
+        <li><span class="ui"><ion-icon name="navigate-outline" aria-hidden="true"></ion-icon></span><div><h3>Active Drive</h3><p>Our own drive screen calls out every scored road as you reach it, with speed limits, cameras and average-speed zones.</p></div></li>
+        <li><span class="ui"><ion-icon name="git-commit-outline" aria-hidden="true"></ion-icon></span><div><h3>Route builder</h3><p>Pick roads straight off the map and add up to ten stops. Or import a Google Maps link or a GPX file.</p></div></li>
+        <li><span class="ui"><ion-icon name="people-outline" aria-hidden="true"></ion-icon></span><div><h3>Convoys</h3><p>Plan a route together, invite the crew with a link or QR code, and see everyone live on the map as you drive.</p></div></li>
+      </ul>
+    </div>
+
+    <p class="pro-strip"><span><b>Free to download.</b> Cambr Pro adds turn-by-turn on Quick, Driver's and Extended, loops, stops, the route builder and leading convoys: £39.99 a year or £4.99 a month, billed by Apple or Google.</span> <a href="/pricing">See what's free and what's Pro</a></p>
+  </div>
+</section>
+
+<!-- ===================== COMMUNITY ===================== -->
+<section class="band" id="community">
+  <div class="wrap">
+    <div class="community">
+      <div class="community-shots">
+        <div class="phone back"><div class="phone-screen">
+            <picture>
+              <source type="image/webp" srcset="uploads/app-profile-640.webp">
+              <img src="uploads/app-profile-640.jpg" alt="A Cambr driver's profile: 36 drives, 1,220 miles and the great roads they've driven by tier" width="640" height="1387" loading="lazy" decoding="async">
+            </picture>
+        </div></div>
+        <div class="phone front"><div class="phone-screen">
+            <picture>
+              <source type="image/webp" srcset="uploads/app-feed-640.webp">
+              <img src="uploads/app-feed-640.jpg" alt="The Cambr Feed: an 89-mile morning drive with its route, photos, Duke's Pass and Glencoe tagged, and a Drive it button" width="640" height="1387" loading="lazy" decoding="async">
+            </picture>
+        </div></div>
+      </div>
+      <div class="community-copy">
+        <div class="band-eyebrow">The community</div>
+        <h2 class="band-title">Drives worth <span class="accent">sharing</span>.</h2>
+        <ul class="use-list">
+        <li><span class="ui"><ion-icon name="newspaper-outline" aria-hidden="true"></ion-icon></span><div><h3>The Feed</h3><p>Post a drive with its route, its photos and the great roads on it. See one you like? Tap Drive it and take the same route.</p></div></li>
+        <li><span class="ui"><ion-icon name="car-sport-outline" aria-hidden="true"></ion-icon></span><div><h3>Your profile and garage</h3><p>Every drive, mile and great road you've ticked off, and the cars you did it in. Follow the drivers you rate.</p></div></li>
+        <li><span class="ui"><ion-icon name="star-outline" aria-hidden="true"></ion-icon></span><div><h3>Community reviews</h3><p>Drove a road we underrate? Rate it out of 10 and tell us why. Every driver's rating is on the road, and we review the scores against them.</p></div></li>
+        </ul>
       </div>
     </div>
 
@@ -1201,9 +1300,9 @@
      route builder, Neil's hands-on use: none publishes a score per road on an
      explorable map, none has a press layer, none lets you pick several roads off the
      map and join them into a route (one lets you pick a road and drive to it), none
-     shows the score of the road you're on, none feeds drivers' ratings into scores,
+     shows the score of the road you're on, none shows drivers' ratings on every road,
      and each is iPhone-only or web-only. Re-check before changing a cell. -->
-<section class="band">
+<section class="band deep">
   <div class="wrap">
     <div class="band-head" style="max-width:780px;">
       <div class="band-eyebrow">Why Cambr stands out</div>
@@ -1243,7 +1342,7 @@
             <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
-            <th scope="row">Drivers' ratings feed back into the road scores</th>
+            <th scope="row">Drivers' ratings on every road</th>
             <td><span class="mark no">No</span></td><td><span class="mark no">No</span></td><td class="is-cambr"><span class="mark yes">Yes</span></td>
           </tr>
           <tr>
@@ -1256,31 +1355,52 @@
   </div>
 </section>
 
+<!-- ===================== EUROPE =====================
+     147 roads in 14 countries: public.teaser_roads, read 25 Nov 2026. Counts drift: re-read before changing. -->
+<section class="band" id="europe">
+  <div class="wrap">
+    <div class="europe">
+      <div class="europe-copy">
+        <div class="band-eyebrow">Europe</div>
+        <h2 class="band-title">Where we're going <span class="accent">next</span>.</h2>
+        <p class="band-sub">147 of the best driving roads in Europe are already on the map, from the Susten Pass and Mont Ventoux to Trollstigen and Mount Etna. Routing there is coming very soon, starting with the Alps.</p>
+        <ul class="countries">
+          <li>Spain <b>33</b></li><li>Italy <b>30</b></li><li>France <b>23</b></li><li>Switzerland <b>21</b></li><li>Austria <b>9</b></li><li>Germany <b>7</b></li><li>Norway <b>6</b></li><li>Croatia <b>4</b></li><li>Montenegro <b>4</b></li><li>Poland <b>3</b></li><li>Portugal <b>3</b></li><li>Romania <b>2</b></li><li>Greece <b>1</b></li><li>Slovenia <b>1</b></li>
+        </ul>
+      </div>
+      <div class="europe-shot">
+        <div class="phone"><div class="phone-island"></div><div class="phone-screen">
+            <picture>
+              <source type="image/webp" srcset="uploads/app-map-europe-640.webp">
+              <img src="uploads/app-map-europe-640.jpg" alt="Cambr's map of Europe with its best driving roads in pink, from the Alps and the Pyrenees to Norway and Sicily" width="640" height="1387" loading="lazy" decoding="async">
+            </picture>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== WHAT'S NEXT ===================== -->
 <section class="band deep" id="whats-next">
   <div class="wrap">
     <div class="band-head" style="max-width:720px;">
       <div class="band-eyebrow">What's next</div>
       <h2 class="band-title">Plenty more <span class="accent">on the way</span>.</h2>
-      <p class="band-sub">Cambr is in its final beta on iPhone and Android and launches this month, and the list of what's coming is a long one. Here it is, in the order it's arriving.</p>
+      <p class="band-sub">Cambr is out now on iPhone and Android. Here's what's coming next.</p>
     </div>
     <ol class="roadmap">
       <li class="stage now">
-        <div class="stage-head"><span class="node"></span><span class="when">During the beta</span></div>
-        <div class="item"><h3>Convoy Mode</h3><p>Plan an epic route and share it with the crew. Stay together, see everyone live on the route, chat to each other. Real-life Forza Horizon.</p></div>
-        <div class="item"><h3>Likes, comments and profiles</h3><p>Like and comment on other drivers' drives, add photos to yours, and give your profile a photo and a short bio.</p></div>
-        <div class="item"><h3>Landscape navigation</h3><p>Turn-by-turn with the phone on its side, for mounts that sit that way.</p></div>
-      </li>
-      <li class="stage">
-        <div class="stage-head"><span class="node"></span><span class="when">After launch</span></div>
-        <div class="item"><h3>CarPlay and Android Auto</h3><p>Cambr on your car's own screen, scores and all.</p></div>
-        <div class="item"><h3>Routes in Ireland and Europe</h3><p>Ireland and 71 great European roads are already scored and on the map. Turn-by-turn routes there come next.</p></div>
-        <div class="item"><h3>AI Trip Planner</h3><p>Tell Cambr you've got an adventure coming up and it builds the whole trip: the best roads, overnight stops and the most epic views.</p></div>
-        <div class="item"><h3>Fuel finder and convoy walkie-talkie</h3><p>Fuel along your route before you need it, and live voice for everyone in the convoy.</p></div>
+        <div class="stage-head"><span class="node"></span><span class="when">Coming next</span></div>
+        <div class="items">
+          <div class="item"><h3>CarPlay and Android Auto</h3><p>Cambr on your car's own screen, scores and all.</p></div>
+          <div class="item"><h3>Europe</h3><p>The scored map and routes, starting with the Alps.</p></div>
+          <div class="item"><h3>Offline maps</h3><p>Navigation that keeps going when the signal doesn't.</p></div>
+          <div class="item"><h3>Fuel finder and convoy <span style="white-space:nowrap">walkie-talkie</span></h3><p>Fuel along your route before you need it, and live voice for everyone in the convoy.</p></div>
+        </div>
       </li>
       <li class="stage">
         <div class="stage-head"><span class="node"></span><span class="when">On the roadmap</span></div>
-        <div class="item"><h3>Offline maps</h3><p>Navigation that keeps going when the signal doesn't.</p></div>
+        <div class="item"><h3>AI Trip Planner</h3><p>Tell Cambr you've got an adventure coming up and it builds the whole trip: the best roads, overnight stops and the most epic views.</p></div>
         <div class="item"><h3>Tunnel Finder</h3><p>Everyone loves to hear their car in a tunnel. Find the best ones and add them to your route so you never miss out on the noise.</p></div>
       </li>
     </ol>
@@ -1306,7 +1426,7 @@
       </div>
       <div class="q">
         <h3>Is Cambr available on Android?</h3>
-        <p>Yes. Cambr is in testing on iPhone and Android now, and will launch on both on the same day. Join the email list and we'll tell you when.</p>
+        <p>Yes. Cambr is on the App Store and Google Play in the UK and Ireland.</p>
       </div>
       <div class="q">
         <h3>Does Cambr work offline?</h3>
@@ -1318,7 +1438,7 @@
       </div>
       <div class="q">
         <h3>Does it work outside the UK?</h3>
-        <p>The map does. Every driving road in Ireland is scored, and 71 European roads are on there too. Turn-by-turn routing covers Great Britain today, with Ireland and Europe on the way.</p>
+        <p>Yes, across the UK and Ireland, with routes and turn-by-turn in both. 147 great roads across 14 European countries are on the map as a preview of where we're going next.</p>
       </div>
       <div class="q">
         <h3>Is Cambr a speed camera detector?</h3>
@@ -1339,19 +1459,8 @@
     <div class="band-eyebrow" style="margin-bottom:16px; font-size:15px; letter-spacing:0.1em;">The navigation tool for car enthusiasts</div>
     <h2>Rip Turns. Arrive Late.</h2>
     <p class="band-sub sub">Every road in Britain and Ireland, scored. <a href="/blog/best-driving-routes-uk">46 drives and loops</a> ready to go, and a route builder for the ones you invent yourself.</p>
-    <div data-show="waitlist">
-    <form class="capture" id="closer-form" novalidate>
-      <label class="vh" for="closer-email">Email address</label>
-      <input type="email" id="closer-email" name="email" placeholder="your@email.com" aria-label="Email address" autocomplete="email" required>
-      <input type="text" class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button type="submit" class="btn-primary">Count me in</button>
-    </form>
-    <p class="form-note" data-note>We're launching this year. Get on the list for early access.</p>
-    <p class="form-note success" data-success>You're on the list. We'll be in touch before launch.</p>
-    <p class="form-note error" data-error>Something went wrong — please try again.</p>
-    </div>
-    <div class="store-badges" data-show="launch">
-          <a href="/#waitlist" class="badge" data-store="appStore" aria-label="Download on the App Store">
+    <div class="store-badges">
+          <a href="https://apps.apple.com/gb/app/id6807563296" class="badge" data-store="appStore" aria-label="Download on the App Store">
             <span class="glyph"><ion-icon name="logo-apple"></ion-icon></span>
             <span class="txt"><span class="small">Download on the</span><span class="big">App Store</span></span>
           </a>
