@@ -39,6 +39,7 @@ blog/
   assets/article.css           # the Journal design (dark product surface)
   assets/journal.css           # LEGACY cream surface — the five held articles only
 pricing.html                 # free vs Cambr Pro, prices, trial (see "Pricing page")
+pricing/index.html           # /pricing/ redirects to /pricing (the slash form 404s without it)
 assets/pricing.css           # that page only
 assets/pricing/              # its artwork: the five paywall panels and the hero map
 privacy/index.html           # privacy policy — linked from the footer and the consent banner
