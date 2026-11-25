@@ -933,11 +933,14 @@
   table.compare td { font-size: 14px; }
   .mark::before { width: 19px; height: 19px; background-size: 10px !important; }
   /* Europe: the phone runs off the bottom of the panel */
-  .europe { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 56px; padding: 0 64px 0 48px; border: 1px solid var(--hairline); border-radius: 18px; background: var(--card); overflow: hidden; }
-  .europe-copy { align-self: center; padding: 44px 0; }
-  .countries { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; max-width: 560px; }
-  .countries li { font-size: 13px; line-height: 1; padding: 7px 11px; border-radius: 999px; border: 1px solid var(--hairline-strong); color: rgba(233,233,233,0.9); }
-  .countries b { margin-left: 4px; font-weight: var(--fw-bold); color: #EC4899; }   /* the app's own pink for European roads */
+  .europe { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 60px; padding: 0 52px 0 48px; border: 1px solid var(--hairline); border-radius: 18px; background: var(--card); overflow: hidden; }
+  .europe-copy { align-self: center; padding: 34px 0; }
+  /* country, one road worth the trip, how many are on the map; read down the columns */
+  .countries { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, auto); grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 44px; border-top: 1px solid var(--hairline); }
+  .countries li { display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; column-gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--hairline); font-size: 14.5px; line-height: 1.35; }
+  .countries .c { font-weight: var(--fw-semibold); color: #FFFFFF; }
+  .countries .r { font-size: 13.5px; color: rgba(233,233,233,0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .countries b { font-weight: var(--fw-bold); color: #EC4899; font-variant-numeric: tabular-nums; }   /* the app's own pink for European roads */
   /* cut under the Susten Pass card's Switzerland line: the whole map and most of the card show */
   .europe-shot { height: 538px; padding-top: 34px; }
   .europe-shot .phone { width: 284px; border-radius: 44px; padding: 10px; box-shadow: none; }
@@ -969,7 +972,10 @@
     .use { gap: 32px; }
     .use-shot .phone.shot-phone { width: 220px; }
     .community { gap: 40px; }
-    .europe { gap: 32px; padding: 0 36px; }
+    .europe { gap: 34px; padding: 0 32px; }
+    .countries { column-gap: 26px; }
+    .countries li { grid-template-columns: 84px minmax(0, 1fr) auto; column-gap: 10px; }
+    .countries .r { font-size: 12.5px; }
   }
   @media (max-width: 900px) {
     section.band:not(.define) { padding: 52px 0; }
@@ -987,8 +993,7 @@
     .europe-copy { padding: 30px 0 0; }
     .europe-shot { height: 462px; padding-top: 28px; display: flex; justify-content: center; }
     .europe-shot .phone { width: 246px; }
-    .countries { gap: 6px; margin-top: 16px; }
-    .countries li { font-size: 12px; padding: 6px 9px; }
+    .countries { margin-top: 18px; column-gap: 28px; }
     .roadmap { margin-top: 22px; }
     /* the comparison fits a phone now: no sideways scroll */
     table.compare { min-width: 0; table-layout: fixed; }
@@ -1003,6 +1008,8 @@
   @media (max-width: 560px) {
     section.band:not(.define) { padding: 44px 0; }
     .build-block { padding: 18px 18px 20px; }
+    .countries li { grid-template-columns: minmax(0, 1fr) auto; padding: 7px 0; font-size: 13.5px; }
+    .countries .r { display: none; }
     .tiers.in-score .tier-card { padding: 11px 13px; column-gap: 11px; }
     .compare-scroll { overflow: visible; }
     table.compare th, table.compare td { padding: 9px 5px; text-align: center; }
@@ -1356,7 +1363,8 @@
 </section>
 
 <!-- ===================== EUROPE =====================
-     147 roads in 14 countries: public.teaser_roads, read 25 Nov 2026. Counts drift: re-read before changing. -->
+     147 roads in 14 countries: public.teaser_roads, read 25 Nov 2026, each road named here is one of its rows. Counts
+     drift: re-read before changing. -->
 <section class="band" id="europe">
   <div class="wrap">
     <div class="europe">
@@ -1365,7 +1373,20 @@
         <h2 class="band-title">Where we're going <span class="accent">next</span>.</h2>
         <p class="band-sub">147 of the best driving roads in Europe are already on the map, from the Susten Pass and Mont Ventoux to Trollstigen and Mount Etna. Routing there is coming very soon, starting with the Alps.</p>
         <ul class="countries">
-          <li>Spain <b>33</b></li><li>Italy <b>30</b></li><li>France <b>23</b></li><li>Switzerland <b>21</b></li><li>Austria <b>9</b></li><li>Germany <b>7</b></li><li>Norway <b>6</b></li><li>Croatia <b>4</b></li><li>Montenegro <b>4</b></li><li>Poland <b>3</b></li><li>Portugal <b>3</b></li><li>Romania <b>2</b></li><li>Greece <b>1</b></li><li>Slovenia <b>1</b></li>
+          <li><span class="c">Spain</span> <span class="r">Sa Calobra</span> <b>33</b></li>
+          <li><span class="c">Italy</span> <span class="r">Stelvio Pass</span> <b>30</b></li>
+          <li><span class="c">France</span> <span class="r">Col de la Bonette</span> <b>23</b></li>
+          <li><span class="c">Switzerland</span> <span class="r">Furka Pass</span> <b>21</b></li>
+          <li><span class="c">Austria</span> <span class="r">Grossglockner</span> <b>9</b></li>
+          <li><span class="c">Germany</span> <span class="r">Black Forest High Road</span> <b>7</b></li>
+          <li><span class="c">Norway</span> <span class="r">Atlantic Ocean Road</span> <b>6</b></li>
+          <li><span class="c">Croatia</span> <span class="r">Jadranska magistrala</span> <b>4</b></li>
+          <li><span class="c">Montenegro</span> <span class="r">Kotor Serpentine</span> <b>4</b></li>
+          <li><span class="c">Poland</span> <span class="r">Road of 100 Bends</span> <b>3</b></li>
+          <li><span class="c">Portugal</span> <span class="r">N222 Douro Valley</span> <b>3</b></li>
+          <li><span class="c">Romania</span> <span class="r">Transfăgărășan</span> <b>2</b></li>
+          <li><span class="c">Greece</span> <span class="r">Langada Pass</span> <b>1</b></li>
+          <li><span class="c">Slovenia</span> <span class="r">Vršič Pass</span> <b>1</b></li>
         </ul>
       </div>
       <div class="europe-shot">
