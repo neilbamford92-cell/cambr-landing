@@ -38,6 +38,9 @@ blog/
   what-makes-a-great-driving-road.html
   assets/article.css           # the Journal design (dark product surface)
   assets/journal.css           # LEGACY cream surface — the five held articles only
+pricing.html                 # free vs Cambr Pro, prices, trial (see "Pricing page")
+assets/pricing.css           # that page only
+assets/pricing/              # its artwork: the five paywall panels and the hero map
 privacy/index.html           # privacy policy — linked from the footer and the consent banner
 beta-testing/index.html      # legacy URL, meta-refresh redirect to /beta (noindex)
 data/                        # unlisted road-scores feed (JSON + CSV). Disallowed in robots.txt
@@ -360,6 +363,37 @@ England 11 / Wales 6 / Scotland 3 / Ireland 2 split were checked against the liv
 (Neil: it breaks up the two "10 best" tiles), then the routes article, then the founder's note. The
 scoring page stays at its root URL; only the tile lives in the Journal. Its thumbnail is in
 `assets/journal/how-scoring-works/`, rendered from the page's own phone mock-ups.
+
+## Pricing page (`/pricing`)
+
+`pricing.html` + `assets/pricing.css`, on the Journal template. It explains free vs Pro and sends people to the
+stores. **Nothing is sold on the website**: no Buy, Subscribe or Start-trial control, no form, no sign-in.
+
+- **Published 25 Nov 2026, before the launch switch** (Neil's call). Its store links are static HTML, so it does not
+  depend on `assets/launch.js` being `live: true`; it only reads the two store URLs from that file.
+- **Prices live in three places:** the visible copy, the meta descriptions (`description` + `og:description`) and the
+  JSON-LD. Change them together, and the "Prices correct on" date in the footer with them.
+- **Free vs Pro comes from the app repo** (`docs/CAMBR_PRO_PLAN.md`), and the approved lines (free-stays sentence, Pro
+  headline, five ticked lines) are `lib/paywallCopy.ts` byte for byte, straight apostrophes included. Do not reword them.
+- **Every "14 days free" is followed at once** by the price, the automatic renewal and how to cancel.
+- No per-month equivalent, saving percentage, strike-through or countdown. "Turn-by-turn" is always "turn-by-turn
+  navigation". Unreleased features appear only in the table's last group, "Coming soon / Not in the app yet", with no
+  dates (Neil, 25 Nov 2026), and in the FAQ that says they are not included yet. When one ships, move its row up.
+- **This page sells Pro** (Neil, 25 Nov): the Pro card comes first and is the large one, the table opens with Pro's rows
+  under the five panel titles, then what is free, then what is coming. **Keep it compact** (Neil, 25 Nov): one line a
+  row on a desktop, six tiles in two rows. On phones the tiles drop their points, which the table repeats.
+- The five panels' titles, bodies and points are `lib/paywallCopy.ts` too (signed off 24 Nov): `PAYWALL_PANELS` with
+  `PAYWALL_PANEL_SEQUENCE_TITLES`, and the no-offline G5.
+- **Facts that will drift:** "46 drives and loops" (approved, public rows in `curated_routes` on 25 Nov: 24 drives and 22
+  loops), "147 great European roads", "up to ten stops", "up to 15 cars", "first two" road names on a free account.
+- **Ticks are neutral, not the homepage table's green:** green is the A tier. Rosso is an accent only, never small text.
+- The comparison table has no scroll container. That is what lets its headings stick, and it must keep fitting 320px.
+- Artwork in `assets/pricing/`: the five panels are the app's `assets/paywall` h1, h2-calm, h3-roads, h4 and h5-route
+  (dark, WebP with a PNG fallback), except `import-export`: that is h5-route with the app's own "Import a route" sheet
+  drawn on it, so it has a banner like the rest. `offline` is h5, and only ever under a "Coming soon" tag. `map-*` is the brand's Peak District map (real roads and tiers from OpenStreetMap,
+  so the footer credit has to stay). The closer reuses the homepage's Glencoe photo and the phones two of `/uploads`.
+- Icons are Ionicons 7.4.0 inlined as an SVG sprite: no third-party request, and they show without JavaScript.
+- Badge ids (`pricing-<hero|pro|closer>-<appstore|play>`) are how GA4 tells the badges apart. Keep them.
 
 ## Launch day (24 November) — one switch, then a short checklist
 

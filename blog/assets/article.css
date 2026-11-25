@@ -494,6 +494,8 @@ footer.site { border-top: 1px solid var(--hairline); }
   color: var(--ink-faint);
   white-space: nowrap;
 }
+.foot-inner .mono a { display: inline-block; padding: 6px 0; }
+.foot-inner .mono a + a { margin-left: 22px; }
 .foot-inner .mono {
   font-family: var(--mono);
   font-size: 11px;
@@ -541,7 +543,11 @@ footer.site { border-top: 1px solid var(--hairline); }
 
 @media (max-width: 680px) {
   .wrap { padding: 0 22px; }
-  .top-inner { padding: 22px; gap: 16px; }
+  /* Three links: with the CTA hidden the 1fr/auto/1fr grid squeezed the logo. Logo first at its
+     own width, links straight after it, exactly as the homepage sits on a phone. */
+  .top-inner { padding: 22px; gap: 24px; grid-template-columns: auto 1fr; }
+  .top-inner .logo-lockup { max-width: none; }
+  .top-nav { justify-self: start; }
   .index-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .closer .inner, .foot-inner, .foot-legal { padding-left: 22px; padding-right: 22px; }
   .byline { gap: 14px 20px; }
@@ -549,6 +555,11 @@ footer.site { border-top: 1px solid var(--hairline); }
      labels at about 5px. The narrow artboard is a separate drawing. */
   figure.diagram svg.wide { display: none; }
   figure.diagram svg.narrow { display: block; max-width: 420px; }
+}
+
+@media (max-width: 360px) {
+  .top-inner { gap: 12px; }
+  .top-nav { gap: 11px; }
 }
 
 /* ---------- reference pages: ranked lists, methodology ----------
