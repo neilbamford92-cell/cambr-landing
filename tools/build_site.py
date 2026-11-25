@@ -16,6 +16,12 @@ Run by .github/workflows/pages.yml on every push to main:
    Everything else, the signup script and its success handling included, is the
    homepage as it stands. Partner pages are never committed, so they cannot drift.
 
+3. Every flat page (foo.html, served at /foo) also gets foo/index.html, which sends
+   /foo/ to /foo. Pages 404s the slash form otherwise, and /terms/, /support/ and
+   /blog/ all use one, so people type and link it. Given both files, GitHub Pages
+   serves foo.html at /foo and the folder at /foo/ (checked live, 25 Nov 2026), so
+   the two never loop. The redirects are written here and never committed.
+
 If index.html changes shape so that any of the three changes can't be made
 exactly once, the build fails and nothing deploys. That is deliberate: a
 partner link that quietly 404s or collects into the wrong form is worse than a
@@ -74,6 +80,30 @@ def render_partner(home, p):
     return page
 
 
+def slash_redirect(url, noindex):
+    """The page at url + "/": on to url, keeping any ?query and #hash."""
+    robots = '<meta name="robots" content="noindex, nofollow">' if noindex else \
+             f'<link rel="canonical" href="https://cambr.uk{url}">'
+    return (f'<!DOCTYPE html>\n<html lang="en-GB"><head><meta charset="UTF-8"><title>Cambr</title>\n{robots}\n'
+            f"<script>location.replace('{url}' + location.search + location.hash);</script>\n"
+            f'<meta http-equiv="refresh" content="0; url={url}">\n</head>\n'
+            f'<body><p>Redirecting to <a href="{url}">cambr.uk{url}</a>…</p></body></html>\n')
+
+
+def write_slash_redirects(out, flat):
+    """flat: paths of flat pages in the build, e.g. "pricing.html", "blog/evo-triangle-guide.html"."""
+    for rel in flat:
+        url = "/" + rel[:-len(".html")]
+        dst = out / url[1:] / "index.html"
+        if dst.exists():
+            fail(f"{rel} and {dst.relative_to(out)} both exist, so /{rel[:-5]}/ can't be a redirect. "
+                 "Keep one of them.")
+        page = (out / rel).read_text(encoding="utf-8")
+        noindex = re.search(r'<meta name="robots" content="noindex', page) is not None
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_text(slash_redirect(url, noindex), encoding="utf-8")
+
+
 def main():
     if len(sys.argv) != 2:
         fail("usage: build_site.py OUT_DIR")
@@ -103,8 +133,13 @@ def main():
             fail(f"/{slug} is in sitemap.xml; partner pages must stay out of it")
         (out / (slug + ".html")).write_text(render_partner(home, p), encoding="utf-8")
 
+    flat = [f for f in tracked if f.endswith(".html") and pathlib.PurePosixPath(f).name not in ("index.html", "404.html")]
+    flat += [p["slug"] + ".html" for p in PARTNERS]
+    write_slash_redirects(out, flat)
+
     print(f"build_site: {len(tracked)} files copied, partner pages: "
-          + ", ".join("/" + p["slug"] for p in PARTNERS))
+          + ", ".join("/" + p["slug"] for p in PARTNERS)
+          + f", slash redirects: {len(flat)}")
 
 
 if __name__ == "__main__":

@@ -39,7 +39,6 @@ blog/
   assets/article.css           # the Journal design (dark product surface)
   assets/journal.css           # LEGACY cream surface — the five held articles only
 pricing.html                 # free vs Cambr Pro, prices, trial (see "Pricing page")
-pricing/index.html           # /pricing/ redirects to /pricing (the slash form 404s without it)
 assets/pricing.css           # that page only
 assets/pricing/              # its artwork: the five paywall panels and the hero map
 privacy/index.html           # privacy policy — linked from the footer and the consent banner
@@ -48,7 +47,8 @@ data/                        # unlisted road-scores feed (JSON + CSV). Disallowe
 assets/analytics.js          # GA4 + consent banner, loaded on every page
 robots.txt                   # Allow all except /data/; declares the sitemap
 sitemap.xml                  # 3 URLs — the five held guides are deliberately absent
-tools/build_site.py          # the deploy build: copies the site, renders partner pages from index.html
+tools/build_site.py          # the deploy build: copies the site, renders partner pages from index.html, and gives every
+                             # flat page its /page/ -> /page redirect (the slash form 404s on GitHub Pages without one)
 .github/workflows/pages.yml  # runs that build and deploys to GitHub Pages on every push to main
 ```
 
