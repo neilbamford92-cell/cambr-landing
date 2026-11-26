@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cambr offer</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141414">
+<!-- Icons. ⚠️ Google wants a favicon whose dimensions are a MULTIPLE OF 48 — a 32px
+     source gets downscaled from too little detail and the three lanes turn to mush.
+     Artwork: assets/brand/.../CURRENT - CENTERED. Supersedes the old red "C." square. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/assets/pages.css">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="/assets/offer.css">
+<script>
+/* Which block to show. Runs before the body so nothing flashes. Same device test as the convoy invite. */
+(function () {
+  var ua = navigator.userAgent || '';
+  var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  document.documentElement.setAttribute('data-device', ios ? 'ios' : /Android/i.test(ua) ? 'android' : 'computer');
+})();
+</script>
+<script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a href="/" aria-label="Cambr home"><img class="logo-lockup" src="/assets/cambr-lockup-horizontal.svg" alt="" width="102" height="28"></a>
+    <a href="/" class="top-back">← cambr.uk</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1 class="page-title">Gas Chat members: £30 for your first year of Cambr Pro.</h1>
+
+    <div data-for="ios">
+      <div class="offer-actions"><a class="offer-btn" href="https://apps.apple.com/redeem?ctx=offercodes&amp;id=6807563296&amp;code=GASCHAT30">Claim on iPhone</a></div>
+    </div>
+    <p class="offer-line" data-for="android">Android is coming in our next update.</p>
+    <p class="offer-line" data-for="computer">Open this page on your phone</p>
+
+    <p class="small-print">14 days free, then £30 for the first year, then £39.99 a year. Renews automatically until cancelled. Cancel any time in your App Store settings.</p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <a href="/" aria-label="Cambr home"><img class="logo-lockup" src="/assets/cambr-lockup-horizontal.svg" alt="" width="102" height="28"></a>
+        <div class="foot-tag">Rip Turns. Arrive Late.</div>
+      </div>
+      <div class="socials">
+        <a href="https://www.instagram.com/cambr.app/" target="_blank" rel="noopener noreferrer" aria-label="Cambr on Instagram">
+          <svg viewBox="0 0 448 512" role="img" aria-hidden="true"><path d="M224 141c-63.6 0-115 51.4-115 115s51.4 115 115 115 115-51.4 115-115-51.4-115-115-115zm0 190c-41.4 0-75-33.6-75-75s33.6-75 75-75 75 33.6 75 75-33.6 75-75 75zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1S2.2 128 .4 163.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+        </a>
+      </div>
+      <div class="copyright">© 2026 Cambr.</div>
+      <div class="legal">
+        Cambr Technologies Ltd is a company registered in England and Wales, company number
+        17371232. Registered office: 71–75 Shelton Street, Covent Garden, London WC2H 9JQ.
+        <a href="/privacy/" style="color:inherit;text-decoration:underline;margin-left:6px">Privacy policy</a>
+        <a href="/terms/" style="color:inherit;text-decoration:underline;margin-left:6px">Terms of use</a>
+        <a href="/pricing" style="color:inherit;text-decoration:underline;margin-left:6px">Pricing</a>
+        <a href="/delete-account/" style="color:inherit;text-decoration:underline;margin-left:6px">Delete account</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

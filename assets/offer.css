@@ -1,0 +1,19 @@
+/* The unlisted offer pages (/offer/...), layered on colors_and_type.css and pages.css. Dark only, like the site. */
+.offer-actions { margin-top: 30px; display: grid; gap: 12px; max-width: 380px; }
+.offer-btn { display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 22px; border-radius: 999px; background: var(--brand-rosso); color: #fff; font-weight: var(--fw-semibold); font-size: 16.5px; line-height: 1.25; text-align: center; }
+.offer-btn:hover { opacity: .88; }
+.offer-btn.second { background: transparent; border: 1px solid rgba(255,255,255,0.45); }
+.offer-btn:focus-visible, .offer-badges a:focus-visible, .small-print a:focus-visible { outline: 2px solid #F5F5F5; outline-offset: 3px; }
+.offer-line { margin-top: 30px; font-size: 17px; line-height: 1.5; color: #FFFFFF; font-weight: var(--fw-semibold); }
+.offer-badges { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; }
+.offer-badges a { display: inline-flex; align-items: center; gap: 11px; min-height: 50px; background: #000; border: 1px solid rgba(255,255,255,0.30); border-radius: 12px; padding: 8px 17px; color: #fff; }
+.offer-badges svg { width: 23px; height: 23px; display: block; fill: currentColor; }
+.offer-badges .t { display: flex; flex-direction: column; line-height: 1.08; }
+.offer-badges .s { font-size: 10.5px; }
+.offer-badges .s.up { font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; }
+.offer-badges .b { font-size: 19px; font-weight: var(--fw-semibold); letter-spacing: -0.01em; margin-top: 1px; }
+.small-print { margin-top: 38px; padding-top: 18px; border-top: 1px solid var(--hairline-strong); font-size: 14px; line-height: 1.6; color: rgba(245,245,245,0.74); max-width: 60ch; }
+/* One device's block at a time. Without JavaScript every block shows. */
+html[data-device="ios"] [data-for]:not([data-for="ios"]),
+html[data-device="android"] [data-for]:not([data-for="android"]),
+html[data-device="computer"] [data-for]:not([data-for="computer"]) { display: none; }
